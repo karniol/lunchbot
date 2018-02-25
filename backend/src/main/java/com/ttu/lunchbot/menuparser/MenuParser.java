@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * TODO: documentation
+ */
 public class MenuParser {
 
     private PDFTextStripper stripper;
@@ -39,7 +42,7 @@ public class MenuParser {
 
     public static void main(String[] args) throws IOException {
         MenuParser menuParser = new MenuParser(new DailyMenuParserStrategy());
-        ArrayList<Menu> menus = menuParser.parseMenus(new File("/Users/Charlie/Desktop/menu3.pdf"));
+        ArrayList<Menu> menus = menuParser.parseMenus(new File("/Users/Charlie/Desktop/menu1.pdf"));
         for (Menu menu : menus) {
             System.out.println(menu);
         }

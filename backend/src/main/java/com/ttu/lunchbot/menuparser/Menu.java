@@ -23,11 +23,11 @@ class Menu {
         this.items = new ArrayList<>();
     }
 
-    public String getLocationName() {
+    String getLocationName() {
         return this.locationName;
     }
 
-    public Calendar getDate() {
+    Calendar getDate() {
         return this.date;
     }
 
