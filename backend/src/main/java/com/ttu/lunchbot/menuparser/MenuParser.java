@@ -7,9 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 public class MenuParser {
 
@@ -36,12 +33,15 @@ public class MenuParser {
         return lines;
     }
 
-    Menu parseMenu(File file) {
+    private ArrayList<Menu> parseMenus(File file) {
         return this.strategy.parse(this.extractLines(file));
     }
 
     public static void main(String[] args) throws IOException {
         MenuParser menuParser = new MenuParser(new DailyMenuParserStrategy());
-        menuParser.parseMenu(new File("/Users/Charlie/Desktop/menu3.pdf"));
+        ArrayList<Menu> menus = menuParser.parseMenus(new File("/Users/Charlie/Desktop/menu3.pdf"));
+        for (Menu menu : menus) {
+            System.out.println(menu);
+        }
     }
 }

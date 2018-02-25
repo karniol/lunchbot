@@ -8,7 +8,9 @@ import java.util.ArrayList;
 public interface MenuParserStrategy {
 
     /**
-     * @return Menu object
+     * Parse a menu given a collection of lines of text.
+     * @return List of Menu objects, one object for each date found in the text.
+     * @see Menu
      */
-    Menu parse(ArrayList<String> text);
+    ArrayList<Menu> parse(ArrayList<String> text);
 }

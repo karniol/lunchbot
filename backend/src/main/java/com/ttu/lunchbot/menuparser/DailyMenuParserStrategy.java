@@ -2,17 +2,14 @@ package com.ttu.lunchbot.menuparser;
 
 import java.math.BigDecimal;
 import java.text.DateFormatSymbols;
-import java.text.SimpleDateFormat;
-import java.time.Month;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+/**
+ * MenuParser strategy for parsing Daily menus.
+ */
 public class DailyMenuParserStrategy implements MenuParserStrategy {
 
     private static final String DATE_PATTERN_STRING = ".+\\s[\\d]{1,2}[.]\\s.+";
-    private static final String PRICE_PATTERN_STRING = "[\\d]+[.,][\\d]+";
-    private static final Pattern PRICE_PATTERN = Pattern.compile(PRICE_PATTERN_STRING);
     private static final String[] MONTHS_ET = DateFormatSymbols.getInstance(Locale.forLanguageTag("et")).getMonths();
 
     private Calendar parseDate(String line) {
@@ -31,12 +28,14 @@ public class DailyMenuParserStrategy implements MenuParserStrategy {
         final int day = Integer.parseInt(dayString);
 
         Calendar date = Calendar.getInstance();
+        // TODO: magic month number
         date.set(date.get(Calendar.YEAR), month, day);
         return date;
     }
 
     @Override
-    public Menu parse(ArrayList<String> text) {
+    public ArrayList<Menu> parse(ArrayList<String> text) {
+        // TODO: refactoring
         final String locationName = text.get(1);
 
         // Remove lines from beginning
@@ -44,46 +43,56 @@ public class DailyMenuParserStrategy implements MenuParserStrategy {
             text.remove(0);
         }
 
-        // Remove lines from end
+        // Remove line from end
         for (int i = 0; i < 1; ++i) {
             text.remove(text.size() - 1);
         }
 
-        Menu menu = null;
-        MenuItem menuItem;
+        final ArrayList<Menu> menus = new ArrayList<>();
 
-        boolean nextItemHasPrice = true;
+        Menu menu = null;
+        MenuItem menuItem = null;
+
+        // Daily menus list items twice, in Estonian and in English, in this order
+        // The first line contains a string representing the price of the item
+        boolean nextLineContainsPrice = true;
 
         for (String line : text) {
+            // Encountering a date, the method creates a new menu with the corresponding date
             if (line.matches(DATE_PATTERN_STRING)) {
                 menu = new Menu(locationName, parseDate(line));
+                menus.add(menu);
                 continue;
             }
 
-            menuItem = new MenuItem();
+            if (nextLineContainsPrice) {
+                menuItem = new MenuItem();
 
-            if (nextItemHasPrice) {
+                // TODO: null is bad style
+                if (null != menu) {
+                    menu.addItem(menuItem);
+                }
 
+                // Split the line into parts to obtain the name of the food item and its price
+                // Example: Caesar salad 4.20
                 ArrayList<String> parts = new ArrayList<>(Arrays.asList(line.split(" ")));
+
+                // Obtain: Caesar salad
                 String name = String.join(" ", parts.subList(0, parts.size() - 1));
+
+                // Obtain: 4.20
                 BigDecimal price = BigDecimal.valueOf(Double.parseDouble(parts.get(parts.size() - 1)));
 
                 menuItem.addName(Locale.forLanguageTag("et"), name);
                 menuItem.addPrice(Currency.getInstance("EUR"), price);
 
-                nextItemHasPrice = false;
+                nextLineContainsPrice = false;
             } else {
                 menuItem.addName(Locale.ENGLISH, line);
-                nextItemHasPrice = true;
-
-                menu.addItem(menuItem);
+                nextLineContainsPrice = true;
             }
         }
 
-        return menu;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new DailyMenuParserStrategy().parseDate("Esmaspäev 17. veebruar").getTime());
+        return menus;
     }
 }

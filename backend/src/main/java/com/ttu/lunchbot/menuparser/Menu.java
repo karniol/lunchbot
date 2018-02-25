@@ -23,7 +23,36 @@ class Menu {
         this.items = new ArrayList<>();
     }
 
+    public String getLocationName() {
+        return this.locationName;
+    }
+
+    public Calendar getDate() {
+        return this.date;
+    }
+
+    ArrayList<MenuItem> getItems() {
+        return this.items;
+    }
+
     void addItem(MenuItem item) {
         this.items.add(item);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.getLocationName());
+        sb.append(" ");
+        sb.append(this.getDate().getTime());
+        sb.append("\n");
+
+        for (MenuItem item : this.getItems()) {
+            sb.append(item.toString());
+            sb.append("\n");
+        }
+
+        return sb.toString();
     }
 }
