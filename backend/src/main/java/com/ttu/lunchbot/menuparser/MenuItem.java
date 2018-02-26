@@ -7,45 +7,72 @@ import java.util.Locale;
 import java.util.Set;
 
 /**
- * todo
+ * Data object for storing food and drink descriptions along with prices in various languages and formats.
  */
 public class MenuItem {
 
     /**
-     * Names of the menu items corresponding to different locales.
+     * Names of the MenuItems corresponding to different locales.
      */
     private final HashMap<Locale, String> names;
 
     /**
-     * Prices of the menu items corresponding to different currencies.
+     * Prices of the MenuItems corresponding to different currencies.
      */
     private final HashMap<Currency, BigDecimal> prices;
 
+    /**
+     * Create a new empty MenuItem.
+     */
     MenuItem() {
         this.names = new HashMap<>();
         this.prices = new HashMap<>();
     }
 
+    /**
+     * Add or update the name of the MenuItem for the specified Locale.
+     * @param locale Locale associated with the name.
+     * @param name Name of the MenuItem.
+     */
     void addName(Locale locale, String name) {
         this.names.put(locale, name);
     }
 
+    /**
+     * Add or update the price of the MenuItem for the specified Currency.
+     * @param currency Currency associated with the price.
+     * @param price Price of the MenuItem.
+     */
     void addPrice(Currency currency, BigDecimal price) {
         this.prices.put(currency, price);
     }
 
+    /**
+     * @return Collection of all added names for the MenuItem.
+     */
     HashMap<Locale, String> getNames() {
         return this.names;
     }
 
+    /**
+     * @param locale Locale for which the name is requested.
+     * @return Name of the MenuItem corresponding to the given Locale.
+     */
     String getName(Locale locale) {
         return this.names.get(locale);
     }
 
+    /**
+     * @return Collection of all added prices for the MenuItem.
+     */
     HashMap<Currency, BigDecimal> getPrices() {
         return this.prices;
     }
 
+    /**
+     * @param currency Currency for which the price is requested.
+     * @return Price of the MenuItem corresponding to the given Currency.
+     */
     BigDecimal getPrice(Currency currency) {
         return this.prices.get(currency);
     }

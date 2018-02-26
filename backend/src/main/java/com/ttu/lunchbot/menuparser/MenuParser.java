@@ -9,19 +9,39 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * TODO: documentation
+ * MenuParser takes a PDF document containing menu texts, extracts the document
+ * into a collection of lines of text and uses the given parsing strategy to parse
+ * the texts into MenuItems and Menus that can later be used for easy data retrieval.
  */
 public class MenuParser {
 
+    /**
+     * Object with methods for extracting text from PDF documents.
+     */
     private PDFTextStripper stripper;
+
+    /**
+     * Strategy for parsing menu texts into MenuItems and Menus.
+     */
     private MenuParserStrategy strategy;
 
+    /**
+     * Create a new MenuParser.
+     * @param strategy Strategy for parsing menu texts into MenuItems and Menus.
+     * @throws IOException When there is a problem with creating or configuring a PDFTextStripper.
+     * @see PDFTextStripper
+     */
     private MenuParser(MenuParserStrategy strategy) throws IOException {
         this.stripper = new PDFTextStripper();
         this.stripper.setSortByPosition(true);
         this.strategy = strategy;
     }
 
+    /**
+     * Extract lines of text from a PDF document and store them in a collection.
+     * @param file File object representing a PDF document.
+     * @return Collection of Strings extracted in top-to-bottom order from the given file.
+     */
     private ArrayList<String> extractLines(File file) {
         ArrayList<String> lines = new ArrayList<>();
 
@@ -36,13 +56,19 @@ public class MenuParser {
         return lines;
     }
 
+    /**
+     * @param file File object representing a PDF document.
+     * @return Collection of parsed Menus.
+     * @see Menu
+     */
     private ArrayList<Menu> parseMenus(File file) {
         return this.strategy.parse(this.extractLines(file));
     }
 
     public static void main(String[] args) throws IOException {
-        MenuParser menuParser = new MenuParser(new DailyMenuParserStrategy());
-        ArrayList<Menu> menus = menuParser.parseMenus(new File("/Users/Charlie/Desktop/menu1.pdf"));
+        File file = new File("/Users/Charlie/Desktop/menu1.pdf");
+        MenuParser menuParser = new MenuParser(new BalticRestaurantMenuParserStrategy());
+        ArrayList<Menu> menus = menuParser.parseMenus(file);
         for (Menu menu : menus) {
             System.out.println(menu);
         }
