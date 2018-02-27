@@ -1,5 +1,6 @@
 .gradle
 /build/
+/out/
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
@@ -24,3 +25,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+.DS_Store
