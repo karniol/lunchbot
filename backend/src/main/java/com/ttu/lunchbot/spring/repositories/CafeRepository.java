@@ -1,13 +1,13 @@
 package com.ttu.lunchbot.spring.repositories;
 
-import com.ttu.lunchbot.spring.models.MenuItem;
+import com.ttu.lunchbot.spring.models.Cafe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
+public interface CafeRepository extends JpaRepository<Cafe, Long> {
 
-    List<MenuItem> findAll();
+    List<Cafe> findAll();
 }

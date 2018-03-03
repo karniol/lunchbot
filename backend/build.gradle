@@ -45,6 +45,7 @@ dependencies {
 	// Dependencies to make coding more comfortable
 	compileOnly('org.projectlombok:lombok')
 	compile "commons-io:commons-io:+"
+	compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
 
 	// Debug dependencies i.e. don't yet know whether they
 	// are essential for compilation or not

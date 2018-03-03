@@ -3,6 +3,7 @@ package com.ttu.lunchbot.spring.controllers;
 import com.ttu.lunchbot.spring.models.Menu;
 import com.ttu.lunchbot.spring.services.ParseService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +19,13 @@ public class ParseController {
         this.parseService = parseService;
     }
 
-    @RequestMapping(value="/parse/all")
-    public List<Menu> parseAll() {
-        return parseService.parseAll();
+    //@RequestMapping(value="/parse/all")
+    //public List<Menu> parseAll() {
+    //    return parseService.parseAll();
+    //}
+
+    @RequestMapping(value="/parse/{id}")
+    public List<Menu> parseMenu(@PathVariable("id") long cafeId) {
+        return parseService.parseCafeMenu(cafeId);
     }
 }

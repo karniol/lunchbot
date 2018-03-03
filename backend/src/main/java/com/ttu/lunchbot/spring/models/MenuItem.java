@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Currency;
 
 
 @Entity
@@ -28,6 +29,12 @@ public class MenuItem {
         this.menu = menu;
     }
 
+    public MenuItem(String name, Menu menu, Currency currency) {
+        this.name = name;
+        this.menu = menu;
+        this.price = currency.toString();
+    }
+
     public MenuItem(String name) {
         this.name = name;
     }
@@ -37,6 +44,8 @@ public class MenuItem {
     }
 
     private String name;
+
+    private String price;
 
     @ManyToOne
     @JsonBackReference
