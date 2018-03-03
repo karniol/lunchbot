@@ -1,7 +1,6 @@
 package com.ttu.lunchbot.spring.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.ttu.lunchbot.spring.Views;
 import com.ttu.lunchbot.spring.models.Cafe;
 import com.ttu.lunchbot.spring.models.Menu;
 import com.ttu.lunchbot.spring.services.CafeService;
@@ -24,18 +23,13 @@ public class CafeController {
         this.cafeService = cafeService;
     }
 
-    @RequestMapping(value="/cafes/add", method= RequestMethod.POST,
-            consumes = "application/json")
-    public Cafe addCafe(@RequestBody Cafe cafe) {
-        return cafeService.addCafe(cafe);
-    }
-
     @RequestMapping(value="/cafes", method=RequestMethod.GET)
     @JsonView(Views.NoCafeMenus.class)
     public List<Cafe> getAllCafes() {
         return cafeService.getAllCafes();
     }
 
+    // Shows /cafes properties plus menus
     @RequestMapping(value="/cafes/showall", method=RequestMethod.GET)
     public List<Cafe> getAllCafesAllInfo() {
         return cafeService.getAllCafes();
@@ -49,6 +43,12 @@ public class CafeController {
     @RequestMapping(value = "/cafes/{cafe-id}/menu", method=RequestMethod.GET)
     public Menu getTodayMenuByCafeId(@PathVariable("cafe-id") long cafeId) {
         return cafeService.getMenuOfToday(cafeId);
+    }
+
+    @RequestMapping(value="/cafes/add", method= RequestMethod.POST,
+            consumes = "application/json")
+    public Cafe addCafe(@RequestBody Cafe cafe) {
+        return cafeService.addCafe(cafe);
     }
 
 }

@@ -3,9 +3,7 @@ package com.ttu.lunchbot.spring.controllers;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.ttu.lunchbot.spring.Views;
 import com.ttu.lunchbot.spring.models.Menu;
-import com.ttu.lunchbot.spring.services.CafeService;
 import com.ttu.lunchbot.spring.services.MenuService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,18 +22,13 @@ public class MenuController {
         this.menuService = menuService;
     }
 
-    @RequestMapping(value="/menus/add", method=RequestMethod.POST,
-            consumes = "application/json")
-    public Menu addMenu(@RequestBody Menu menu) {
-        return menuService.addMenu(menu);
-    }
-
     @RequestMapping(value="/menus", method=RequestMethod.GET)
     @JsonView(Views.NoMenuItems.class)
     public List<Menu> getAllMenus() {
         return menuService.getAllMenus();
     }
 
+    // Shows /menus properties and menu items
     @RequestMapping(value="/menus/showall", method=RequestMethod.GET)
     public List<Menu> getAllMenusAllInfo() {
         return menuService.getAllMenus();
@@ -44,6 +37,12 @@ public class MenuController {
     @RequestMapping(value = "/menus/{menu-id}", method=RequestMethod.GET)
     public Menu getMenuByMenuId(@PathVariable("menu-id") long menuId) {
         return menuService.getMenuById(menuId);
+    }
+
+    @RequestMapping(value="/menus/add", method=RequestMethod.POST,
+            consumes = "application/json")
+    public Menu addMenu(@RequestBody Menu menu) {
+        return menuService.addMenu(menu);
     }
 
 }

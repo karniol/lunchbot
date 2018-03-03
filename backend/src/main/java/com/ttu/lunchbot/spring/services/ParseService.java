@@ -15,6 +15,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
@@ -24,25 +25,24 @@ public class ParseService {
 
     private MenuService menuService;
 
-    private MenuItemService menuItemService;
-
     private CafeRepository cafeRepository;
 
     private MenuRepository menuRepository;
 
-    public ParseService(MenuService menuService, MenuItemService menuItemService, CafeRepository cafeRepository, MenuRepository menuRepository) {
+    public ParseService(MenuService menuService, CafeRepository cafeRepository, MenuRepository menuRepository) {
         this.menuService = menuService;
-        this.menuItemService = menuItemService;
         this.cafeRepository = cafeRepository;
         this.menuRepository = menuRepository;
     }
 
     public List<Menu> parseCafeMenu(long cafeId) {
-        MenuParser menuParser;
+        return parseCafeMenu(cafeRepository.findOne(cafeId));
+    }
+
+    public List<Menu> parseCafeMenu(Cafe cafe) {
         try {
             // TODO make other restaurants use their specific strategies
-            menuParser = new MenuParser(new BalticRestaurantMenuParserStrategy());
-            Cafe cafe = cafeRepository.findOne(cafeId);;
+            MenuParser menuParser = new MenuParser(new BalticRestaurantMenuParserStrategy());
             String destination = "Parsefiles/" + cafe.getName() + ".pdf";
 
             File newFile = new File(destination);
@@ -57,12 +57,24 @@ public class ParseService {
         }
     }
 
+    public List<Menu> parseAllCafeMenus() {
+        List<Menu> parsedMenus = new ArrayList<>();
+        for (Cafe cafe : cafeRepository.findAll()) {
+            parsedMenus.addAll(parseCafeMenu(cafe));
+        }
+        return parsedMenus;
+    }
+
     private List<Menu> getMenus(Cafe cafe, ArrayList<com.ttu.lunchbot.menuparser.Menu> menuList) {
         List<Menu> menus = new ArrayList<>();
         CalendarConverter calendarConverter = new CalendarConverter();
 
+        List<LocalDate> datesOfSavedMenus = getDatesOfSavedCafeMenus(cafe);
+
         for (com.ttu.lunchbot.menuparser.Menu parsedMenu : menuList) {
-            if (menuWithSameDateExists(calendarConverter, parsedMenu, cafe)) continue;
+            if (menuWithSameDateExists(datesOfSavedMenus, calendarConverter, parsedMenu)) continue;
+
+            // TODO make it possible to use a different language and a different currency
             Menu menu = new Menu(parsedMenu.getName(), parsedMenu.getDate(), cafe);
             for (com.ttu.lunchbot.menuparser.MenuItem parsedItem : parsedMenu.getItems()) {
                 Currency currency = parsedItem.getPrices().keySet().stream().findAny().get();
@@ -79,11 +91,19 @@ public class ParseService {
         return menus;
     }
 
-    private boolean menuWithSameDateExists(CalendarConverter calendarConverter,
-                                           com.ttu.lunchbot.menuparser.Menu parsedMenu, Cafe cafe) {
+    private List<LocalDate> getDatesOfSavedCafeMenus(Cafe cafe) {
+        List<LocalDate> datesOfSavedMenus = new ArrayList<>();
         for (Menu repositoryMenu : menuRepository.findByCafe_Id(cafe.getId())) {
+            datesOfSavedMenus.add(repositoryMenu.getDate());
+        }
+        return datesOfSavedMenus;
+    }
+
+    private boolean menuWithSameDateExists(List<LocalDate> savedMenuDates, CalendarConverter calendarConverter,
+                                           com.ttu.lunchbot.menuparser.Menu parsedMenu) {
+        for (LocalDate savedDate : savedMenuDates) {
             if (calendarConverter.calendarToLocalDate(parsedMenu.getDate())
-                    .equals(repositoryMenu.getDate())) {
+                    .equals(savedDate)) {
                 return true;
             }
         }

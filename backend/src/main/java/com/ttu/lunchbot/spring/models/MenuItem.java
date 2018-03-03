@@ -1,7 +1,6 @@
 package com.ttu.lunchbot.spring.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,26 +27,10 @@ public class MenuItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    public MenuItem(String name, Menu menu) {
-        this.name = name;
-        this.menu = menu;
-    }
-
-    public MenuItem(String name, Menu menu, Currency currency, BigDecimal priceBigDecimal) {
-        this.name = name;
-        this.menu = menu;
-        this.currency = currency.toString();
-        this.priceBigDecimal = priceBigDecimal.setScale(2, RoundingMode.HALF_UP);
-        this.priceString = "€" + this.priceBigDecimal.toString();
-    }
-
-    public MenuItem(String name) {
-        this.name = name;
-    }
-
-    public MenuItem() {
-
-    }
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "menu_id", nullable = false)
+    private Menu menu;
 
     private String name;
 
@@ -59,9 +42,17 @@ public class MenuItem {
     @JsonProperty("price_string")
     private String priceString;
 
-    @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "menu_id", nullable = false)
-    private Menu menu;
+
+    public MenuItem() {
+
+    }
+
+    public MenuItem(String name, Menu menu, Currency currency, BigDecimal priceBigDecimal) {
+        this.name = name;
+        this.menu = menu;
+        this.currency = currency.toString();
+        this.priceBigDecimal = priceBigDecimal.setScale(2, RoundingMode.HALF_UP);
+        this.priceString = "€" + this.priceBigDecimal.toString();
+    }
 
 }

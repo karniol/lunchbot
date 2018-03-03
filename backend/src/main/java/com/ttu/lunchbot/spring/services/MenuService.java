@@ -19,18 +19,18 @@ public class MenuService {
         this.menuItemRepository = menuItemRepository;
     }
 
-    public Menu addMenu(Menu menu) {
-        Menu menuAfter = menuRepository.save(menu);
-        menuItemRepository.save(menu.getMenuItems());
-        return menuAfter;
+    public Menu getMenuById(long menuId) {
+        return menuRepository.findOne(menuId);
     }
 
     public List<Menu> getAllMenus() {
         return menuRepository.findAll();
     }
 
-    public Menu getMenuById(long menuId) {
-        return menuRepository.findOne(menuId);
+    public Menu addMenu(Menu menu) {
+        Menu menuAfter = menuRepository.save(menu);
+        menuItemRepository.save(menu.getMenuItems());
+        return menuAfter;
     }
 
 }

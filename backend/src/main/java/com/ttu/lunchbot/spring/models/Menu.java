@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.ttu.lunchbot.converter.CalendarConverter;
-import com.ttu.lunchbot.spring.Views;
+import com.ttu.lunchbot.spring.controllers.Views;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,8 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -37,8 +35,25 @@ public class Menu {
     @JsonView(Views.NoMenuItems.class)
     private long id;
 
+    @OneToMany(mappedBy = "menu")
+    @JsonManagedReference
+    private List<MenuItem> menuItems = new ArrayList<>();
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "cafe_id", nullable = false)
+    private Cafe cafe;
+
     @JsonView(Views.NoMenuItems.class)
     private String name;
+
+    @JsonView(Views.NoMenuItems.class)
+    @JsonFormat(pattern = "dd.MM.yyyy")
+    private LocalDate date;
+
+    public Menu() {
+
+    }
 
     public Menu(String name, Cafe cafe) {
         this.name = name;
@@ -68,21 +83,5 @@ public class Menu {
         this.cafe = cafe;
         this.date = new CalendarConverter().calendarToLocalDate(calendar);
     }
-
-    public Menu() {
-
-    }
-
-    @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDate date;
-
-    @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "cafe_id", nullable = false)
-    private Cafe cafe;
-
-    @OneToMany(mappedBy = "menu")
-    @JsonManagedReference
-    private List<MenuItem> menuItems = new ArrayList<>();
 
 }

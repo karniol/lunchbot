@@ -17,21 +17,8 @@ public class MenuItemController {
 
     private MenuItemService menuItemService;
 
-    // For checking if intellij is running the correct version of the
-    // spring application, as it seems to bug on this machine
-    @RequestMapping(value="/check1")
-    public String joujou() {
-        return "Check one!";
-    }
-
     public MenuItemController(MenuItemService menuItemService) {
         this.menuItemService = menuItemService;
-    }
-
-    @RequestMapping(value="/menuitems/add", method=RequestMethod.POST,
-            consumes = "application/json")
-    public MenuItem addMenuItem(@RequestBody MenuItem menuItem) {
-        return menuItemService.addMenuItem(menuItem);
     }
 
     @RequestMapping(value="/menuitems", method=RequestMethod.GET)
@@ -43,4 +30,19 @@ public class MenuItemController {
     public MenuItem getMenuItems(@PathVariable("id") long menuItemId) {
         return menuItemService.getMenuItemById(menuItemId);
     }
+
+    @RequestMapping(value="/menuitems/add", method=RequestMethod.POST,
+            consumes = "application/json")
+    public MenuItem addMenuItem(@RequestBody MenuItem menuItem) {
+        return menuItemService.addMenuItem(menuItem);
+    }
+
+    // For checking if intellij is running the correct version of this
+    // spring application, as it seems to bug on my laptop
+    // TODO remove function when laptop is fixed
+    @RequestMapping(value="/check1")
+    public String check() {
+        return "Check one!";
+    }
+
 }
