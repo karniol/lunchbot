@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.ttu.lunchbot.spring.Views;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -60,13 +59,13 @@ public class Menu {
         this.name = name;
         this.menuItems = items;
         this.cafe = cafe;
-        this.date = calendarToLocalDateTime(calendar); //.toLocalDate();
+        this.date = calendarToLocalDate(calendar);
     }
 
     public Menu(String name, Calendar calendar, Cafe cafe) {
         this.name = name;
         this.cafe = cafe;
-        this.date = calendarToLocalDateTime(calendar); //.toLocalDate();
+        this.date = calendarToLocalDate(calendar);
     }
 
     /**
@@ -74,9 +73,9 @@ public class Menu {
      * @param calendarTime
      * @return
      */
-    private LocalDateTime calendarToLocalDateTime(Calendar calendarTime) {
+    private LocalDate calendarToLocalDate(Calendar calendarTime) {
         return LocalDateTime.ofInstant(calendarTime.toInstant(),
-                ZoneId.systemDefault());
+                ZoneId.systemDefault()).toLocalDate();
     }
 
     public Menu() {
@@ -84,7 +83,7 @@ public class Menu {
     }
 
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDateTime date;
+    private LocalDate date;
 
     @ManyToOne
     @JsonBackReference

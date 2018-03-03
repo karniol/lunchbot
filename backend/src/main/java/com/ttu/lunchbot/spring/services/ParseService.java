@@ -56,7 +56,6 @@ public class ParseService {
 
         for (com.ttu.lunchbot.menuparser.Menu parsedMenu : menuList) {
             Menu menu = new Menu(parsedMenu.getName(), parsedMenu.getDate(), cafe);
-            //Menu menu = menuService.addMenu(new Menu(parsedMenu.getName(), parsedMenu.getDate(), cafe));
             for (com.ttu.lunchbot.menuparser.MenuItem parsedItem : parsedMenu.getItems()) {
                 Currency currency = parsedItem.getPrices().keySet().stream().findAny().get();
                 MenuItem item = new MenuItem(
@@ -66,7 +65,6 @@ public class ParseService {
                         parsedItem.getPrice(currency)
                 );
                 menu.getMenuItems().add(item);
-                //menuItemService.addMenuItem(item);
             }
             menus.add(menuService.addMenu(menu));
         }

@@ -41,7 +41,7 @@ public class CafeService {
         List<Menu> menuList = menuRepository.findByCafe_Id(cafeId);
         System.out.println(menuList.size());
         if (menuList.size() == 0
-            || menuList.get(menuList.size() - 1).getDate().toLocalDate().isBefore(LocalDate.now())) {
+            || menuList.get(menuList.size() - 1).getDate().isBefore(LocalDate.now())) {
             menuList.addAll(parseService.parseCafeMenu(cafeId));
         }
 
@@ -51,7 +51,7 @@ public class CafeService {
                 System.out.println(menu.getName() + " has no date!");
                 continue;
             }
-            if (menu.getDate().toLocalDate().equals(LocalDate.now())) return menu;
+            if (menu.getDate().equals(LocalDate.now())) return menu;
 
             if (leastDaysDifferentFromNowMenu == null
                 || getAbsDaysFromNow(leastDaysDifferentFromNowMenu) > getAbsDaysFromNow(menu)) {
@@ -63,7 +63,7 @@ public class CafeService {
     }
 
     private long getAbsDaysFromNow(Menu menu) {
-        return Math.abs(ChronoUnit.DAYS.between(menu.getDate().toLocalDate(), LocalDate.now()));
+        return Math.abs(ChronoUnit.DAYS.between(menu.getDate(), LocalDate.now()));
     }
 
 }
