@@ -1,6 +1,8 @@
 package com.ttu.lunchbot.spring.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Currency;
 
 
@@ -29,10 +33,12 @@ public class MenuItem {
         this.menu = menu;
     }
 
-    public MenuItem(String name, Menu menu, Currency currency) {
+    public MenuItem(String name, Menu menu, Currency currency, BigDecimal priceBigDecimal) {
         this.name = name;
         this.menu = menu;
-        this.price = currency.toString();
+        this.currency = currency.toString();
+        this.priceBigDecimal = priceBigDecimal.setScale(2, RoundingMode.HALF_UP);
+        this.priceString = "€" + this.priceBigDecimal.toString();
     }
 
     public MenuItem(String name) {
@@ -45,7 +51,13 @@ public class MenuItem {
 
     private String name;
 
-    private String price;
+    private String currency;
+
+    @JsonProperty("price_big_decimal")
+    private BigDecimal priceBigDecimal;
+
+    @JsonProperty("price_string")
+    private String priceString;
 
     @ManyToOne
     @JsonBackReference

@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 @Service
@@ -55,7 +56,13 @@ public class ParseService {
         for (com.ttu.lunchbot.menuparser.Menu parsedMenu : menuList) {
             Menu menu = menuService.addMenu(new Menu(parsedMenu.getName(), cafe));
             for (com.ttu.lunchbot.menuparser.MenuItem parsedItem : parsedMenu.getItems()) {
-                MenuItem item = new MenuItem(parsedItem.getNames().values().stream().findAny().get(), menu);
+                Currency currency = parsedItem.getPrices().keySet().stream().findAny().get();
+                MenuItem item = new MenuItem(
+                        parsedItem.getNames().values().stream().findAny().get(),
+                        menu,
+                        parsedItem.getPrices().keySet().stream().findAny().get(),
+                        parsedItem.getPrice(currency)
+                );
                 menuItemService.addMenuItem(item);
             }
             menus.add(menuService.getMenuById(menu.getId()));

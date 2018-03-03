@@ -65,7 +65,7 @@ public class MenuItem {
     /**
      * @return Collection of all added prices for the MenuItem.
      */
-    HashMap<Currency, BigDecimal> getPrices() {
+    public HashMap<Currency, BigDecimal> getPrices() {
         return this.prices;
     }
 
@@ -73,7 +73,7 @@ public class MenuItem {
      * @param currency Currency for which the price is requested.
      * @return Price of the MenuItem corresponding to the given Currency.
      */
-    BigDecimal getPrice(Currency currency) {
+    public BigDecimal getPrice(Currency currency) {
         return this.prices.get(currency);
     }
 
