@@ -1,6 +1,7 @@
 package com.ttu.lunchbot.spring;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,8 +23,10 @@ public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(Views.NoMenuItems.class)
     private long id;
 
+    @JsonView(Views.NoMenuItems.class)
     private String name;
 
     public Menu(String name) {

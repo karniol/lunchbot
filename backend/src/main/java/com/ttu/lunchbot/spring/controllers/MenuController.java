@@ -2,6 +2,8 @@ package com.ttu.lunchbot.spring.controllers;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.ttu.lunchbot.spring.Views;
 import com.ttu.lunchbot.spring.Menu;
 import com.ttu.lunchbot.spring.MenuService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -28,7 +30,13 @@ public class MenuController {
     }
 
     @RequestMapping(value="/menus", method=RequestMethod.GET)
+    @JsonView(Views.NoMenuItems.class)
     public List<Menu> getAllMenus() {
+        return menuService.getAllMenus();
+    }
+
+    @RequestMapping(value="/menus/showall", method=RequestMethod.GET)
+    public List<Menu> getAllMenusAllInfo() {
         return menuService.getAllMenus();
     }
 
