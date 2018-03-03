@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -34,11 +35,17 @@ public class Menu {
         this.name = name;
     }
 
+    public Menu(String name, List<MenuItem> items) {
+        this.name = name;
+        this.menuItems = items;
+    }
+
     public Menu() {
 
     }
 
-    //Calendar date;
+
+    Calendar date;
 
     @OneToMany(mappedBy = "menu")
     @JsonManagedReference

@@ -57,7 +57,7 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
     /**
      * Create and initialize a new parser strategy.
      */
-    BalticRestaurantMenuParserStrategy() {
+    public BalticRestaurantMenuParserStrategy() {
         this.parsedMenus = new ArrayList<>();
         this.currentMenuItem = null;
         this.currentMenu = null;

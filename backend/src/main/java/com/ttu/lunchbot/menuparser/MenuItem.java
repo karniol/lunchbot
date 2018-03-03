@@ -50,7 +50,7 @@ public class MenuItem {
     /**
      * @return Collection of all added names for the MenuItem.
      */
-    HashMap<Locale, String> getNames() {
+    public HashMap<Locale, String> getNames() {
         return this.names;
     }
 
@@ -58,7 +58,7 @@ public class MenuItem {
      * @param locale Locale for which the name is requested.
      * @return Name of the MenuItem corresponding to the given Locale.
      */
-    String getName(Locale locale) {
+    public String getName(Locale locale) {
         return this.names.get(locale);
     }
 
