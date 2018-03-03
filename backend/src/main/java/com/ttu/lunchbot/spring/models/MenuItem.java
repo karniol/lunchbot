@@ -1,4 +1,4 @@
-package com.ttu.lunchbot.spring;
+package com.ttu.lunchbot.spring.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;

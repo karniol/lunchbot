@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.ttu.lunchbot.spring.Views;
-import com.ttu.lunchbot.spring.Menu;
-import com.ttu.lunchbot.spring.MenuService;
+import com.ttu.lunchbot.spring.models.Menu;
+import com.ttu.lunchbot.spring.services.MenuService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

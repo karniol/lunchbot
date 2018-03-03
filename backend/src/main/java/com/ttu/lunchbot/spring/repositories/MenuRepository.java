@@ -1,6 +1,6 @@
 package com.ttu.lunchbot.spring.repositories;
 
-import com.ttu.lunchbot.spring.Menu;
+import com.ttu.lunchbot.spring.models.Menu;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
