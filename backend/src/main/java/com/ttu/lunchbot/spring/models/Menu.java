@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -59,7 +60,13 @@ public class Menu {
         this.name = name;
         this.menuItems = items;
         this.cafe = cafe;
-        //this.date = calendarToLocalDateTime(calendar);
+        this.date = calendarToLocalDateTime(calendar); //.toLocalDate();
+    }
+
+    public Menu(String name, Calendar calendar, Cafe cafe) {
+        this.name = name;
+        this.cafe = cafe;
+        this.date = calendarToLocalDateTime(calendar); //.toLocalDate();
     }
 
     /**
@@ -76,8 +83,8 @@ public class Menu {
 
     }
 
-    //@JsonFormat(pattern = "dd.MM.yyyy")
-    //private LocalDateTime date;
+    @JsonFormat(pattern = "dd.MM.yyyy")
+    private LocalDateTime date;
 
     @ManyToOne
     @JsonBackReference
@@ -87,6 +94,5 @@ public class Menu {
     @OneToMany(mappedBy = "menu")
     @JsonManagedReference
     private List<MenuItem> menuItems = new ArrayList<>();
-
 
 }

@@ -5,6 +5,7 @@ import com.ttu.lunchbot.spring.models.Cafe;
 import com.ttu.lunchbot.spring.models.MenuItem;
 import com.ttu.lunchbot.spring.models.Menu;
 import com.ttu.lunchbot.menuparser.MenuParser;
+import com.ttu.lunchbot.spring.repositories.CafeRepository;
 import org.springframework.stereotype.Service;
 
 import org.apache.commons.io.FileUtils;
@@ -23,19 +24,19 @@ public class ParseService {
 
     private MenuItemService menuItemService;
 
-    private CafeService cafeService;
+    private CafeRepository cafeRepository;
 
-    public ParseService(MenuService menuService, MenuItemService menuItemService, CafeService cafeService) {
+    public ParseService(MenuService menuService, MenuItemService menuItemService, CafeRepository cafeRepository) {
         this.menuService = menuService;
         this.menuItemService = menuItemService;
-        this.cafeService = cafeService;
+        this.cafeRepository = cafeRepository;
     }
 
     public List<Menu> parseCafeMenu(long cafeId) {
         MenuParser menuParser;
         try {
             menuParser = new MenuParser(new BalticRestaurantMenuParserStrategy());
-            Cafe cafe = cafeService.getCafeById(cafeId);
+            Cafe cafe = cafeRepository.findOne(cafeId);;
             String destination = "Parsefiles/" + cafe.getName() + ".pdf";
 
             File newFile = new File(destination);
@@ -54,7 +55,8 @@ public class ParseService {
         List<Menu> menus = new ArrayList<>();
 
         for (com.ttu.lunchbot.menuparser.Menu parsedMenu : menuList) {
-            Menu menu = menuService.addMenu(new Menu(parsedMenu.getName(), cafe));
+            Menu menu = new Menu(parsedMenu.getName(), parsedMenu.getDate(), cafe);
+            //Menu menu = menuService.addMenu(new Menu(parsedMenu.getName(), parsedMenu.getDate(), cafe));
             for (com.ttu.lunchbot.menuparser.MenuItem parsedItem : parsedMenu.getItems()) {
                 Currency currency = parsedItem.getPrices().keySet().stream().findAny().get();
                 MenuItem item = new MenuItem(
@@ -63,9 +65,10 @@ public class ParseService {
                         parsedItem.getPrices().keySet().stream().findAny().get(),
                         parsedItem.getPrice(currency)
                 );
-                menuItemService.addMenuItem(item);
+                menu.getMenuItems().add(item);
+                //menuItemService.addMenuItem(item);
             }
-            menus.add(menuService.getMenuById(menu.getId()));
+            menus.add(menuService.addMenu(menu));
         }
         return menus;
     }

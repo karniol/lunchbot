@@ -29,8 +29,8 @@ public class MenuService {
         return menuRepository.findAll();
     }
 
-    public Menu getMenuById(long userId) {
-        return menuRepository.findOne(userId);
+    public Menu getMenuById(long menuId) {
+        return menuRepository.findOne(menuId);
     }
 
 }

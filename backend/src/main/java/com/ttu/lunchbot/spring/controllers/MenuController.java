@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.ttu.lunchbot.spring.Views;
 import com.ttu.lunchbot.spring.models.Menu;
+import com.ttu.lunchbot.spring.services.CafeService;
 import com.ttu.lunchbot.spring.services.MenuService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,8 +41,9 @@ public class MenuController {
         return menuService.getAllMenus();
     }
 
-    @RequestMapping(value = "/menus/{id}", method=RequestMethod.GET)
-    public Menu getMenu(@PathVariable("id") long menuId) {
+    @RequestMapping(value = "/menus/{menu-id}", method=RequestMethod.GET)
+    public Menu getMenuByMenuId(@PathVariable("menu-id") long menuId) {
         return menuService.getMenuById(menuId);
     }
+
 }
