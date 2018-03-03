@@ -1,5 +1,7 @@
 package com.ttu.lunchbot.spring.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.ttu.lunchbot.spring.Views;
 import com.ttu.lunchbot.spring.models.Cafe;
 import com.ttu.lunchbot.spring.services.CafeService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -28,7 +30,13 @@ public class CafeController {
     }
 
     @RequestMapping(value="/cafes", method=RequestMethod.GET)
+    @JsonView(Views.NoCafeMenus.class)
     public List<Cafe> getAllCafes() {
+        return cafeService.getAllCafes();
+    }
+
+    @RequestMapping(value="/cafes/showall", method=RequestMethod.GET)
+    public List<Cafe> getAllCafesAllInfo() {
         return cafeService.getAllCafes();
     }
 

@@ -1,6 +1,8 @@
 package com.ttu.lunchbot.spring.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.ttu.lunchbot.spring.Views;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,13 +26,14 @@ public class Cafe {
     }
 
     public Cafe() {
-
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(Views.NoCafeMenus.class)
     private long id;
 
+    @JsonView(Views.NoCafeMenus.class)
     String name;
 
     String menuURL;
