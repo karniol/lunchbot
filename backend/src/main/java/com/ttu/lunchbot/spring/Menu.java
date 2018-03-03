@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,7 +21,7 @@ import java.util.List;
 public class Menu {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String name;
@@ -38,4 +39,5 @@ public class Menu {
     @OneToMany(mappedBy = "menu")
     @JsonManagedReference
     private List<MenuItem> menuItems = new ArrayList<>();
+
 }

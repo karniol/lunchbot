@@ -1,5 +1,6 @@
 package com.ttu.lunchbot.spring;
 
+import com.ttu.lunchbot.spring.repositories.MenuItemRepository;
 import com.ttu.lunchbot.spring.repositories.MenuRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +11,17 @@ public class MenuService {
 
     private MenuRepository menuRepository;
 
-    public MenuService(MenuRepository menuRepository) {
+    private MenuItemRepository menuItemRepository;
+
+    public MenuService(MenuRepository menuRepository, MenuItemRepository menuItemRepository) {
         this.menuRepository = menuRepository;
+        this.menuItemRepository = menuItemRepository;
     }
 
     public Menu addMenu(Menu menu) {
-        return menuRepository.save(menu);
+        Menu menuAfter = menuRepository.save(menu);
+        menuItemRepository.save(menu.getMenuItems());
+        return menuAfter;
     }
 
     public List<Menu> getAllMenus() {
