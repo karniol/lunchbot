@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.ttu.lunchbot.converter.CalendarConverter;
 import com.ttu.lunchbot.spring.Views;
 import lombok.Getter;
 import lombok.Setter;
@@ -59,23 +60,13 @@ public class Menu {
         this.name = name;
         this.menuItems = items;
         this.cafe = cafe;
-        this.date = calendarToLocalDate(calendar);
+        this.date = new CalendarConverter().calendarToLocalDate(calendar);
     }
 
     public Menu(String name, Calendar calendar, Cafe cafe) {
         this.name = name;
         this.cafe = cafe;
-        this.date = calendarToLocalDate(calendar);
-    }
-
-    /**
-     * Copied from https://kodejava.org/how-do-i-convert-between-old-date-and-calendar-object-with-the-new-java-8-date-time/
-     * @param calendarTime
-     * @return
-     */
-    private LocalDate calendarToLocalDate(Calendar calendarTime) {
-        return LocalDateTime.ofInstant(calendarTime.toInstant(),
-                ZoneId.systemDefault()).toLocalDate();
+        this.date = new CalendarConverter().calendarToLocalDate(calendar);
     }
 
     public Menu() {
