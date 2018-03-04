@@ -1,7 +1,7 @@
 ### Gradle ###
-.gradle
-!gradle/
-!gradle/wrapper/gradle-wrapper.jar
+**/.gradle
+**/gradle/
+!gradle-wrapper.jar
 
 ### STS ###
 .apt_generated
@@ -16,8 +16,7 @@
 *.iws
 *.iml
 *.ipr
-!out/
-!build/
+**/out/
 
 ### Mac ###
 .DS_Store
