@@ -31,7 +31,7 @@ public class MenuParser {
      * @throws IOException When there is a problem with creating or configuring a PDFTextStripper.
      * @see PDFTextStripper
      */
-    private MenuParser(MenuParserStrategy strategy) throws IOException {
+    public MenuParser(MenuParserStrategy strategy) throws IOException {
         this.stripper = new PDFTextStripper();
         this.stripper.setSortByPosition(true);
         this.strategy = strategy;
@@ -61,7 +61,7 @@ public class MenuParser {
      * @return Collection of parsed Menus.
      * @see Menu
      */
-    private ArrayList<Menu> parseMenus(File file) {
+    public ArrayList<Menu> parseMenus(File file) {
         return this.strategy.parse(this.extractLines(file));
     }
 

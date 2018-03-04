@@ -7,7 +7,7 @@ import java.util.Calendar;
  * Data object for storing MenuItems.
  * @see MenuItem
  */
-class Menu {
+public class Menu {
 
     /**
      * Name of the Menu or the name of the restaurant this Menu is associated with.
@@ -39,21 +39,21 @@ class Menu {
     /**
      * @return Name of this Menu.
      */
-    String getName() {
+    public String getName() {
         return this.name;
     }
 
     /**
      * @return Calendar instance including the date of the menu.
      */
-    Calendar getDate() {
+    public Calendar getDate() {
         return this.date;
     }
 
     /**
      * @return Collection of all MenuItems in the Menu.
      */
-    ArrayList<MenuItem> getItems() {
+    public ArrayList<MenuItem> getItems() {
         return this.items;
     }
 
