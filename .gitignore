@@ -1,3 +1,9 @@
+### Java ###
+*.class
+
+### Packages ###
+*.jar
+
 ### Gradle ###
 **/.gradle
 **/gradle/
