@@ -5,11 +5,7 @@ import com.ttu.lunchbot.spring.models.Cafe;
 import com.ttu.lunchbot.spring.models.Menu;
 import com.ttu.lunchbot.spring.services.CafeService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,7 +36,10 @@ public class CafeController {
         return cafeService.getCafeById(cafeId);
     }
 
+    @CrossOrigin(origins = "http://localhost:9000")
+    // TODO: Configure CORS so Aurelia can access data
     @RequestMapping(value = "/cafes/{cafe-id}/menu", method=RequestMethod.GET)
+    // TODO: @GetMapping can be used instead of @RequestMapping(method=RequestMethod.GET)
     public Menu getTodayMenuByCafeId(@PathVariable("cafe-id") long cafeId) {
         return cafeService.getMenuOfToday(cafeId);
     }
