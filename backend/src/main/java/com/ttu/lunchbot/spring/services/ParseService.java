@@ -1,6 +1,6 @@
 package com.ttu.lunchbot.spring.services;
 
-import com.ttu.lunchbot.converter.CalendarConverter;
+import com.ttu.lunchbot.util.CalendarConverter;
 import com.ttu.lunchbot.menuparser.BalticRestaurantMenuParserStrategy;
 import com.ttu.lunchbot.spring.models.Cafe;
 import com.ttu.lunchbot.spring.models.MenuItem;

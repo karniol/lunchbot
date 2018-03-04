@@ -1,4 +1,4 @@
-package com.ttu.lunchbot.converter;
+package com.ttu.lunchbot.util;
 
 import com.ttu.lunchbot.spring.models.Menu;
 

@@ -1,6 +1,6 @@
 package com.ttu.lunchbot.spring.services;
 
-import com.ttu.lunchbot.converter.CalendarConverter;
+import com.ttu.lunchbot.util.CalendarConverter;
 import com.ttu.lunchbot.spring.models.Cafe;
 import com.ttu.lunchbot.spring.models.Menu;
 import com.ttu.lunchbot.spring.repositories.CafeRepository;
@@ -8,7 +8,6 @@ import com.ttu.lunchbot.spring.repositories.MenuRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
