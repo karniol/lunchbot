@@ -1,3 +1,3 @@
-# LunchboTTÜ
+# Lunchbot
 
-Tere.
+Search and rate lunch menus around university campus.
