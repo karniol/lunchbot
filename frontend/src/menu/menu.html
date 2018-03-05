@@ -3,7 +3,8 @@
   <div class="menu-list">
     <ul class="list-group">
       <li repeat.for="menuItem of data.menuItems" class="list-group-item">
-        ${menuItem.name} <span class="list-group-item-tag">${menuItem.price_string}</span>
+        <div class="list-group-item-text">${menuItem.name}</div>
+        <div class="list-group-item-tag">${menuItem.price_string}</div>
       </li>
     </ul>
   </div>

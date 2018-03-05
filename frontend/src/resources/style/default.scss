@@ -1,8 +1,29 @@
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300');
 
-html {
-  font-family: 'Noto Sans', 'Arial', sans-serif;
+// Font
+$font-stack: 'Montserrat', 'Arial', sans-serif;
+
+// Colors
+$black: rgb(18, 23, 10);
+$white: rgb(255, 255, 238);
+$gray-soft: rgb(240, 240, 240);
+$light: rgb(186, 191, 76);
+$dark: rgb(154, 159, 67);
+$darker: rgb(106, 111, 52);
+$darkest: rgb(58, 63, 31);
+
+// Sizes
+$height-title-bar: 48px;
+$height-menu-selected: 32px;
+
+html, body {
+  font-family: $font-stack;
   font-size: 16px;
+  color: $black;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .container {
@@ -10,21 +31,32 @@ html {
 }
 
 .title-bar {
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-  color: #fff;
+  width: 100%;
   font-size: 200%;
-  background: rgb(167, 172, 52);
+  height: $height-title-bar;
+  line-height: $height-title-bar;
+  text-align: center;
+  color: $white;
+  background: $light;
+}
+
+.router-view {
+
 }
 
 .menu-selected {
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  color: #fff;
+  width: 100%;
   font-size: 100%;
-  background: rgb(167, 172, 52);
+  height: $height-menu-selected;
+  line-height: $height-menu-selected;
+  color: $white;
+  background: $dark;
+  text-align: center;
+
+  // Scroll-then-fix
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 
 .menu-list {
@@ -38,13 +70,28 @@ html {
 }
 
 .list-group-item {
-  padding: 12px 8px;
+  display: flex;
+  align-items: center;
+  padding: 10px 8px;
+  border-bottom: dotted 1px $gray-soft;
+  clear: both;
+}
+
+.list-group-item-text {
+  flex: 80%;
+  box-sizing: border-box;
+  padding-right: 3%;
+  white-space: normal;
+  float: left;
+  overflow: hidden;
 }
 
 .list-group-item-tag {
+  color: $darkest;
+  border-radius: 4px;
+  padding: 4px 6px;
+  text-align: center;
   float: right;
-  background: #888;
-  padding: 6px;
 }
 
 

@@ -1,23 +1,33 @@
-@import url("https://fonts.googleapis.com/css?family=Noto+Sans");
-html {
-  font-family: 'Noto Sans', 'Arial', sans-serif;
-  font-size: 16px; }
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300");
+html, body {
+  font-family: "Montserrat", "Arial", sans-serif;
+  font-size: 16px;
+  color: #12170a;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; }
 
 .title-bar {
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-  color: #fff;
+  width: 100%;
   font-size: 200%;
-  background: #a7ac34; }
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+  color: #ffffee;
+  background: #babf4c; }
 
 .menu-selected {
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  color: #fff;
+  width: 100%;
   font-size: 100%;
-  background: #a7ac34; }
+  height: 32px;
+  line-height: 32px;
+  color: #ffffee;
+  background: #9a9f43;
+  text-align: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0; }
 
 .menu-list {
   font-size: 150%; }
@@ -28,11 +38,25 @@ html {
   list-style: none; }
 
 .list-group-item {
-  padding: 12px 8px; }
+  display: flex;
+  align-items: center;
+  padding: 10px 8px;
+  border-bottom: dotted 1px #f0f0f0;
+  clear: both; }
+
+.list-group-item-text {
+  flex: 80%;
+  box-sizing: border-box;
+  padding-right: 3%;
+  white-space: normal;
+  float: left;
+  overflow: hidden; }
 
 .list-group-item-tag {
-  float: right;
-  background: #888;
-  padding: 6px; }
+  color: #3a3f1f;
+  border-radius: 4px;
+  padding: 4px 6px;
+  text-align: center;
+  float: right; }
 
 /*# sourceMappingURL=default.css.map */

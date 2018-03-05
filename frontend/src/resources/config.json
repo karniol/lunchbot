@@ -1,4 +1,6 @@
 {
-  "springHostname": "localhost",
-  "springPort": 8080
+  "mariadb": {
+    "host": "localhost",
+    "port": 8080
+  }
 }
