@@ -4,7 +4,7 @@ const project = require('./aurelia_project/aurelia.json');
 
 let testSrc = [
   { pattern: project.unitTestRunner.source, included: false },
-  'test/aurelia-karma.js'
+  'styleClasses/aurelia-karma.js'
 ];
 
 let output = project.platform.output;

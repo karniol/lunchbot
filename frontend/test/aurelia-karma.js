@@ -32,10 +32,10 @@
 
   function requireTests() {
     var TEST_REGEXP = /(spec)\.js$/i;
-    var allTestFiles = ['/base/test/unit/setup.js'];
+    var allTestFiles = ['/base/styleClasses/unit/setup.js'];
 
     Object.keys(window.__karma__.files).forEach(function(file) {
-      if (TEST_REGEXP.test(file)) {
+      if (TEST_REGEXP.styleClasses(file)) {
         allTestFiles.push(file);
       }
     });

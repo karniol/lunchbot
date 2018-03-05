@@ -1,6 +1,6 @@
 // Fetcher is a singleton for Aurelia's Fetch client
 
-import {HttpClient, json} from 'aurelia-fetch-client';
+import {HttpClient} from 'aurelia-fetch-client';
 
 export var Fetcher = (function () {
   let instance;
