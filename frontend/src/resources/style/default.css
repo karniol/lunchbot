@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300");
+html, body {
+  font-family: "Montserrat", "Arial", sans-serif;
+  font-size: 16px;
+  color: #12170a;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; }
+
+.header-bar {
+  width: 100%;
+  font-size: 2em;
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+  color: #ffffee;
+  background: #babf4c; }
+
+.router-view {
+  min-height: calc(100% - 32px -  48px); }
+
+.footer {
+  width: 100%;
+  font-size: 0.75em;
+  height: 32px;
+  padding: 3em 0 1em;
+  text-align: center;
+  color: #73736a; }
+
+.menu-selected-name, .menu-selected-date {
+  width: 100%;
+  font-size: 1em;
+  height: 32px;
+  line-height: 32px;
+  color: #ffffee;
+  text-align: center; }
+
+.menu-selected-name {
+  background: #6a6f34;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0; }
+
+.menu-selected-date {
+  background: #9a9f43; }
+
+.menu-list {
+  font-size: 1.5em; }
+
+.list-group {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.list-group-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 8px;
+  border-bottom: dotted 1px #e5e5d4;
+  clear: both; }
+
+.list-group-item:last-child {
+  border: none; }
+
+.list-group-item-text {
+  flex: 80%;
+  box-sizing: border-box;
+  padding-right: 3%;
+  white-space: normal;
+  float: left;
+  overflow: hidden; }
+
+.list-group-item-tag {
+  color: #3a3f1f;
+  border-radius: 4px;
+  padding: 4px 6px;
+  text-align: center;
+  float: right; }
+
+/*# sourceMappingURL=default.css.map */

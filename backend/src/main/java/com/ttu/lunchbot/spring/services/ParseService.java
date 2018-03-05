@@ -43,7 +43,7 @@ public class ParseService {
         try {
             // TODO make other restaurants use their specific strategies
             MenuParser menuParser = new MenuParser(new BalticRestaurantMenuParserStrategy());
-            String destination = "Parsefiles/" + cafe.getName() + ".pdf";
+            String destination = "/tmp/" + cafe.getName() + ".pdf";
 
             File newFile = new File(destination);
             FileUtils.copyURLToFile(new URL(cafe.getMenuURL()), newFile, 10000, 10000);

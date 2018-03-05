@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300');
+
+// Font
+$font-stack: 'Montserrat', 'Arial', sans-serif;
+
+// Colors
+$black: rgb(18, 23, 10);
+$white: rgb(255, 255, 238);
+$gray-light: rgb(229, 229, 212);
+$gray-dark: rgb(115, 115, 106);
+$light: rgb(186, 191, 76);
+$dark: rgb(154, 159, 67);
+$darker: rgb(106, 111, 52);
+$darkest: rgb(58, 63, 31);
+
+// Sizes
+$height-header-bar: 48px;
+$height-menu-selected: 32px;
+$height-footer: 32px;
+
+html, body {
+  font-family: $font-stack;
+  font-size: 16px;
+  color: $black;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.container {
+
+}
+
+.header-bar {
+  width: 100%;
+  font-size: 2em;
+  height: $height-header-bar;
+  line-height: $height-header-bar;
+  text-align: center;
+  color: $white;
+  background: $light;
+}
+
+.router-view {
+  min-height: calc(100% - #{$height-footer} -  #{$height-header-bar});
+}
+
+.footer {
+  width: 100%;
+  font-size: 0.75em;
+  height: $height-footer;
+  padding: 3em 0 1em;
+  text-align: center;
+  color: $gray-dark;
+}
+
+%bar {
+  width: 100%;
+  font-size: 1em;
+  height: $height-menu-selected;
+  line-height: $height-menu-selected;
+  color: $white;
+  text-align: center;
+}
+
+.menu-selected-name {
+  @extend %bar;
+  background: $darker;
+
+  // Scroll-then-fix
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+.menu-selected-date {
+  @extend %bar;
+  background: $dark;
+}
+
+.menu-list {
+  font-size: 1.5em;
+}
+
+.list-group {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list-group-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 8px;
+  border-bottom: dotted 1px $gray-light;
+  clear: both;
+}
+
+.list-group-item:last-child {
+  border: none;
+}
+
+
+.list-group-item-text {
+  flex: 80%;
+  box-sizing: border-box;
+  padding-right: 3%;
+  white-space: normal;
+  float: left;
+  overflow: hidden;
+}
+
+.list-group-item-tag {
+  color: $darkest;
+  border-radius: 4px;
+  padding: 4px 6px;
+  text-align: center;
+  float: right;
+}
