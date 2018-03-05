@@ -6,15 +6,17 @@ $font-stack: 'Montserrat', 'Arial', sans-serif;
 // Colors
 $black: rgb(18, 23, 10);
 $white: rgb(255, 255, 238);
-$gray-soft: rgb(240, 240, 240);
+$gray-light: rgb(229, 229, 212);
+$gray-dark: rgb(115, 115, 106);
 $light: rgb(186, 191, 76);
 $dark: rgb(154, 159, 67);
 $darker: rgb(106, 111, 52);
 $darkest: rgb(58, 63, 31);
 
 // Sizes
-$height-title-bar: 48px;
+$height-header-bar: 48px;
 $height-menu-selected: 32px;
+$height-footer: 32px;
 
 html, body {
   font-family: $font-stack;
@@ -30,28 +32,41 @@ html, body {
 
 }
 
-.title-bar {
+.header-bar {
   width: 100%;
-  font-size: 200%;
-  height: $height-title-bar;
-  line-height: $height-title-bar;
+  font-size: 2em;
+  height: $height-header-bar;
+  line-height: $height-header-bar;
   text-align: center;
   color: $white;
   background: $light;
 }
 
 .router-view {
-
+  min-height: calc(100% - #{$height-footer} -  #{$height-header-bar});
 }
 
-.menu-selected {
+.footer {
   width: 100%;
-  font-size: 100%;
+  font-size: 0.75em;
+  height: $height-footer;
+  padding: 3em 0 1em;
+  text-align: center;
+  color: $gray-dark;
+}
+
+%bar {
+  width: 100%;
+  font-size: 1em;
   height: $height-menu-selected;
   line-height: $height-menu-selected;
   color: $white;
-  background: $dark;
   text-align: center;
+}
+
+.menu-selected-name {
+  @extend %bar;
+  background: $darker;
 
   // Scroll-then-fix
   position: -webkit-sticky;
@@ -59,8 +74,13 @@ html, body {
   top: 0;
 }
 
+.menu-selected-date {
+  @extend %bar;
+  background: $dark;
+}
+
 .menu-list {
-  font-size: 150%;
+  font-size: 1.5em;
 }
 
 .list-group {
@@ -73,9 +93,14 @@ html, body {
   display: flex;
   align-items: center;
   padding: 10px 8px;
-  border-bottom: dotted 1px $gray-soft;
+  border-bottom: dotted 1px $gray-light;
   clear: both;
 }
+
+.list-group-item:last-child {
+  border: none;
+}
+
 
 .list-group-item-text {
   flex: 80%;
@@ -93,5 +118,3 @@ html, body {
   text-align: center;
   float: right;
 }
-
-
