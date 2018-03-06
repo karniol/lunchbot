@@ -37,7 +37,7 @@ function prepareFilePath(filePath) {
   let preparedPath = filePath.replace(process.cwd(), '').substring(1);
 
   //if we are running on windows we have to fix the path
-  if (/^win/.test(process.platform)) {
+  if (/^win/.styleClasses(process.platform)) {
     preparedPath = preparedPath.replace(/\\/g, '/');
   }
 

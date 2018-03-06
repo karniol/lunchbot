@@ -1,25 +1,54 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
 
 // Font
-$font-stack: 'Montserrat', 'Arial', sans-serif;
+$font-stack: 'Roboto Condensed', 'Arial', sans-serif;
 
 // Colors
-$black: rgb(18, 23, 10);
-$white: rgb(255, 255, 238);
-$gray-light: rgb(229, 229, 212);
-$gray-dark: rgb(115, 115, 106);
-$light: rgb(186, 191, 76);
-$dark: rgb(154, 159, 67);
-$darker: rgb(106, 111, 52);
-$darkest: rgb(58, 63, 31);
+$black: rgb(25, 25, 25);
+$white: rgb(245, 245, 245);
+$gray-light: rgb(229, 224, 212);
+$gray-dark: rgb(115, 110, 106);
+
+$salmon: #fa7c92; $salmon-accent: #251212;
+$ocean: #6ec4db; $ocean-accent: #142329;
+$moon: #fff7c0; $moon-accent: #2f2a21;
+$forest: #66ab8c; $forest-accent: #102820;
 
 // Sizes
 $height-header-bar: 48px;
-$height-menu-selected: 32px;
+$height-menu-bar: 32px;
 $height-footer: 32px;
 
+// Styles
+.salmon {
+  color: $salmon-accent;
+  background-color: $salmon;
+}
+
+.ocean {
+  color: $ocean-accent;
+  background-color: $ocean;
+}
+
+.moon {
+  color: $moon-accent;
+  background-color: $moon;
+}
+
+.forest {
+  color: $forest-accent;
+  background-color: $forest;
+}
+
+.slate {
+  color: $white;
+  background-color: $black;
+}
+
+// Selectors
 html, body {
   font-family: $font-stack;
+  font-weight: 400;
   font-size: 16px;
   color: $black;
   height: 100%;
@@ -28,45 +57,33 @@ html, body {
   overflow-x: hidden;
 }
 
-.container {
-
-}
-
-.header-bar {
-  width: 100%;
-  font-size: 2em;
-  height: $height-header-bar;
-  line-height: $height-header-bar;
-  text-align: center;
-  color: $white;
-  background: $light;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .router-view {
-  min-height: calc(100% - #{$height-footer} -  #{$height-header-bar});
-}
-
-.footer {
-  width: 100%;
-  font-size: 0.75em;
-  height: $height-footer;
-  padding: 3em 0 1em;
-  text-align: center;
-  color: $gray-dark;
+  min-height: calc(100% - #{$height-footer} - #{$height-header-bar} - 4em);
 }
 
 %bar {
   width: 100%;
   font-size: 1em;
-  height: $height-menu-selected;
-  line-height: $height-menu-selected;
-  color: $white;
   text-align: center;
 }
 
-.menu-selected-name {
+.header-bar {
   @extend %bar;
-  background: $darker;
+  font-size: 2em;
+  height: $height-header-bar;
+  line-height: $height-header-bar;
+  background: $white;
+}
+
+.menu-name-bar {
+  @extend %bar;
+  height: $height-menu-bar;
+  line-height: $height-menu-bar;
 
   // Scroll-then-fix
   position: -webkit-sticky;
@@ -74,9 +91,10 @@ html, body {
   top: 0;
 }
 
-.menu-selected-date {
+.menu-date-bar {
   @extend %bar;
-  background: $dark;
+  height: $height-menu-bar;
+  line-height: $height-menu-bar;
 }
 
 .menu-list {
@@ -89,7 +107,22 @@ html, body {
   list-style: none;
 }
 
-.list-group-item {
+.restaurant-list {
+}
+
+.restaurant-list-group-item {
+  padding: 16px 16px;
+}
+
+.restaurant-list-group-item-text {
+  font-weight: 700;
+  flex: 100%;
+  font-size: 2em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.menu-list-group-item {
   display: flex;
   align-items: center;
   padding: 10px 8px;
@@ -97,12 +130,11 @@ html, body {
   clear: both;
 }
 
-.list-group-item:last-child {
+.menu-list-group-item:last-child {
   border: none;
 }
 
-
-.list-group-item-text {
+.menu-list-group-item-text {
   flex: 80%;
   box-sizing: border-box;
   padding-right: 3%;
@@ -111,10 +143,19 @@ html, body {
   overflow: hidden;
 }
 
-.list-group-item-tag {
-  color: $darkest;
+.menu-list-group-item-tag {
+  color: $black;
   border-radius: 4px;
   padding: 4px 6px;
   text-align: center;
   float: right;
+}
+
+.footer {
+  width: 100%;
+  font-size: 0.75em;
+  height: $height-footer;
+  padding: 3em 0 1em;
+  text-align: center;
+  color: $gray-dark;
 }

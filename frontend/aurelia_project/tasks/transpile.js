@@ -19,7 +19,7 @@ function configureEnvironment() {
 
 function buildJavaScript() {
   return gulp.src(project.transpiler.source)
-    .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
+    .pipe(plumber({errorHandler: notify.onError('Error: <%= error.error %>')}))
     .pipe(changedInPlace({firstPass: true}))
     .pipe(sourcemaps.init())
     .pipe(babel(project.transpiler.options))
