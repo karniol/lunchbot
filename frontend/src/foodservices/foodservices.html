@@ -1,0 +1,9 @@
+<template>
+  <div class="food-services-list">
+    <ul class="list-group">
+      <li repeat.for="name of fakeFoodServiceList" class="food-services-list-group-item style-class-${styleClasses[$index % styleClasses.length]}">
+        <a href="menu"><div class="food-services-list-group-item-text">${name}</div></a>
+      </li>
+    </ul>
+  </div>
+</template>

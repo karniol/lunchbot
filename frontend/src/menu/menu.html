@@ -1,7 +1,6 @@
 <template>
-  <div if.bind="!successfulRequest" class="menu-name-bar salmon">Could not fetch data</div>
-  <div if.bind="successfulRequest" class="menu-date-bar slate">${data.date}</div>
-  <div if.bind="successfulRequest" class="menu-name-bar slate">${data.name}</div>
+  <div if.bind="successfulRequest" class="menu-top-bar style-class-0">${data.date}</div>
+  <div if.bind="successfulRequest" class="menu-top-bar style-class-0">${data.name}</div>
   <div class="menu-list">
     <ul class="list-group">
       <li repeat.for="menuItem of data.menuItems" class="menu-list-group-item">
@@ -10,4 +9,5 @@
       </li>
     </ul>
   </div>
+  <a href="/"><img class="button-back" src="/src/resources/img/button-back.png"></a>
 </template>

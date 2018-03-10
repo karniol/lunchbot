@@ -36,9 +36,9 @@ public class CafeController {
         return cafeService.getCafeById(cafeId);
     }
 
-    @CrossOrigin(origins = "http://localhost:9000")
     // TODO: Configure CORS so Aurelia can access data
-    @RequestMapping(value = "/cafes/{cafe-id}/menu", method=RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:9000")
+    @GetMapping(value = "/cafes/{cafe-id}/menu")
     // TODO: @GetMapping can be used instead of @RequestMapping(method=RequestMethod.GET)
     public Menu getTodayMenuByCafeId(@PathVariable("cafe-id") long cafeId) {
         return cafeService.getMenuOfToday(cafeId);
