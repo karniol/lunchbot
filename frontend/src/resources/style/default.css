@@ -26,17 +26,20 @@ html, body {
   color: #191919;
   height: 100%;
   width: 100%;
-  max-width: 100%;
+  margin: auto;
   overflow-x: hidden; }
+
+main {
+  position: relative;
+  margin: 0;
+  min-height: calc(100% - 6em);
+  padding-bottom: 6em; }
 
 a {
   text-decoration: none;
   color: inherit; }
 
-.router-view {
-  min-height: calc(100% - 32px - 48px - 4em); }
-
-.header-bar, .menu-name-bar, .menu-date-bar {
+.header-bar, .menu-top-bar, .menu-bottom-bar {
   width: 100%;
   font-size: 1em;
   text-align: center; }
@@ -47,24 +50,30 @@ a {
   line-height: 48px;
   background: whitesmoke; }
 
-.menu-name-bar {
+.menu-top-bar {
   height: 32px;
   line-height: 32px;
   position: -webkit-sticky;
   position: sticky;
   top: 0; }
 
-.menu-date-bar {
+.menu-bottom-bar {
   height: 32px;
   line-height: 32px; }
 
 .menu-list {
-  font-size: 1.5em; }
+  font-size: 1.5em;
+  max-width: 1024px;
+  margin: auto; }
 
 .list-group {
   margin: 0;
   padding: 0;
   list-style: none; }
+
+.food-services-list {
+  max-width: 1024px;
+  margin: auto; }
 
 .food-services-list-group-item {
   padding: 16px 16px; }
@@ -102,11 +111,21 @@ a {
   float: right; }
 
 .footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   font-size: 0.75em;
   height: 32px;
-  padding: 3em 0 1em;
   text-align: center;
   color: #736e6a; }
+
+.button-back {
+  position: fixed;
+  bottom: 1em;
+  left: 1em;
+  width: 5em;
+  max-width: 20%; }
 
 /*# sourceMappingURL=default.css.map */
