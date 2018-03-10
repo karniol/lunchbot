@@ -1,4 +1,4 @@
-package com.ttu.lunchbot.menuparser;
+package com.ttu.lunchbot.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,7 +30,7 @@ public class Menu {
      * @param date Date associated with this Menu. Every menu is associated with a date
      *             for which the stored MenuItems are relevant.
      */
-    Menu(String name, Calendar date) {
+    public Menu(String name, Calendar date) {
         this.items = new ArrayList<>();
         this.name = name;
         this.date = date;
@@ -62,7 +62,7 @@ public class Menu {
      * @param item MenuItem object
      * @see MenuItem
      */
-    void addItem(MenuItem item) {
+    public void addItem(MenuItem item) {
         this.items.add(item);
     }
 

@@ -1,4 +1,7 @@
-package com.ttu.lunchbot.menuparser;
+package com.ttu.lunchbot.parser.menu;
+
+import com.ttu.lunchbot.model.Menu;
+import com.ttu.lunchbot.model.MenuItem;
 
 import java.math.BigDecimal;
 import java.text.DateFormatSymbols;

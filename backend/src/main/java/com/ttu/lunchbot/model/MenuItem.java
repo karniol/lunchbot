@@ -1,4 +1,4 @@
-package com.ttu.lunchbot.menuparser;
+package com.ttu.lunchbot.model;
 
 import java.math.BigDecimal;
 import java.util.Currency;
@@ -24,7 +24,7 @@ public class MenuItem {
     /**
      * Create a new empty MenuItem.
      */
-    MenuItem() {
+    public MenuItem() {
         this.names = new HashMap<>();
         this.prices = new HashMap<>();
     }
@@ -34,7 +34,7 @@ public class MenuItem {
      * @param locale Locale associated with the name.
      * @param name Name of the MenuItem.
      */
-    void addName(Locale locale, String name) {
+    public void addName(Locale locale, String name) {
         this.names.put(locale, name);
     }
 
@@ -43,7 +43,7 @@ public class MenuItem {
      * @param currency Currency associated with the price.
      * @param price Price of the MenuItem.
      */
-    void addPrice(Currency currency, BigDecimal price) {
+    public void addPrice(Currency currency, BigDecimal price) {
         this.prices.put(currency, price);
     }
 

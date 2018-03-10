@@ -1,4 +1,6 @@
-package com.ttu.lunchbot.menuparser;
+package com.ttu.lunchbot.parser.menu;
+
+import com.ttu.lunchbot.model.Menu;
 
 import java.util.ArrayList;
 

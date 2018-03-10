@@ -1,6 +1,6 @@
-package com.ttu.lunchbot.spring.repositories;
+package com.ttu.lunchbot.spring.repository;
 
-import com.ttu.lunchbot.spring.models.MenuItem;
+import com.ttu.lunchbot.spring.model.MenuItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
