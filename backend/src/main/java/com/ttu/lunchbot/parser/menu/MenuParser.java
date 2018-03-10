@@ -1,4 +1,4 @@
-package com.ttu.lunchbot.menuparser;
+package com.ttu.lunchbot.parser.menu;
 
 import com.ttu.lunchbot.model.Menu;
 import org.apache.pdfbox.pdmodel.PDDocument;

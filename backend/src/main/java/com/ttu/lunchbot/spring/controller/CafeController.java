@@ -1,9 +1,9 @@
-package com.ttu.lunchbot.spring.controllers;
+package com.ttu.lunchbot.spring.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.ttu.lunchbot.spring.models.Cafe;
-import com.ttu.lunchbot.spring.models.Menu;
-import com.ttu.lunchbot.spring.services.CafeService;
+import com.ttu.lunchbot.spring.model.Cafe;
+import com.ttu.lunchbot.spring.model.Menu;
+import com.ttu.lunchbot.spring.service.CafeService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 

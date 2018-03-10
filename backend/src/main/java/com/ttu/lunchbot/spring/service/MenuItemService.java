@@ -1,7 +1,7 @@
-package com.ttu.lunchbot.spring.services;
+package com.ttu.lunchbot.spring.service;
 
-import com.ttu.lunchbot.spring.models.MenuItem;
-import com.ttu.lunchbot.spring.repositories.MenuItemRepository;
+import com.ttu.lunchbot.spring.model.MenuItem;
+import com.ttu.lunchbot.spring.repository.MenuItemRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

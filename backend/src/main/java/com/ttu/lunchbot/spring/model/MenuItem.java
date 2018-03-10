@@ -1,4 +1,4 @@
-package com.ttu.lunchbot.spring.models;
+package com.ttu.lunchbot.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;

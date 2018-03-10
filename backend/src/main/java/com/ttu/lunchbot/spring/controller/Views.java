@@ -1,4 +1,4 @@
-package com.ttu.lunchbot.spring.controllers;
+package com.ttu.lunchbot.spring.controller;
 
 public class Views {
 

@@ -1,13 +1,13 @@
-package com.ttu.lunchbot.spring.services;
+package com.ttu.lunchbot.spring.service;
 
-import com.ttu.lunchbot.converter.CalendarConverter;
-import com.ttu.lunchbot.menuparser.BalticRestaurantMenuParserStrategy;
-import com.ttu.lunchbot.spring.models.Cafe;
-import com.ttu.lunchbot.spring.models.MenuItem;
-import com.ttu.lunchbot.spring.models.Menu;
-import com.ttu.lunchbot.menuparser.MenuParser;
-import com.ttu.lunchbot.spring.repositories.CafeRepository;
-import com.ttu.lunchbot.spring.repositories.MenuRepository;
+import com.ttu.lunchbot.util.CalendarConverter;
+import com.ttu.lunchbot.parser.menu.BalticRestaurantMenuParserStrategy;
+import com.ttu.lunchbot.spring.model.Cafe;
+import com.ttu.lunchbot.spring.model.MenuItem;
+import com.ttu.lunchbot.spring.model.Menu;
+import com.ttu.lunchbot.parser.menu.MenuParser;
+import com.ttu.lunchbot.spring.repository.CafeRepository;
+import com.ttu.lunchbot.spring.repository.MenuRepository;
 import org.springframework.stereotype.Service;
 
 import org.apache.commons.io.FileUtils;

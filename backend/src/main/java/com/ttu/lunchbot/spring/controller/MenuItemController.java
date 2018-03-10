@@ -1,7 +1,7 @@
-package com.ttu.lunchbot.spring.controllers;
+package com.ttu.lunchbot.spring.controller;
 
-import com.ttu.lunchbot.spring.models.MenuItem;
-import com.ttu.lunchbot.spring.services.MenuItemService;
+import com.ttu.lunchbot.spring.model.MenuItem;
+import com.ttu.lunchbot.spring.service.MenuItemService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

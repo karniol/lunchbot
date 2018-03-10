@@ -1,6 +1,6 @@
-package com.ttu.lunchbot.converter;
+package com.ttu.lunchbot.util;
 
-import com.ttu.lunchbot.spring.models.Menu;
+import com.ttu.lunchbot.spring.model.Menu;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

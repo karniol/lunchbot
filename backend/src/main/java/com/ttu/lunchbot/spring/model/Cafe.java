@@ -1,8 +1,8 @@
-package com.ttu.lunchbot.spring.models;
+package com.ttu.lunchbot.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.ttu.lunchbot.spring.controllers.Views;
+import com.ttu.lunchbot.spring.controller.Views;
 import lombok.Getter;
 import lombok.Setter;
 
