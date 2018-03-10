@@ -48,7 +48,7 @@ public class ParseService {
             File newFile = new File(destination);
             FileUtils.copyURLToFile(new URL(cafe.getMenuURL()), newFile, 10000, 10000);
 
-            ArrayList<com.ttu.lunchbot.menuparser.Menu> menuList = menuParser.parseMenus(newFile);
+            ArrayList<com.ttu.lunchbot.model.Menu> menuList = menuParser.parseMenus(newFile);
 
             return getMenus(cafe, menuList);
         } catch (IOException e) {
@@ -65,18 +65,18 @@ public class ParseService {
         return parsedMenus;
     }
 
-    private List<Menu> getMenus(Cafe cafe, ArrayList<com.ttu.lunchbot.menuparser.Menu> menuList) {
+    private List<Menu> getMenus(Cafe cafe, ArrayList<com.ttu.lunchbot.model.Menu> menuList) {
         List<Menu> menus = new ArrayList<>();
         CalendarConverter calendarConverter = new CalendarConverter();
 
         List<LocalDate> datesOfSavedMenus = getDatesOfSavedCafeMenus(cafe);
 
-        for (com.ttu.lunchbot.menuparser.Menu parsedMenu : menuList) {
+        for (com.ttu.lunchbot.model.Menu parsedMenu : menuList) {
             if (menuWithSameDateExists(datesOfSavedMenus, calendarConverter, parsedMenu)) continue;
 
             // TODO make it possible to use a different language and a different currency
             Menu menu = new Menu(parsedMenu.getName(), parsedMenu.getDate(), cafe);
-            for (com.ttu.lunchbot.menuparser.MenuItem parsedItem : parsedMenu.getItems()) {
+            for (com.ttu.lunchbot.model.MenuItem parsedItem : parsedMenu.getItems()) {
                 Currency currency = parsedItem.getPrices().keySet().stream().findAny().get();
                 MenuItem item = new MenuItem(
                         parsedItem.getNames().values().stream().findAny().get(),
@@ -100,7 +100,7 @@ public class ParseService {
     }
 
     private boolean menuWithSameDateExists(List<LocalDate> savedMenuDates, CalendarConverter calendarConverter,
-                                           com.ttu.lunchbot.menuparser.Menu parsedMenu) {
+                                           com.ttu.lunchbot.model.Menu parsedMenu) {
         for (LocalDate savedDate : savedMenuDates) {
             if (calendarConverter.calendarToLocalDate(parsedMenu.getDate())
                     .equals(savedDate)) {
