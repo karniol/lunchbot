@@ -12,13 +12,7 @@ export class FoodServices {
       "Spordihoone kohvik"
     ];
 
-    this.styleClasses = {
-      salmon: 0,
-      ocean: 0,
-      moon: 0,
-      forest: 0
-    };
-
-    this.styleClassKeys = Object.keys(this.styleClasses);
+    // Style class identifiers, see resources/style/default.scss
+    this.styleClasses = [1, 2, 3, 4];
   }
 }

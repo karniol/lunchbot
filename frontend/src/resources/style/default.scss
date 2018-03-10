@@ -20,29 +20,29 @@ $height-menu-bar: 32px;
 $height-footer: 32px;
 
 // Styles
-.salmon {
+.style-class-0 {
+  color: $white;
+  background-color: $black;
+}
+
+.style-class-1 {
   color: $salmon-accent;
   background-color: $salmon;
 }
 
-.ocean {
+.style-class-2 {
   color: $ocean-accent;
   background-color: $ocean;
 }
 
-.moon {
+.style-class-3 {
   color: $moon-accent;
   background-color: $moon;
 }
 
-.forest {
+.style-class-4 {
   color: $forest-accent;
   background-color: $forest;
-}
-
-.slate {
-  color: $white;
-  background-color: $black;
 }
 
 // Selectors

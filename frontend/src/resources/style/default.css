@@ -1,23 +1,23 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700");
-.salmon {
+.style-class-0 {
+  color: whitesmoke;
+  background-color: #191919; }
+
+.style-class-1 {
   color: #251212;
   background-color: #fa7c92; }
 
-.ocean {
+.style-class-2 {
   color: #142329;
   background-color: #6ec4db; }
 
-.moon {
+.style-class-3 {
   color: #2f2a21;
   background-color: #fff7c0; }
 
-.forest {
+.style-class-4 {
   color: #102820;
   background-color: #66ab8c; }
-
-.slate {
-  color: whitesmoke;
-  background-color: #191919; }
 
 html, body {
   font-family: "Roboto Condensed", "Arial", sans-serif;
