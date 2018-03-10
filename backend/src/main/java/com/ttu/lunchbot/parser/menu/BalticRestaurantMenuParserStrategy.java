@@ -31,11 +31,13 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
 
     /**
      * Locale language tag for Estonian as listed in the Java Locale specification.
+     * @see Locale
      */
     private static final String LANGUAGE_TAG = "et";
 
     /**
      * Currency tag for Euros as listed in the Java Currency specification.
+     * @see Currency
      */
     private static final String CURRENCY_TAG = "EUR";
 

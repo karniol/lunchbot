@@ -65,13 +65,4 @@ public class MenuParser {
     public ArrayList<Menu> parseMenus(File file) {
         return this.strategy.parse(this.extractLines(file));
     }
-
-    public static void main(String[] args) throws IOException {
-        File file = new File("/Users/Charlie/Desktop/menu1.pdf");
-        MenuParser menuParser = new MenuParser(new BalticRestaurantMenuParserStrategy());
-        ArrayList<Menu> menus = menuParser.parseMenus(file);
-        for (Menu menu : menus) {
-            System.out.println(menu);
-        }
-    }
 }
