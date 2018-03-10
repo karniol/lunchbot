@@ -13,9 +13,9 @@ export class App {
         nav: true
       },
 
-      { route: '/list',
-        moduleId: './list/list',
-        name: "list",
+      { route: '/',
+        moduleId: './foodservices/foodservices',
+        name: "foodservices",
         nav: true
       },
     ]);

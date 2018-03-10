@@ -1,6 +1,6 @@
-export class List {
+export class FoodServices {
   constructor() {
-    this.fakeRestaurantList = [
+    this.fakeFoodServiceList = [
       "Peahoone lõunarestoran",
       "Peahoone kohvik",
       "Raamatukogu kohvik",
@@ -20,18 +20,5 @@ export class List {
     };
 
     this.styleClassKeys = Object.keys(this.styleClasses);
-
-    this.lastStyleClass = null;
-  }
-
-  randomStyleClass() {
-    let styleClass = this.styleClassKeys[Math.floor(Math.random() * this.styleClassKeys.length)];
-
-    while (styleClass === this.lastStyleClass) {
-      styleClass = this.styleClassKeys[Math.floor(Math.random() * this.styleClassKeys.length)];
-    }
-
-    this.lastStyleClass = styleClass;
-    return styleClass;
   }
 }

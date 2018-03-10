@@ -66,10 +66,10 @@ a {
   padding: 0;
   list-style: none; }
 
-.restaurant-list-group-item {
+.food-services-list-group-item {
   padding: 16px 16px; }
 
-.restaurant-list-group-item-text {
+.food-services-list-group-item-text {
   font-weight: 700;
   flex: 100%;
   font-size: 2em;
