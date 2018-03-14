@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700");
+.style-class-0 {
+  color: whitesmoke;
+  background-color: #191919; }
+
+.style-class-1 {
+  color: #251212;
+  background-color: #fa7c92; }
+
+.style-class-2 {
+  color: #142329;
+  background-color: #6ec4db; }
+
+.style-class-3 {
+  color: #2f2a21;
+  background-color: #fff7c0; }
+
+.style-class-4 {
+  color: #102820;
+  background-color: #66ab8c; }
+
+html, body {
+  font-family: "Roboto Condensed", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #191919;
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  overflow-x: hidden; }
+
+main {
+  position: relative;
+  margin: 0;
+  min-height: calc(100% - 6em);
+  padding-bottom: 6em; }
+
+a {
+  text-decoration: none;
+  color: inherit; }
+
+.header-bar, .menu-top-bar, .menu-bottom-bar {
+  width: 100%;
+  font-size: 1em;
+  text-align: center; }
+
+.header-bar {
+  font-size: 2em;
+  height: 48px;
+  line-height: 48px;
+  background: whitesmoke; }
+
+.menu-top-bar {
+  height: 32px;
+  line-height: 32px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0; }
+
+.menu-bottom-bar {
+  height: 32px;
+  line-height: 32px; }
+
+.menu-list {
+  font-size: 1.5em;
+  max-width: 1024px;
+  margin: auto; }
+
+.list-group {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.food-services-list {
+  max-width: 1024px;
+  margin: auto; }
+
+.food-services-list-group-item {
+  padding: 16px 16px; }
+
+.food-services-list-group-item-text {
+  font-weight: 700;
+  flex: 100%;
+  font-size: 2em;
+  text-align: center;
+  text-transform: uppercase; }
+
+.menu-list-group-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 8px;
+  border-bottom: dotted 1px #e5e0d4;
+  clear: both; }
+
+.menu-list-group-item:last-child {
+  border: none; }
+
+.menu-list-group-item-text {
+  flex: 80%;
+  box-sizing: border-box;
+  padding-right: 3%;
+  white-space: normal;
+  float: left;
+  overflow: hidden; }
+
+.menu-list-group-item-tag {
+  color: #191919;
+  border-radius: 4px;
+  padding: 4px 6px;
+  text-align: center;
+  float: right; }
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  font-size: 0.75em;
+  height: 32px;
+  text-align: center;
+  color: #736e6a; }
+
+.button-back {
+  position: fixed;
+  bottom: 1em;
+  left: 1em;
+  width: 5em;
+  max-width: 20%; }
+
+/*# sourceMappingURL=default.css.map */

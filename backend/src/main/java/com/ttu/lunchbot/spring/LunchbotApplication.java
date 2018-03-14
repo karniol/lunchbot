@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(scanBasePackages={"com.ttu.lunchbot.spring"})
-@EnableJpaRepositories("com.ttu.lunchbot.spring.repositories")
+@EnableJpaRepositories("com.ttu.lunchbot.spring.repository")
 public class LunchbotApplication {
 
 	public static void main	(String[] args) {

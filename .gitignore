@@ -1,7 +1,5 @@
 ### Java ###
 *.class
-
-### Packages ###
 *.jar
 
 ### Gradle ###
@@ -24,5 +22,10 @@
 *.ipr
 **/out/
 
-### Mac ###
+### OS ###
 .DS_Store
+Thumbs.db
+
+### JS ###
+**/node_modules
+**/scripts
