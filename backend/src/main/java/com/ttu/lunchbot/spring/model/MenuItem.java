@@ -36,8 +36,7 @@ public class MenuItem {
 
     private String name_en;
 
-    @JsonProperty("price_big_decimal")
-    private BigDecimal priceBigDecimal;
+    private BigDecimal price;
 
     private String currency;
 
@@ -45,12 +44,12 @@ public class MenuItem {
 
     }
 
-    public MenuItem(String name_et, String name_en, Menu menu, Currency currency, BigDecimal priceBigDecimal) {
+    public MenuItem(String name_et, String name_en, Menu menu, Currency currency, BigDecimal price) {
         this.name_et = name_et;
         this.name_en = name_en;
         this.menu = menu;
         this.currency = currency.toString();
-        this.priceBigDecimal = priceBigDecimal.setScale(2, RoundingMode.HALF_UP);
+        this.price = price.setScale(2, RoundingMode.HALF_UP);
     }
 
 }

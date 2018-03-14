@@ -44,37 +44,34 @@ public class Menu {
     @JoinColumn(name = "food_service_id", nullable = false)
     private FoodService foodService;
 
-    //@JsonView(Views.NoMenuItems.class)
-    //private String name;
-
     @JsonView(Views.NoMenuItems.class)
-    @JsonFormat(pattern = "dd.MM.yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     public Menu() {
 
     }
 
-    public Menu(String name, FoodService foodService) {
+    public Menu(FoodService foodService) {
         this.foodService = foodService;
     }
 
-    public Menu(String name, List<MenuItem> items) {
+    public Menu(List<MenuItem> items) {
         this.menuItems = items;
     }
 
-    public Menu(String name, List<MenuItem> items, FoodService foodService) {
+    public Menu(List<MenuItem> items, FoodService foodService) {
         this.menuItems = items;
         this.foodService = foodService;
     }
 
-    public Menu(String name, Calendar calendar, List<MenuItem> items, FoodService foodService) {
+    public Menu(Calendar calendar, List<MenuItem> items, FoodService foodService) {
         this.menuItems = items;
         this.foodService = foodService;
         this.date = new CalendarConverter().calendarToLocalDate(calendar);
     }
 
-    public Menu(String name, Calendar calendar, FoodService foodService) {
+    public Menu(Calendar calendar, FoodService foodService) {
         this.foodService = foodService;
         this.date = new CalendarConverter().calendarToLocalDate(calendar);
     }

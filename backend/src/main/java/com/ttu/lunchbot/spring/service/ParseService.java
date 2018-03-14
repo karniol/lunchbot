@@ -82,7 +82,7 @@ public class ParseService {
             if (menuWithSameDateExists(datesOfSavedMenus, calendarConverter, parsedMenu)) continue;
 
             // TODO make it possible to use a different language and a different currency
-            Menu menu = new Menu(parsedMenu.getName(), parsedMenu.getDate(), foodService);
+            Menu menu = new Menu(parsedMenu.getDate(), foodService);
             for (com.ttu.lunchbot.model.MenuItem parsedItem : parsedMenu.getItems()) {
                 Currency currency = Currency.getInstance(Locale.forLanguageTag(EST_LANGUAGE_TAG));
                 MenuItem item = new MenuItem(
