@@ -1,11 +1,11 @@
 package com.ttu.lunchbot.spring.service;
 
-import com.ttu.lunchbot.spring.exceptions.ResourceNotFoundException;
 import com.ttu.lunchbot.util.CalendarConverter;
 import com.ttu.lunchbot.spring.model.Cafe;
 import com.ttu.lunchbot.spring.model.Menu;
 import com.ttu.lunchbot.spring.repository.CafeRepository;
 import com.ttu.lunchbot.spring.repository.MenuRepository;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
