@@ -20,9 +20,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class ParseService {
+
+    private String ENG_LANGUAGE_TAG = "en";
+
+    private String EST_LANGUAGE_TAG = "et";
 
     private MenuService menuService;
 
@@ -79,10 +84,12 @@ public class ParseService {
             // TODO make it possible to use a different language and a different currency
             Menu menu = new Menu(parsedMenu.getName(), parsedMenu.getDate(), foodService);
             for (com.ttu.lunchbot.model.MenuItem parsedItem : parsedMenu.getItems()) {
-                Currency currency = parsedItem.getPrices().keySet().stream().findAny().get();
+                Currency currency = Currency.getInstance(Locale.forLanguageTag(EST_LANGUAGE_TAG));
                 MenuItem item = new MenuItem(
+                        parsedItem.getName(Locale.forLanguageTag(EST_LANGUAGE_TAG)),
+                        parsedItem.getName(Locale.forLanguageTag(ENG_LANGUAGE_TAG)),
                         menu,
-                        parsedItem.getPrices().keySet().stream().findAny().get(),
+                        currency,
                         parsedItem.getPrice(currency)
                 );
                 menu.getMenuItems().add(item);

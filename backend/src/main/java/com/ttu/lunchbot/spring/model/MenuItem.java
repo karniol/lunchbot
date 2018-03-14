@@ -45,7 +45,9 @@ public class MenuItem {
 
     }
 
-    public MenuItem(Menu menu, Currency currency, BigDecimal priceBigDecimal) {
+    public MenuItem(String name_et, String name_en, Menu menu, Currency currency, BigDecimal priceBigDecimal) {
+        this.name_et = name_et;
+        this.name_en = name_en;
         this.menu = menu;
         this.currency = currency.toString();
         this.priceBigDecimal = priceBigDecimal.setScale(2, RoundingMode.HALF_UP);
