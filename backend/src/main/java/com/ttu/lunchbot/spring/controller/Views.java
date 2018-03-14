@@ -5,6 +5,6 @@ public class Views {
     public static class NoMenuItems {
     }
 
-    public class NoCafeMenus {
+    public class NoFoodServiceMenus {
     }
 }

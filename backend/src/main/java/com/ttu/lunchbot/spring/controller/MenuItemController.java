@@ -3,7 +3,9 @@ package com.ttu.lunchbot.spring.controller;
 import com.ttu.lunchbot.spring.model.MenuItem;
 import com.ttu.lunchbot.spring.service.MenuItemService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,28 +23,19 @@ public class MenuItemController {
         this.menuItemService = menuItemService;
     }
 
-    @RequestMapping(value="/menuitems", method=RequestMethod.GET)
+    @GetMapping(value="/menuitems")
     public List<MenuItem> getAllMenuItems() {
         return menuItemService.getAllMenuItems();
     }
 
-    @RequestMapping(value = "/menuitems/{id}", method=RequestMethod.GET)
+    @GetMapping(value = "/menuitems/{id}")
     public MenuItem getMenuItems(@PathVariable("id") long menuItemId) {
         return menuItemService.getMenuItemById(menuItemId);
     }
 
-    @RequestMapping(value="/menuitems/add", method=RequestMethod.POST,
-            consumes = "application/json")
+    @PostMapping(value="/menuitems", consumes = "application/json")
     public MenuItem addMenuItem(@RequestBody MenuItem menuItem) {
         return menuItemService.addMenuItem(menuItem);
-    }
-
-    // For checking if intellij is running the correct version of this
-    // spring application, as it seems to bug on my laptop
-    // TODO remove function when laptop is fixed
-    @RequestMapping(value="/check1")
-    public String check() {
-        return "Check one!";
     }
 
 }

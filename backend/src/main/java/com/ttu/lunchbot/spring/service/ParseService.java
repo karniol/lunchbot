@@ -1,12 +1,12 @@
 package com.ttu.lunchbot.spring.service;
 
+import com.ttu.lunchbot.spring.model.FoodService;
 import com.ttu.lunchbot.util.CalendarConverter;
 import com.ttu.lunchbot.parser.menu.BalticRestaurantMenuParserStrategy;
-import com.ttu.lunchbot.spring.model.Cafe;
 import com.ttu.lunchbot.spring.model.MenuItem;
 import com.ttu.lunchbot.spring.model.Menu;
 import com.ttu.lunchbot.parser.menu.MenuParser;
-import com.ttu.lunchbot.spring.repository.CafeRepository;
+import com.ttu.lunchbot.spring.repository.FoodServiceRepository;
 import com.ttu.lunchbot.spring.repository.MenuRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -26,62 +26,61 @@ public class ParseService {
 
     private MenuService menuService;
 
-    private CafeRepository cafeRepository;
+    private FoodServiceRepository foodServiceRepository;
 
     private MenuRepository menuRepository;
 
-    public ParseService(MenuService menuService, CafeRepository cafeRepository, MenuRepository menuRepository) {
+    public ParseService(MenuService menuService, FoodServiceRepository foodServiceRepository, MenuRepository menuRepository) {
         this.menuService = menuService;
-        this.cafeRepository = cafeRepository;
+        this.foodServiceRepository = foodServiceRepository;
         this.menuRepository = menuRepository;
     }
 
-    public List<Menu> parseCafeMenu(long cafeId) {
-        return parseCafeMenu(cafeRepository.findOne(cafeId));
+    public List<Menu> parseFoodServiceMenu(long cafeId) {
+        return parseFoodServiceMenu(foodServiceRepository.findOne(cafeId));
     }
 
-    public List<Menu> parseCafeMenu(Cafe cafe) {
+    public List<Menu> parseFoodServiceMenu(FoodService foodService) {
         try {
-            if (cafe == null) throw new ResourceNotFoundException("Cafe not found");
+            if (foodService == null) throw new ResourceNotFoundException("Food service not found");
             // TODO make other restaurants use their specific strategies
             MenuParser menuParser = new MenuParser(new BalticRestaurantMenuParserStrategy());
-            String destination = "/tmp/" + cafe.getName() + ".pdf";
+            String destination = "/tmp/" + foodService.getName() + ".pdf";
 
             File newFile = new File(destination);
-            FileUtils.copyURLToFile(new URL(cafe.getMenuURL()), newFile, 10000, 10000);
+            FileUtils.copyURLToFile(new URL(foodService.getMenuURL()), newFile, 10000, 10000);
 
             ArrayList<com.ttu.lunchbot.model.Menu> menuList = menuParser.parseMenus(newFile);
 
-            return getMenus(cafe, menuList);
+            return getMenus(foodService, menuList);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public List<Menu> parseAllCafeMenus() {
+    public List<Menu> parseAllFoodServiceMenus() {
         List<Menu> parsedMenus = new ArrayList<>();
-        for (Cafe cafe : cafeRepository.findAll()) {
-            parsedMenus.addAll(parseCafeMenu(cafe));
+        for (FoodService foodService : foodServiceRepository.findAll()) {
+            parsedMenus.addAll(parseFoodServiceMenu(foodService));
         }
         return parsedMenus;
     }
 
-    private List<Menu> getMenus(Cafe cafe, ArrayList<com.ttu.lunchbot.model.Menu> menuList) {
+    private List<Menu> getMenus(FoodService foodService, ArrayList<com.ttu.lunchbot.model.Menu> menuList) {
         List<Menu> menus = new ArrayList<>();
         CalendarConverter calendarConverter = new CalendarConverter();
 
-        List<LocalDate> datesOfSavedMenus = getDatesOfSavedCafeMenus(cafe);
+        List<LocalDate> datesOfSavedMenus = getDatesOfSavedMenusOfFoodService(foodService);
 
         for (com.ttu.lunchbot.model.Menu parsedMenu : menuList) {
             if (menuWithSameDateExists(datesOfSavedMenus, calendarConverter, parsedMenu)) continue;
 
             // TODO make it possible to use a different language and a different currency
-            Menu menu = new Menu(parsedMenu.getName(), parsedMenu.getDate(), cafe);
+            Menu menu = new Menu(parsedMenu.getName(), parsedMenu.getDate(), foodService);
             for (com.ttu.lunchbot.model.MenuItem parsedItem : parsedMenu.getItems()) {
                 Currency currency = parsedItem.getPrices().keySet().stream().findAny().get();
                 MenuItem item = new MenuItem(
-                        parsedItem.getNames().values().stream().findAny().get(),
                         menu,
                         parsedItem.getPrices().keySet().stream().findAny().get(),
                         parsedItem.getPrice(currency)
@@ -93,9 +92,9 @@ public class ParseService {
         return menus;
     }
 
-    private List<LocalDate> getDatesOfSavedCafeMenus(Cafe cafe) {
+    private List<LocalDate> getDatesOfSavedMenusOfFoodService(FoodService foodService) {
         List<LocalDate> datesOfSavedMenus = new ArrayList<>();
-        for (Menu repositoryMenu : menuRepository.findByCafe_Id(cafe.getId())) {
+        for (Menu repositoryMenu : menuRepository.findByFoodServiceId(foodService.getId())) {
             datesOfSavedMenus.add(repositoryMenu.getDate());
         }
         return datesOfSavedMenus;

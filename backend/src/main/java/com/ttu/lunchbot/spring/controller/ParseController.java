@@ -21,11 +21,11 @@ public class ParseController {
 
     @RequestMapping(value="/parse/{cafe-id}")
     public List<Menu> parseMenu(@PathVariable("cafe-id") long cafeId) {
-        return parseService.parseCafeMenu(cafeId);
+        return parseService.parseFoodServiceMenu(cafeId);
     }
 
     @RequestMapping(value="/parse/all")
     public List<Menu> parseAll() {
-        return parseService.parseAllCafeMenus();
+        return parseService.parseAllFoodServiceMenus();
     }
 }

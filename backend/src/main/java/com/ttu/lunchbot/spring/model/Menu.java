@@ -41,11 +41,11 @@ public class Menu {
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "cafe_id", nullable = false)
-    private Cafe cafe;
+    @JoinColumn(name = "food_service_id", nullable = false)
+    private FoodService foodService;
 
-    @JsonView(Views.NoMenuItems.class)
-    private String name;
+    //@JsonView(Views.NoMenuItems.class)
+    //private String name;
 
     @JsonView(Views.NoMenuItems.class)
     @JsonFormat(pattern = "dd.MM.yyyy")
@@ -55,32 +55,27 @@ public class Menu {
 
     }
 
-    public Menu(String name, Cafe cafe) {
-        this.name = name;
-        this.cafe = cafe;
+    public Menu(String name, FoodService foodService) {
+        this.foodService = foodService;
     }
 
     public Menu(String name, List<MenuItem> items) {
-        this.name = name;
         this.menuItems = items;
     }
 
-    public Menu(String name, List<MenuItem> items, Cafe cafe) {
-        this.name = name;
+    public Menu(String name, List<MenuItem> items, FoodService foodService) {
         this.menuItems = items;
-        this.cafe = cafe;
+        this.foodService = foodService;
     }
 
-    public Menu(String name, Calendar calendar, List<MenuItem> items, Cafe cafe) {
-        this.name = name;
+    public Menu(String name, Calendar calendar, List<MenuItem> items, FoodService foodService) {
         this.menuItems = items;
-        this.cafe = cafe;
+        this.foodService = foodService;
         this.date = new CalendarConverter().calendarToLocalDate(calendar);
     }
 
-    public Menu(String name, Calendar calendar, Cafe cafe) {
-        this.name = name;
-        this.cafe = cafe;
+    public Menu(String name, Calendar calendar, FoodService foodService) {
+        this.foodService = foodService;
         this.date = new CalendarConverter().calendarToLocalDate(calendar);
     }
 

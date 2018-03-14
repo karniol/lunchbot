@@ -20,7 +20,7 @@ import java.util.Currency;
 @Entity
 @Getter
 @Setter
-@Table(name = "menuitems")
+@Table(name = "menu_items")
 public class MenuItem {
 
     @Id
@@ -32,27 +32,23 @@ public class MenuItem {
     @JoinColumn(name = "menu_id", nullable = false)
     private Menu menu;
 
-    private String name;
+    private String name_et;
 
-    private String currency;
+    private String name_en;
 
     @JsonProperty("price_big_decimal")
     private BigDecimal priceBigDecimal;
 
-    @JsonProperty("price_string")
-    private String priceString;
-
+    private String currency;
 
     public MenuItem() {
 
     }
 
-    public MenuItem(String name, Menu menu, Currency currency, BigDecimal priceBigDecimal) {
-        this.name = name;
+    public MenuItem(Menu menu, Currency currency, BigDecimal priceBigDecimal) {
         this.menu = menu;
         this.currency = currency.toString();
         this.priceBigDecimal = priceBigDecimal.setScale(2, RoundingMode.HALF_UP);
-        this.priceString = "€" + this.priceBigDecimal.toString();
     }
 
 }

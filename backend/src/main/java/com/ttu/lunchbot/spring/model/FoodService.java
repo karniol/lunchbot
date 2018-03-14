@@ -6,6 +6,7 @@ import com.ttu.lunchbot.spring.controller.Views;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,27 +19,34 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
-@Table(name = "cafes")
-public class Cafe {
+@Table(name = "food_services")
+public class FoodService {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView(Views.NoCafeMenus.class)
+    @JsonView(Views.NoFoodServiceMenus.class)
     private long id;
 
-    @OneToMany(mappedBy = "cafe")
+    @OneToMany(mappedBy = "foodService")
     @JsonManagedReference
     private List<Menu> menus = new ArrayList<>();
 
-    @JsonView(Views.NoCafeMenus.class)
+    @JsonView(Views.NoFoodServiceMenus.class)
     String name;
 
+    @Column(name = "menu_url")
     String menuURL;
 
-    public Cafe() {
+    String website;
+
+    String lon;
+
+    String lat;
+
+    public FoodService() {
     }
 
-    public Cafe(String name) {
+    public FoodService(String name) {
         this.name = name;
     }
 }
