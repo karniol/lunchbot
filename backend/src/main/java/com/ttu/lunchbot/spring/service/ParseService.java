@@ -1,5 +1,6 @@
 package com.ttu.lunchbot.spring.service;
 
+import com.ttu.lunchbot.spring.exceptions.ResourceNotFoundException;
 import com.ttu.lunchbot.util.CalendarConverter;
 import com.ttu.lunchbot.parser.menu.BalticRestaurantMenuParserStrategy;
 import com.ttu.lunchbot.spring.model.Cafe;
@@ -41,6 +42,7 @@ public class ParseService {
 
     public List<Menu> parseCafeMenu(Cafe cafe) {
         try {
+            if (cafe == null) throw new ResourceNotFoundException("Cafe not found");
             // TODO make other restaurants use their specific strategies
             MenuParser menuParser = new MenuParser(new BalticRestaurantMenuParserStrategy());
             String destination = "/tmp/" + cafe.getName() + ".pdf";

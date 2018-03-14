@@ -1,5 +1,6 @@
 package com.ttu.lunchbot.spring.service;
 
+import com.ttu.lunchbot.spring.exceptions.ResourceNotFoundException;
 import com.ttu.lunchbot.util.CalendarConverter;
 import com.ttu.lunchbot.spring.model.Cafe;
 import com.ttu.lunchbot.spring.model.Menu;
@@ -43,6 +44,8 @@ public class CafeService {
             || menuList.get(menuList.size() - 1).getDate().isBefore(LocalDate.now())) {
             menuList.addAll(parseService.parseCafeMenu(cafeId));
         }
+        if (menuList.size() == 0) throw new ResourceNotFoundException("No cafe with the ID exists.");
+
         CalendarConverter calendarConverter = new CalendarConverter();
 
         Menu leastDaysDifferentFromNowMenu = null;
