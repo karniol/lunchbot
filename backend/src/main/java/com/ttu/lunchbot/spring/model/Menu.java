@@ -1,8 +1,8 @@
 package com.ttu.lunchbot.spring.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.ttu.lunchbot.util.CalendarConverter;
 import com.ttu.lunchbot.spring.controller.Views;
@@ -40,8 +40,9 @@ public class Menu {
     private List<MenuItem> menuItems = new ArrayList<>();
 
     @ManyToOne
-    @JsonBackReference
+    @JsonManagedReference
     @JoinColumn(name = "food_service_id", nullable = false)
+    @JsonProperty("food_service")
     private FoodService foodService;
 
     @JsonView(Views.NoMenuItems.class)

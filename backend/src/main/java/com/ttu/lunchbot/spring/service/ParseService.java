@@ -84,7 +84,7 @@ public class ParseService {
             // TODO make it possible to use a different language and a different currency
             Menu menu = new Menu(parsedMenu.getDate(), foodService);
             for (com.ttu.lunchbot.model.MenuItem parsedItem : parsedMenu.getItems()) {
-                Currency currency = Currency.getInstance(Locale.forLanguageTag(EST_LANGUAGE_TAG));
+                Currency currency = Currency.getInstance("EUR");
                 MenuItem item = new MenuItem(
                         parsedItem.getName(Locale.forLanguageTag(EST_LANGUAGE_TAG)),
                         parsedItem.getName(Locale.forLanguageTag(ENG_LANGUAGE_TAG)),

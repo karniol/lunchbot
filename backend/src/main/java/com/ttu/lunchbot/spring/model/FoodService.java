@@ -1,8 +1,7 @@
 package com.ttu.lunchbot.spring.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
-import com.ttu.lunchbot.spring.controller.Views;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,16 +23,15 @@ public class FoodService {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView(Views.NoFoodServiceMenus.class)
     private long id;
 
     @OneToMany(mappedBy = "foodService")
-    @JsonManagedReference
+    @JsonBackReference
     private List<Menu> menus = new ArrayList<>();
 
-    @JsonView(Views.NoFoodServiceMenus.class)
     String name;
 
+    @JsonProperty("menu_url")
     @Column(name = "menu_url")
     String menuURL;
 
