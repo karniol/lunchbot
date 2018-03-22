@@ -37,6 +37,7 @@ public class Menu {
 
     @OneToMany(mappedBy = "menu")
     @JsonManagedReference
+    @JsonProperty("menu_items")
     private List<MenuItem> menuItems = new ArrayList<>();
 
     @ManyToOne
