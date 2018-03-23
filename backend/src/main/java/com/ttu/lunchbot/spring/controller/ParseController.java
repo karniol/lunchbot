@@ -19,13 +19,13 @@ public class ParseController {
         this.parseService = parseService;
     }
 
-    @RequestMapping(value="/parse/{cafe-id}")
-    public List<Menu> parseMenu(@PathVariable("cafe-id") long cafeId) {
-        return parseService.parseCafeMenu(cafeId);
+    @RequestMapping(value= "/parse/{foodservice-id}")
+    public List<Menu> parseMenu(@PathVariable("foodservice-id") long cafeId) {
+        return parseService.parseFoodServiceMenu(cafeId);
     }
 
     @RequestMapping(value="/parse/all")
     public List<Menu> parseAll() {
-        return parseService.parseAllCafeMenus();
+        return parseService.parseAllFoodServiceMenus();
     }
 }
