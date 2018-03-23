@@ -21,7 +21,7 @@ public class CalendarConverter {
     }
 
     /**
-     * @param menu  The menu of a cafe
+     * @param menu  The menu of a food service
      * @return      The amount of days between the menu date and the current date
      */
     public long getAbsDaysFromNow(Menu menu) {
