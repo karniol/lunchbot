@@ -1,5 +1,6 @@
 package com.ttu.lunchbot.spring.service;
 
+import com.ttu.lunchbot.parser.menu.PDFMenuParser;
 import com.ttu.lunchbot.spring.model.FoodService;
 import com.ttu.lunchbot.util.CalendarConverter;
 import com.ttu.lunchbot.parser.menu.BalticRestaurantMenuParserStrategy;
@@ -49,7 +50,7 @@ public class ParseService {
         try {
             if (foodService == null) throw new ResourceNotFoundException("Food service not found");
             // TODO make other restaurants use their specific strategies
-            MenuParser menuParser = new MenuParser(new BalticRestaurantMenuParserStrategy());
+            MenuParser menuParser = new PDFMenuParser(new BalticRestaurantMenuParserStrategy());
             String destination = "/tmp/" + foodService.getName() + ".pdf";
 
             File newFile = new File(destination);

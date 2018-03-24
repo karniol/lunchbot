@@ -24,24 +24,6 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
     private static final String[] MONTH_NAMES_ET = DateFormatSymbols.getInstance(Locale.forLanguageTag("et")).getMonths();
 
     /**
-     * Time zone code identifier for Tallinn as listed in the Java TimeZone specification.
-     * @see TimeZone
-     */
-    private static final String TIME_ZONE_ID = "Europe/Tallinn";
-
-    /**
-     * Locale language tag for Estonian as listed in the Java Locale specification.
-     * @see Locale
-     */
-    private static final String LANGUAGE_TAG = "et";
-
-    /**
-     * Currency tag for Euros as listed in the Java Currency specification.
-     * @see Currency
-     */
-    private static final String CURRENCY_TAG = "EUR";
-
-    /**
      * Collection of parsed Menus. A collection is used in case the menu text (input to
      * the parser) contains more than one Menu, since one Menu corresponds to one date.
      * @see Menu
@@ -94,7 +76,7 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
 
         // TODO: magic month number
         date.set(date.get(Calendar.YEAR), month, day, 0, 0, 0);
-        date.setTimeZone(TimeZone.getTimeZone(TIME_ZONE_ID));
+        date.setTimeZone(TimeZone.getTimeZone(MenuParser.TIME_ZONE_ID_TALLINN));
 
         return date;
     }
@@ -116,8 +98,8 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
         // Obtain: 4.20
         BigDecimal price = BigDecimal.valueOf(Double.parseDouble(parts.get(parts.size() - 1)));
 
-        this.currentMenuItem.addName(Locale.forLanguageTag(LANGUAGE_TAG), name);
-        this.currentMenuItem.addPrice(Currency.getInstance(CURRENCY_TAG), price);
+        this.currentMenuItem.addName(Locale.forLanguageTag(MenuParser.LANGUAGE_TAG_ET), name);
+        this.currentMenuItem.addPrice(Currency.getInstance(MenuParser.CURRENCY_TAG_EUR), price);
     }
 
     /**
@@ -137,7 +119,10 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
     }
 
     @Override
-    public ArrayList<Menu> parse(ArrayList<String> text) {
+    public ArrayList<Menu> parse(String textAsString) {
+        final ArrayList<String> text = new ArrayList<>(Arrays.asList(textAsString.split("\n")));
+        text.replaceAll(String::trim);
+
         if (text.size() == 0) {
             System.out.println("Argument collection is empty, returning empty collection");
             return new ArrayList<>();
