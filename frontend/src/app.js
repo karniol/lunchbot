@@ -7,10 +7,11 @@ export class App {
     config.options.root = '/';
 
     config.map([
-      { route: '/menu',
+      { route: '/menu/:id',
         moduleId: './menu/menu',
         name: "menu",
-        nav: true
+        nav: true,
+        href: '#id'
       },
 
       { route: '/',

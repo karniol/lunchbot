@@ -19,6 +19,8 @@ public class FoodServiceController {
         this.foodServiceService = foodServiceService;
     }
 
+    // TODO: Configure CORS globally so Aurelia can access data
+    @CrossOrigin(origins = "http://localhost:9000")
     @GetMapping(value="/foodservices")
     public List<FoodService> getAllFoodServices() {
         return foodServiceService.getAllFoodServices();
@@ -35,7 +37,7 @@ public class FoodServiceController {
         return foodServiceService.getFoodServiceById(foodServiceId);
     }
 
-    // TODO: Configure CORS so Aurelia can access data
+    // TODO: Configure CORS globally so Aurelia can access data
     @CrossOrigin(origins = "http://localhost:9000")
     @GetMapping(value = "/foodservices/{foodservice-id}/menus/today")
     public Menu getTodayMenuByFoodServiceId(@PathVariable("foodservice-id") long

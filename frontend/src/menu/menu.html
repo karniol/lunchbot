@@ -1,11 +1,11 @@
 <template>
   <div if.bind="successfulRequest" class="menu-top-bar style-class-0">${data.date}</div>
-  <div if.bind="successfulRequest" class="menu-top-bar style-class-0">${data.name}</div>
+  <div if.bind="successfulRequest" class="menu-top-bar style-class-0">${data.food_service.name}</div>
   <div class="menu-list">
     <ul class="list-group">
-      <li repeat.for="menuItem of data.menuItems" class="menu-list-group-item">
-        <div class="menu-list-group-item-text">${menuItem.name}</div>
-        <div class="menu-list-group-item-tag">${menuItem.price_string}</div>
+      <li repeat.for="menu_item of data.menu_items" class="menu-list-group-item">
+        <div class="menu-list-group-item-text">${menu_item.name_et}</div>
+        <div class="menu-list-group-item-tag">${menu_item.price}</div>
       </li>
     </ul>
   </div>
