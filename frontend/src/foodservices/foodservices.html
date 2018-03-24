@@ -1,7 +1,7 @@
 <template>
   <div class="food-services-list">
     <ul class="list-group">
-      <li repeat.for="food_service of data" class="food-services-list-group-item style-class-${styleClasses[$index % styleClasses.length]}">
+      <li repeat.for="food_service of data" class="food-services-list-group-item style-class-${[1,2,3,4][$index % 4]}">
         <a href="menu/${food_service.id}"><div class="food-services-list-group-item-text">${food_service.name}</div></a>
       </li>
     </ul>
