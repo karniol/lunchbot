@@ -2,6 +2,7 @@ package com.ttu.lunchbot.spring.service;
 
 import com.ttu.lunchbot.parser.menu.PDFMenuParser;
 import com.ttu.lunchbot.spring.model.FoodService;
+import com.ttu.lunchbot.spring.property.FacebookGraphProperties;
 import com.ttu.lunchbot.util.CalendarConverter;
 import com.ttu.lunchbot.parser.menu.BalticRestaurantMenuParserStrategy;
 import com.ttu.lunchbot.spring.model.MenuItem;
@@ -9,7 +10,9 @@ import com.ttu.lunchbot.spring.model.Menu;
 import com.ttu.lunchbot.parser.menu.MenuParser;
 import com.ttu.lunchbot.spring.repository.FoodServiceRepository;
 import com.ttu.lunchbot.spring.repository.MenuRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import org.apache.commons.io.FileUtils;
@@ -36,10 +39,17 @@ public class ParseService {
 
     private MenuRepository menuRepository;
 
-    public ParseService(MenuService menuService, FoodServiceRepository foodServiceRepository, MenuRepository menuRepository) {
+    private FacebookGraphProperties facebookGraphProperties;
+
+    @Autowired
+    public ParseService(MenuService menuService,
+                        FoodServiceRepository foodServiceRepository,
+                        MenuRepository menuRepository,
+                        FacebookGraphProperties facebookGraphProperties) {
         this.menuService = menuService;
         this.foodServiceRepository = foodServiceRepository;
         this.menuRepository = menuRepository;
+        this.facebookGraphProperties = facebookGraphProperties;
     }
 
     public List<Menu> parseFoodServiceMenu(long cafeId) {
@@ -49,6 +59,7 @@ public class ParseService {
     public List<Menu> parseFoodServiceMenu(FoodService foodService) {
         try {
             if (foodService == null) throw new ResourceNotFoundException("Food service not found");
+
             // TODO make other restaurants use their specific strategies
             MenuParser menuParser = new PDFMenuParser(new BalticRestaurantMenuParserStrategy());
             String destination = "/tmp/" + foodService.getName() + ".pdf";
