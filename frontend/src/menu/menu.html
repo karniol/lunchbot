@@ -1,6 +1,6 @@
 <template>
-  <div if.bind="successfulRequest" class="menu-top-bar style-class-0">${data.date}</div>
-  <div if.bind="successfulRequest" class="menu-top-bar style-class-0">${data.food_service.name}</div>
+  <div if.bind="successfulRequest" class="menu-top-bar sticky style-class-0">${data.date}</div>
+  <div if.bind="successfulRequest" class="menu-top-bar sticky style-class-0">${data.food_service.name}</div>
   <div class="menu-list">
     <ul class="list-group">
       <li repeat.for="menu_item of data.menu_items" class="menu-list-group-item">
