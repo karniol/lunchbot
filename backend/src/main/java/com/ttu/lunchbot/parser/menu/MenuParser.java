@@ -13,28 +13,10 @@ import java.util.TimeZone;
 public abstract class MenuParser {
 
     /**
-     * Time zone code identifier for Tallinn as listed in the Java TimeZone specification.
-     * @see TimeZone
-     */
-    static final String TIME_ZONE_ID_TALLINN = "Europe/Tallinn";
-
-    /**
-     * Locale language tag for Estonian as listed in the Java Locale specification.
-     * @see Locale
-     */
-    static final String LANGUAGE_TAG_ET = "et";
-
-    /**
-     * Currency tag for Euros as listed in the Java Currency specification.
-     * @see Currency
-     */
-    static final String CURRENCY_TAG_EUR = "EUR";
-
-    /**
      * Strategy for parsing menu texts into MenuItems and Menus.
      */
     @Getter
-    final MenuParserStrategy strategy;
+    private final MenuParserStrategy strategy;
 
     MenuParser(MenuParserStrategy strategy) {
         this.strategy = strategy;
@@ -46,5 +28,4 @@ public abstract class MenuParser {
      * @see Menu
      */
     public abstract ArrayList<Menu> parseMenus(File file);
-
 }

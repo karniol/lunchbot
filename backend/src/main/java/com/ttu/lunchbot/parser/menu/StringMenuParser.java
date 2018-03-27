@@ -7,9 +7,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class JsonMenuParser extends MenuParser {
+public class StringMenuParser extends MenuParser {
 
-    public JsonMenuParser(MenuParserStrategy strategy) {
+    public StringMenuParser(MenuParserStrategy strategy) {
         super(strategy);
     }
 
@@ -22,8 +22,7 @@ public class JsonMenuParser extends MenuParser {
     public ArrayList<Menu> parseMenus(File file) {
         try {
             String text = FileUtils.readFileToString(file, "UTF-8");
-//            text = org.apache.commons.text.StringEscapeUtils.unescapeJson(text);
-            return this.strategy.parse(text);
+            return this.getStrategy().parse(text);
         } catch (IOException e) {
             e.printStackTrace();
             return null;

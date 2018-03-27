@@ -68,12 +68,12 @@ public class Menu {
     public Menu(Calendar calendar, List<MenuItem> items, FoodService foodService) {
         this.menuItems = items;
         this.foodService = foodService;
-        this.date = new CalendarConverter().calendarToLocalDate(calendar);
+        this.date = new CalendarConverter().toLocalDate(calendar);
     }
 
     public Menu(Calendar calendar, FoodService foodService) {
         this.foodService = foodService;
-        this.date = new CalendarConverter().calendarToLocalDate(calendar);
+        this.date = new CalendarConverter().toLocalDate(calendar);
     }
 
 }

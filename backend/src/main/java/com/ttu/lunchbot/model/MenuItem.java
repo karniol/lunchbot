@@ -81,14 +81,13 @@ public class MenuItem {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Name: ");
         Locale[] locales = this.getNames().keySet().toArray(new Locale[]{});
         for (int i = 0; i < this.getNames().size(); ++i) {
+            sb.append(String.format("MenuItem (%s): ", locales[i].getDisplayName()));
             sb.append(this.getName(locales[i]));
-            sb.append("");
 
             if (this.getNames().size() > 1 && i < this.getNames().size() - 1) {
-                sb.append(" | ");
+                sb.append('\n');
             }
         }
 

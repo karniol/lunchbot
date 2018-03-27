@@ -1,20 +1,12 @@
 package com.ttu.lunchbot.parser.menu;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.ttu.lunchbot.model.Menu;
 import com.ttu.lunchbot.model.MenuItem;
-import com.ttu.lunchbot.spring.property.FacebookGraphProperties;
-import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
-@Component
 public class RahvaToitMenuParserStrategy implements MenuParserStrategy {
 
     private final ArrayList<Menu> parsedMenus;
@@ -34,6 +26,10 @@ public class RahvaToitMenuParserStrategy implements MenuParserStrategy {
     }
 
     public static void main(String[] args) {
-
+        MenuParserStrategy strategy = new RahvaToitMenuParserStrategy();
+        MenuParser parser = new StringMenuParser(strategy);
+        final String pathToExample = "src/main/resources/rahvatoit-posts-example.json";
+        ArrayList<Menu> parsedMenus = parser.parseMenus(new File(pathToExample));
+        System.out.println(parsedMenus);
     }
 }

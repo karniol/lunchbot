@@ -70,10 +70,11 @@ public class Menu {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
+        sb.append("Menu: ");
         sb.append(this.getName());
-        sb.append(" ");
+        sb.append(' ');
         sb.append(this.getDate().getTime());
-        sb.append("\n");
+        sb.append('\n');
 
         for (MenuItem item : this.getItems()) {
             sb.append(item.toString());

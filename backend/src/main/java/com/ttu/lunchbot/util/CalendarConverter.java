@@ -10,12 +10,14 @@ import java.util.Calendar;
 
 public class CalendarConverter {
 
+    public CalendarConverter() {}
+
     /**
      * Copied from https://kodejava.org/how-do-i-convert-between-old-date-and-calendar-object-with-the-new-java-8-date-time/
      * @param calendarTime  A Calendar object with the time we wish to convert
      * @return              A LocalDate object with the same time as the Calendar object
      */
-    public LocalDate calendarToLocalDate(Calendar calendarTime) {
+    public LocalDate toLocalDate(Calendar calendarTime) {
         return LocalDateTime.ofInstant(calendarTime.toInstant(),
                 ZoneId.systemDefault()).toLocalDate();
     }

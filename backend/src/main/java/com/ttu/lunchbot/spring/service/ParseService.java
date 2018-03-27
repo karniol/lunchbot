@@ -12,7 +12,6 @@ import com.ttu.lunchbot.spring.repository.FoodServiceRepository;
 import com.ttu.lunchbot.spring.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import org.apache.commons.io.FileUtils;
@@ -122,7 +121,7 @@ public class ParseService {
     private boolean menuWithSameDateExists(List<LocalDate> savedMenuDates, CalendarConverter calendarConverter,
                                            com.ttu.lunchbot.model.Menu parsedMenu) {
         for (LocalDate savedDate : savedMenuDates) {
-            if (calendarConverter.calendarToLocalDate(parsedMenu.getDate())
+            if (calendarConverter.toLocalDate(parsedMenu.getDate())
                     .equals(savedDate)) {
                 return true;
             }
