@@ -2,7 +2,6 @@ package com.ttu.lunchbot.spring.service;
 
 import com.ttu.lunchbot.parser.menu.PDFMenuParser;
 import com.ttu.lunchbot.spring.model.FoodService;
-import com.ttu.lunchbot.spring.property.FacebookGraphProperties;
 import com.ttu.lunchbot.util.CalendarConverter;
 import com.ttu.lunchbot.parser.menu.strategy.baltic.BalticRestaurantMenuParserStrategy;
 import com.ttu.lunchbot.spring.model.MenuItem;
@@ -10,7 +9,6 @@ import com.ttu.lunchbot.spring.model.Menu;
 import com.ttu.lunchbot.parser.menu.MenuParser;
 import com.ttu.lunchbot.spring.repository.FoodServiceRepository;
 import com.ttu.lunchbot.spring.repository.MenuRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -23,14 +21,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 public class ParseService {
-
-    private String ENG_LANGUAGE_TAG = "en";
-
-    private String EST_LANGUAGE_TAG = "et";
 
     private MenuService menuService;
 
@@ -38,17 +31,12 @@ public class ParseService {
 
     private MenuRepository menuRepository;
 
-    private FacebookGraphProperties facebookGraphProperties;
-
-    @Autowired
     public ParseService(MenuService menuService,
                         FoodServiceRepository foodServiceRepository,
-                        MenuRepository menuRepository,
-                        FacebookGraphProperties facebookGraphProperties) {
+                        MenuRepository menuRepository) {
         this.menuService = menuService;
         this.foodServiceRepository = foodServiceRepository;
         this.menuRepository = menuRepository;
-        this.facebookGraphProperties = facebookGraphProperties;
     }
 
     public List<Menu> parseFoodServiceMenu(long cafeId) {
@@ -95,10 +83,10 @@ public class ParseService {
             // TODO make it possible to use a different language and a different currency
             Menu menu = new Menu(parsedMenu.getDate(), foodService);
             for (com.ttu.lunchbot.model.MenuItem parsedItem : parsedMenu.getItems()) {
-                Currency currency = Currency.getInstance("EUR");
+                Currency currency = com.ttu.lunchbot.util.Currency.EURO;
                 MenuItem item = new MenuItem(
-                        parsedItem.getName(Locale.forLanguageTag(EST_LANGUAGE_TAG)),
-                        parsedItem.getName(Locale.forLanguageTag(ENG_LANGUAGE_TAG)),
+                        parsedItem.getName(com.ttu.lunchbot.util.Locale.ESTONIAN),
+                        parsedItem.getName(java.util.Locale.ENGLISH),
                         menu,
                         currency,
                         parsedItem.getPrice(currency)
