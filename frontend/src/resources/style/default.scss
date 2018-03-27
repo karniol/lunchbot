@@ -15,10 +15,10 @@ $forest: #66ab8c; $forest-accent: #102820;
 
 // Sizes
 $height-header-bar: 32px;
-$height-menu-bar: 64px;
-$height-menu-bar-line: 32px;
+$height-menu-bar: 66px;
+$height-menu-bar-line: 22px;
 $height-footer: 32px;
-$max-width: 1024px;
+$max-width: 800px;
 $padding-main-bottom: 6em;
 $button-menu-size: 48px;
 
@@ -94,9 +94,18 @@ a {
   box-shadow: 0px 1px 1px 0px rgba(32,32,32,0.5);
 }
 
-.menu-top-bar-line {
+.menu-top-bar-content {
+  width: $max-width;
+  margin: auto;
+}
+
+.menu-top-bar-lines-wrapper {
+  margin-top: calc(#{$height-menu-bar-line} / 2);
   width: 100%;
   font-size: 1em;
+}
+
+.menu-top-bar-line {
   height: $height-menu-bar-line;
   line-height: $height-menu-bar-line;
 }
@@ -223,7 +232,8 @@ a {
 
 // Functional
 .img-center-vertically {
-  // Add <span class=this></span> before <img>
+  // Add <span class="img-center-vertically"></span>
+  // before <img> that has vertical-align: middle;
   display: inline-block;
   height: 100%;
   vertical-align: middle;
