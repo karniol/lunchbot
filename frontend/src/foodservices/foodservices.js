@@ -1,4 +1,4 @@
-import {Fetcher} from '../util/fetcher';
+import {Fetcher} from "../util/fetcher";
 
 
 export class FoodServices {

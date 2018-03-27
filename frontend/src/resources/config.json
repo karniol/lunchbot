@@ -1,6 +1,0 @@
-{
-  "mariadb": {
-    "host": "localhost",
-    "port": 8080
-  }
-}
