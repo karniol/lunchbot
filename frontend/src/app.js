@@ -1,3 +1,5 @@
+import environment from "../environment";
+
 export class App {
   constructor() {}
 
@@ -20,6 +22,7 @@ export class App {
         nav: true
       },
     ]);
+    console.log(environment.serverBaseUrl);
 
     this.router = router;
   }

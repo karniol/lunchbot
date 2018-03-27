@@ -14,7 +14,7 @@ export class Menu {
     data["menu_items"].forEach(function(menuItem) {
       menuItem["price_string"] = "€" + menuItem["price"].toFixed(2);
     });
-    return data
+    return data;
   }
 
   getMenuItems(foodServiceId) {

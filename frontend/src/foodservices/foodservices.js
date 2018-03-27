@@ -16,6 +16,6 @@ export class FoodServices {
       .fetch(`foodservices`, {'method': 'GET'})
       .then(response => response.json())
       .then(data => this.data = data)
-      .then(() => this.successfulRequest = true)
+      .then(() => this.successfulRequest = true);
   }
 }

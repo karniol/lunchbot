@@ -1,17 +1,17 @@
 // Fetcher is a singleton for Aurelia's Fetch client
 
-import {HttpClient} from 'aurelia-fetch-client';
+import {HttpClient} from "aurelia-fetch-client";
+import environment from "../environment";
 
 export var Fetcher = (function () {
   let instance;
-  
+
   function createInstance() {
     let object = new HttpClient();
 
-    // TODO: Read base url from config.json file
     object.configure(config => {
       config
-        .withBaseUrl("http://localhost:8080/")
+        .withBaseUrl(environment.serverBaseUrl)
         .withDefaults({
           headers: {
             'Accept': 'application/json',
