@@ -6,9 +6,11 @@ import com.ttu.lunchbot.model.MenuItem;
 import com.ttu.lunchbot.parser.menu.MenuParser;
 import com.ttu.lunchbot.parser.menu.strategy.MenuParserStrategy;
 import com.ttu.lunchbot.parser.menu.StringMenuParser;
+import com.ttu.lunchbot.util.Currency;
 import com.ttu.lunchbot.util.Locale;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class RahvaToitMenuParserStrategy implements MenuParserStrategy {
      */
     private static final String FOOD_SERVICE_SOC_PATTERN = ".*(?i)(soc|sots).*";
     private static final String FOOD_SERVICE_LIB_PATTERN = ".*(?i)(raamat).*";
-    private static final String NAME_SEPARATOR_PATTERN = "[/]";
+    private static final String MENUITEM_NAME_SEPARATOR_PATTERN = "[/]";
 
     // TODO: Not be the best solution keeping FoodService names like this
     private static final String FOOD_SERVICE_SOC_PRETTY_NAME_ET = "Raamatukogu kohvik";
@@ -45,13 +47,13 @@ public class RahvaToitMenuParserStrategy implements MenuParserStrategy {
     /**
      * Current Menu that is being updated and written into by the parser.
      */
-    private final Menu currentMenu;
+    private Menu currentMenu;
 
     /**
      * Current MenuItem that is being updated and written into by the parser.
      * MenuItems are added into the currently updated Menu.
      */
-    private final MenuItem currentMenuItem;
+    private MenuItem currentMenuItem;
 
     /**
      * Create and initialize a new parser strategy.
@@ -94,11 +96,38 @@ public class RahvaToitMenuParserStrategy implements MenuParserStrategy {
         }
     }
 
+    private BigDecimal priceStringToBigDecimal(String priceString) {
+        priceString = priceString.replace("€", "");
+        priceString = priceString.replace(",", ".");
+        return BigDecimal.valueOf(Double.parseDouble(priceString));
+    }
+
     private void parseMenuItem(String line) {
-        List<String> lineParts = new ArrayList<>(Arrays.asList(line.split(NAME_SEPARATOR_PATTERN)));
+        // Create and add new MenuItem
+        this.currentMenuItem = new MenuItem();
+        this.currentMenu.addItem(this.currentMenuItem);
+
+        final String[] linePartsArray = line.split(MENUITEM_NAME_SEPARATOR_PATTERN);
+        List<String> lineParts = new ArrayList<>(Arrays.asList(linePartsArray));
         lineParts.replaceAll(String::trim);
-        this.currentMenuItem.addName(com.ttu.lunchbot.util.Locale.ESTONIAN, lineParts.get(0));
-        System.out.println(lineParts);
+
+        final String menuItemNameEstonian = lineParts.get(0);
+        this.currentMenuItem.addName(com.ttu.lunchbot.util.Locale.ESTONIAN, menuItemNameEstonian);
+
+        String priceString;
+        if (lineParts.size() == 1) {
+            this.currentMenuItem.addName(java.util.Locale.ENGLISH, menuItemNameEstonian);
+            List<String> lineParts0 = Arrays.asList(lineParts.get(0).split(" "));
+            priceString = lineParts0.get(lineParts0.size() - 1);
+        } else {
+            List<String> lineParts1 = Arrays.asList(lineParts.get(1).split(" "));
+            final String menuItemNameEnglish = String.join(" ", lineParts1.subList(0, lineParts1.size() - 1));
+            this.currentMenuItem.addName(java.util.Locale.ENGLISH, menuItemNameEnglish);
+            priceString = lineParts1.get(lineParts1.size() - 1);
+        }
+
+        BigDecimal price = priceStringToBigDecimal(priceString);
+        this.currentMenuItem.addPrice(com.ttu.lunchbot.util.Currency.EURO, price);
     }
 
     @Override
@@ -106,36 +135,31 @@ public class RahvaToitMenuParserStrategy implements MenuParserStrategy {
         RahvaToitJsonObject json = (new Gson()).fromJson(jsonString, RahvaToitJsonObject.class);
 
         this.parsedMenus.clear();
-        Menu currentMenu;
         for (RahvaToitJsonObject.Post post : json.data) {
             if (post.message == null) continue;
 
+            // Trim all strings and remove empty lines after trimming
             List<String> lines = new ArrayList<>(Arrays.asList(post.message.split("\n")));
+            lines.replaceAll(String::trim);
             lines.removeAll(Arrays.asList(null, ""));
 
+            // Assign name and date of food service
             final String foodServiceName = matchFoodServiceName(lines.get(0));
             final Calendar calendar = parseDate(post.created_time);
 
+            // Remove first and two last lines
             lines = lines.subList(1, lines.size() - 2);
 
-            currentMenu = new Menu(foodServiceName, calendar);
+            // Create new menu with the matched FoodService name and add it
+            // to the collection of parsed menus
+            this.currentMenu = new Menu(foodServiceName, calendar);
+            this.parsedMenus.add(this.currentMenu);
 
-            System.out.println(calendar.getTime() + " " + foodServiceName);
             for (String line : lines) {
                parseMenuItem(line);
             }
-            System.out.println('\n');
-
         }
 
         return this.parsedMenus;
-    }
-
-    public static void main(String[] args) {
-        MenuParserStrategy strategy = new RahvaToitMenuParserStrategy();
-        MenuParser parser = new StringMenuParser(strategy);
-        final String pathToExample = "/Users/charlie/Desktop/rahvatoit.json";
-        ArrayList<Menu> parsedMenus = parser.parseMenus(new File(pathToExample));
-        System.out.println(parsedMenus);
     }
 }

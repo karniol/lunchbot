@@ -133,7 +133,7 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
             // When encountering a date, create a new menu with the corresponding date
             if (line.matches(DATE_PATTERN)) {
                 this.currentMenu = new Menu(foodServiceName, parseDate(line));
-                this.parsedMenus.add(this.currentMenu);
+                parsedMenus.add(this.currentMenu);
                 menuOk = true;
                 continue;
             }
@@ -149,7 +149,7 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
                 try {
                     addLineContainingPriceToCurrentMenuItem(line);
                 } catch (NumberFormatException e) {
-                    this.parsedMenus.remove(this.currentMenu);
+                    parsedMenus.remove(this.currentMenu);
                     menuOk = false;
                     continue;
                 }
@@ -161,6 +161,6 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
             }
         }
 
-        return this.parsedMenus;
+        return parsedMenus;
     }
 }

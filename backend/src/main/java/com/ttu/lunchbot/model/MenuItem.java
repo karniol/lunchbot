@@ -1,6 +1,7 @@
 package com.ttu.lunchbot.model;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Currency;
@@ -25,12 +26,23 @@ public class MenuItem {
     @Getter
     private final HashMap<Currency, BigDecimal> prices;
 
+    @Getter
+    @Setter
+    private boolean isDailyOffer;
+
+    @Getter
+    @Setter
+    private boolean isVegetarian;
+
     /**
      * Create a new empty MenuItem.
      */
     public MenuItem() {
         this.names = new HashMap<>();
         this.prices = new HashMap<>();
+
+        this.isDailyOffer = false;
+        this.isVegetarian = false;
     }
 
     /**
