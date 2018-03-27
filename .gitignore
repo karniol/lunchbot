@@ -22,6 +22,7 @@
 *.iml
 *.ipr
 **/out/
+backend/build
 
 ### OS ###
 .DS_Store

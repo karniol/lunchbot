@@ -1,13 +1,11 @@
 package com.ttu.lunchbot.parser.menu;
 
 import com.ttu.lunchbot.model.Menu;
+import com.ttu.lunchbot.parser.menu.strategy.MenuParserStrategy;
 import lombok.Getter;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Currency;
-import java.util.Locale;
-import java.util.TimeZone;
 
 
 public abstract class MenuParser {

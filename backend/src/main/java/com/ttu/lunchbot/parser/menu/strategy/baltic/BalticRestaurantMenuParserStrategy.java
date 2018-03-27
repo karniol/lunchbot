@@ -1,10 +1,11 @@
-package com.ttu.lunchbot.parser.menu;
+package com.ttu.lunchbot.parser.menu.strategy.baltic;
 
 import com.ttu.lunchbot.model.Menu;
 import com.ttu.lunchbot.model.MenuItem;
+import com.ttu.lunchbot.parser.menu.MenuParser;
+import com.ttu.lunchbot.parser.menu.MenuParserException;
+import com.ttu.lunchbot.parser.menu.strategy.MenuParserStrategy;
 
-import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormatSymbols;
 import java.util.*;
@@ -106,17 +107,20 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
 
     @Override
     public ArrayList<Menu> parse(String textString) {
-        List<String> text = new ArrayList<>(Arrays.asList(textString.split("\n")));
+        List<String> lines = new ArrayList<>(Arrays.asList(textString.split("\n")));
+
         // Remove all strings from the list that are empty after trimming
-        text.replaceAll(String::trim);
-        if (text.size() == 0) throw new MenuParserException("Argument list is empty, returning empty menu list");
+        lines.replaceAll(String::trim);
+        lines.removeAll(Arrays.asList(null, ""));
+
+        if (lines.size() == 0) throw new MenuParserException("Argument list is empty, returning empty menu list");
         this.parsedMenus.clear();
 
         // The name of the FoodService is on the second line
-        final String name = text.get(1);
+        final String foodServiceName = lines.get(1);
 
         // Remove two first lines and last line of the file to begin processing menu texts
-        text = text.subList(2, text.size());
+        lines = lines.subList(2, lines.size());
 
         // Baltic Restaurants' menus list items twice, first in Estonian and then in English
         // The first line also contains a string representing the price of the item in Euros
@@ -125,10 +129,10 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
         // The menu that produced a parsing error will be removed from the list
         boolean menuOk = true;
 
-        for (String line : text) {
+        for (String line : lines) {
             // When encountering a date, create a new menu with the corresponding date
             if (line.matches(DATE_PATTERN)) {
-                this.currentMenu = new Menu(name, parseDate(line));
+                this.currentMenu = new Menu(foodServiceName, parseDate(line));
                 this.parsedMenus.add(this.currentMenu);
                 menuOk = true;
                 continue;

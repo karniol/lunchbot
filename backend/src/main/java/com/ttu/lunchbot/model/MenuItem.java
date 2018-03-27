@@ -1,5 +1,7 @@
 package com.ttu.lunchbot.model;
 
+import lombok.Getter;
+
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.HashMap;
@@ -14,11 +16,13 @@ public class MenuItem {
     /**
      * Names of the MenuItems corresponding to different locales.
      */
+    @Getter
     private final HashMap<Locale, String> names;
 
     /**
      * Prices of the MenuItems corresponding to different currencies.
      */
+    @Getter
     private final HashMap<Currency, BigDecimal> prices;
 
     /**
@@ -48,25 +52,11 @@ public class MenuItem {
     }
 
     /**
-     * @return Collection of all added names for the MenuItem.
-     */
-    public HashMap<Locale, String> getNames() {
-        return this.names;
-    }
-
-    /**
      * @param locale Locale for which the name is requested.
      * @return Name of the MenuItem corresponding to the given Locale.
      */
     public String getName(Locale locale) {
         return this.names.get(locale);
-    }
-
-    /**
-     * @return Collection of all added prices for the MenuItem.
-     */
-    public HashMap<Currency, BigDecimal> getPrices() {
-        return this.prices;
     }
 
     /**

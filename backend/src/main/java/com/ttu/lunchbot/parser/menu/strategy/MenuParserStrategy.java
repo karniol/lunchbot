@@ -1,4 +1,4 @@
-package com.ttu.lunchbot.parser.menu;
+package com.ttu.lunchbot.parser.menu.strategy;
 
 import com.ttu.lunchbot.model.Menu;
 

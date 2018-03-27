@@ -4,7 +4,7 @@ import com.ttu.lunchbot.parser.menu.PDFMenuParser;
 import com.ttu.lunchbot.spring.model.FoodService;
 import com.ttu.lunchbot.spring.property.FacebookGraphProperties;
 import com.ttu.lunchbot.util.CalendarConverter;
-import com.ttu.lunchbot.parser.menu.BalticRestaurantMenuParserStrategy;
+import com.ttu.lunchbot.parser.menu.strategy.baltic.BalticRestaurantMenuParserStrategy;
 import com.ttu.lunchbot.spring.model.MenuItem;
 import com.ttu.lunchbot.spring.model.Menu;
 import com.ttu.lunchbot.parser.menu.MenuParser;

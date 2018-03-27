@@ -1,6 +1,7 @@
 package com.ttu.lunchbot.parser.menu;
 
 import com.ttu.lunchbot.model.Menu;
+import com.ttu.lunchbot.parser.menu.strategy.MenuParserStrategy;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
