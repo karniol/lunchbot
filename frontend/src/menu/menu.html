@@ -1,6 +1,24 @@
 <template>
-  <div if.bind="successfulRequest" class="menu-top-bar sticky style-class-0">${data.date}</div>
-  <div if.bind="successfulRequest" class="menu-top-bar sticky style-class-0">${data.food_service.name}</div>
+  <div if.bind="successfulRequest" class="menu-top-bar style-class-0">
+    <div class="button-back">
+      <a href="/">
+        <span class="img-center-vertically"></span>
+        <img src="src/resources/img/button-back-white-100.png">
+      </a>
+    </div>
+    <div class="button-menu">
+      <span class="clickable" click.delegate="openSidebar()">
+        <span class="img-center-vertically"></span>
+        <img src="src/resources/img/button-menu-white-alt-100.png">
+      </span>
+    </div>
+    <div class="menu-top-bar-line">
+      ${data.date}
+    </div>
+    <div class="menu-top-bar-line">
+      ${data.food_service.name}
+    </div>
+  </div>
   <div class="menu-list">
     <ul class="list-group">
       <li repeat.for="menu_item of data.menu_items" class="menu-list-group-item">
@@ -9,5 +27,7 @@
       </li>
     </ul>
   </div>
-  <a href="/"><img class="button-back" src="/src/resources/img/button-back.png"></a>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-element" click.delegate="closeSidebar()">close</div>
+  </div>
 </template>

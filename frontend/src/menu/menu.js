@@ -25,4 +25,14 @@ export class Menu {
       .then(() => Menu.formatPriceString(this.data))
       .then(() => this.successfulRequest = true);
   }
+
+  openSidebar() {
+    let sidebar = document.getElementById("sidebar");
+    sidebar.style.visibility = "visible";
+  }
+
+  closeSidebar() {
+    let sidebar = document.getElementById("sidebar");
+    sidebar.style.visibility = "hidden";
+  }
 }
