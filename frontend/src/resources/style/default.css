@@ -45,14 +45,16 @@ a {
   text-align: center; }
 
 .header-bar {
-  font-size: 2em;
-  height: 48px;
-  line-height: 48px;
-  background: whitesmoke; }
+  font-size: 1em;
+  height: 32px;
+  line-height: 32px;
+  text-transform: uppercase; }
 
 .menu-top-bar {
   height: 32px;
-  line-height: 32px;
+  line-height: 32px; }
+
+.sticky {
   position: -webkit-sticky;
   position: sticky;
   top: 0; }

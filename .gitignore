@@ -14,6 +14,7 @@
 .project
 .settings
 .springBeans
+**/application.properties
 
 ### IntelliJ IDEA ###
 .idea
@@ -21,6 +22,7 @@
 *.iml
 *.ipr
 **/out/
+backend/build
 
 ### OS ###
 .DS_Store

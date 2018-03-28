@@ -1,18 +1,21 @@
+import {Fetcher} from '../util/fetcher';
+
+
 export class FoodServices {
   constructor() {
-    this.fakeFoodServiceList = [
-      "Peahoone lõunarestoran",
-      "Peahoone kohvik",
-      "Raamatukogu kohvik",
-      "Sotsiaalteaduste maja söökla",
-      "Neljanda korpuse kohvik",
-      "Kuuenda korpuse kohvik-söökla",
-      "Loodusteaduste maja kohvik",
-      "IT-maja kohvik",
-      "Spordihoone kohvik"
-    ];
+    this.successfulRequest = false;
+    this.data = null;
+  }
 
-    // Style class identifiers, see resources/style/default.scss
-    this.styleClasses = [1, 2, 3, 4];
+  activate(params) {
+    this.getFoodServiceNames();
+  }
+
+  getFoodServiceNames() {
+    Fetcher.getInstance()
+      .fetch(`foodservices`, {'method': 'GET'})
+      .then(response => response.json())
+      .then(data => this.data = data)
+      .then(() => this.successfulRequest = true)
   }
 }

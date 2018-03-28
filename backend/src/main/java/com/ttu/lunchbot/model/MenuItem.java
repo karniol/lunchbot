@@ -1,5 +1,8 @@
 package com.ttu.lunchbot.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.HashMap;
@@ -14,12 +17,22 @@ public class MenuItem {
     /**
      * Names of the MenuItems corresponding to different locales.
      */
+    @Getter
     private final HashMap<Locale, String> names;
 
     /**
      * Prices of the MenuItems corresponding to different currencies.
      */
+    @Getter
     private final HashMap<Currency, BigDecimal> prices;
+
+    @Getter
+    @Setter
+    private boolean isDailyOffer;
+
+    @Getter
+    @Setter
+    private boolean isVegetarian;
 
     /**
      * Create a new empty MenuItem.
@@ -27,6 +40,9 @@ public class MenuItem {
     public MenuItem() {
         this.names = new HashMap<>();
         this.prices = new HashMap<>();
+
+        this.isDailyOffer = false;
+        this.isVegetarian = false;
     }
 
     /**
@@ -48,25 +64,11 @@ public class MenuItem {
     }
 
     /**
-     * @return Collection of all added names for the MenuItem.
-     */
-    public HashMap<Locale, String> getNames() {
-        return this.names;
-    }
-
-    /**
      * @param locale Locale for which the name is requested.
      * @return Name of the MenuItem corresponding to the given Locale.
      */
     public String getName(Locale locale) {
         return this.names.get(locale);
-    }
-
-    /**
-     * @return Collection of all added prices for the MenuItem.
-     */
-    public HashMap<Currency, BigDecimal> getPrices() {
-        return this.prices;
     }
 
     /**
@@ -81,14 +83,13 @@ public class MenuItem {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Name: ");
         Locale[] locales = this.getNames().keySet().toArray(new Locale[]{});
         for (int i = 0; i < this.getNames().size(); ++i) {
+            sb.append(String.format("MenuItem (%s): ", locales[i].getDisplayName()));
             sb.append(this.getName(locales[i]));
-            sb.append("");
 
             if (this.getNames().size() > 1 && i < this.getNames().size() - 1) {
-                sb.append(" | ");
+                sb.append('\n');
             }
         }
 

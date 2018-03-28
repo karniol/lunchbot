@@ -1,8 +1,9 @@
 package com.ttu.lunchbot.spring.service;
 
+import com.ttu.lunchbot.parser.menu.PDFMenuParser;
 import com.ttu.lunchbot.spring.model.FoodService;
 import com.ttu.lunchbot.util.CalendarConverter;
-import com.ttu.lunchbot.parser.menu.BalticRestaurantMenuParserStrategy;
+import com.ttu.lunchbot.parser.menu.strategy.baltic.BalticRestaurantMenuParserStrategy;
 import com.ttu.lunchbot.spring.model.MenuItem;
 import com.ttu.lunchbot.spring.model.Menu;
 import com.ttu.lunchbot.parser.menu.MenuParser;
@@ -20,14 +21,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 public class ParseService {
-
-    private String ENG_LANGUAGE_TAG = "en";
-
-    private String EST_LANGUAGE_TAG = "et";
 
     private MenuService menuService;
 
@@ -35,7 +31,9 @@ public class ParseService {
 
     private MenuRepository menuRepository;
 
-    public ParseService(MenuService menuService, FoodServiceRepository foodServiceRepository, MenuRepository menuRepository) {
+    public ParseService(MenuService menuService,
+                        FoodServiceRepository foodServiceRepository,
+                        MenuRepository menuRepository) {
         this.menuService = menuService;
         this.foodServiceRepository = foodServiceRepository;
         this.menuRepository = menuRepository;
@@ -48,8 +46,9 @@ public class ParseService {
     public List<Menu> parseFoodServiceMenu(FoodService foodService) {
         try {
             if (foodService == null) throw new ResourceNotFoundException("Food service not found");
+
             // TODO make other restaurants use their specific strategies
-            MenuParser menuParser = new MenuParser(new BalticRestaurantMenuParserStrategy());
+            MenuParser menuParser = new PDFMenuParser(new BalticRestaurantMenuParserStrategy());
             String destination = "/tmp/" + foodService.getName() + ".pdf";
 
             File newFile = new File(destination);
@@ -84,10 +83,10 @@ public class ParseService {
             // TODO make it possible to use a different language and a different currency
             Menu menu = new Menu(parsedMenu.getDate(), foodService);
             for (com.ttu.lunchbot.model.MenuItem parsedItem : parsedMenu.getItems()) {
-                Currency currency = Currency.getInstance("EUR");
+                Currency currency = com.ttu.lunchbot.util.Currency.EURO;
                 MenuItem item = new MenuItem(
-                        parsedItem.getName(Locale.forLanguageTag(EST_LANGUAGE_TAG)),
-                        parsedItem.getName(Locale.forLanguageTag(ENG_LANGUAGE_TAG)),
+                        parsedItem.getName(com.ttu.lunchbot.util.Locale.ESTONIAN),
+                        parsedItem.getName(java.util.Locale.ENGLISH),
                         menu,
                         currency,
                         parsedItem.getPrice(currency)
@@ -110,7 +109,7 @@ public class ParseService {
     private boolean menuWithSameDateExists(List<LocalDate> savedMenuDates, CalendarConverter calendarConverter,
                                            com.ttu.lunchbot.model.Menu parsedMenu) {
         for (LocalDate savedDate : savedMenuDates) {
-            if (calendarConverter.calendarToLocalDate(parsedMenu.getDate())
+            if (calendarConverter.toLocalDate(parsedMenu.getDate())
                     .equals(savedDate)) {
                 return true;
             }

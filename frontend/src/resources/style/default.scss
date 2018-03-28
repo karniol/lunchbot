@@ -14,7 +14,7 @@ $moon: #fff7c0; $moon-accent: #2f2a21;
 $forest: #66ab8c; $forest-accent: #102820;
 
 // Sizes
-$height-header-bar: 48px;
+$height-header-bar: 32px;
 $height-menu-bar: 32px;
 $height-footer: 32px;
 $max-width: 1024px;
@@ -83,17 +83,19 @@ a {
 
 .header-bar {
   @extend %bar;
-  font-size: 2em;
+  font-size: 1em;
   height: $height-header-bar;
   line-height: $height-header-bar;
-  background: $white;
+  text-transform: uppercase;
 }
 
 .menu-top-bar {
   @extend %bar;
   height: $height-menu-bar;
   line-height: $height-menu-bar;
+}
 
+.sticky {
   // Scroll-then-fix
   position: -webkit-sticky;
   position: sticky;
