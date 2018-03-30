@@ -33,39 +33,34 @@ public class FoodService {
     private List<Menu> menus = new ArrayList<>();
 
     @JsonView(Views.FoodServiceDetails.class)
-    String name;
+    @JsonProperty("name_en")
+    @Column(name = "name_en")
+    private String nameEN;
+
+    @JsonView(Views.FoodServiceDetails.class)
+    @JsonProperty("name_et")
+    @Column(name = "name_et")
+    private String nameET;
 
     @JsonProperty("menu_url")
     @Column(name = "menu_url")
     @JsonView(Views.FoodServiceDetails.class)
-    String menuURL;
+    private String menuURL;
 
     @JsonView(Views.FoodServiceDetails.class)
-    String website;
+    private String website;
 
     @JsonView(Views.FoodServiceDetails.class)
-    String lon;
+    private String lon;
 
     @JsonView(Views.FoodServiceDetails.class)
-    String lat;
+    private String lat;
 
     public FoodService() {
     }
 
-    /**
-     * Create a copy of the foodService except leave the menu list empty.
-     * @param foodService
-     */
-    public FoodService(FoodService foodService) {
-        this.id = foodService.id;
-        this.name = foodService.name;
-        this.menuURL = foodService.menuURL;
-        this.website = foodService.website;
-        this.lon = foodService.lon;
-        this.lat = foodService.lat;
-    }
-
-    public FoodService(String name) {
-        this.name = name;
+    public FoodService(String name_en, String name_et) {
+        this.nameEN = name_en;
+        this.nameET = name_et;
     }
 }
