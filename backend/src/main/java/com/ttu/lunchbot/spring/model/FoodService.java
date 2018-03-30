@@ -59,8 +59,8 @@ public class FoodService {
     public FoodService() {
     }
 
-    public FoodService(String name_en, String name_et) {
-        this.nameEN = name_en;
-        this.nameET = name_et;
+    public FoodService(String nameEN, String nameET) {
+        this.nameEN = nameEN;
+        this.nameET = nameET;
     }
 }
