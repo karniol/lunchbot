@@ -7,6 +7,7 @@ import com.ttu.lunchbot.spring.model.Menu;
 import com.ttu.lunchbot.spring.service.MenuService;
 import com.ttu.lunchbot.spring.service.PriceFilterService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +48,7 @@ public class MenuController {
         return menuService.addMenu(menu);
     }
 
+    @CrossOrigin(origins = "http://localhost:9000")
     @GetMapping(value = "/menus/filter/{max-price}")
     public List<Menu> getTodayMenusFilteredByPrice(@PathVariable("max-price") String maxPrice) {
         maxPrice = maxPrice.replace(",", ".");
