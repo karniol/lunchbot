@@ -1,5 +1,6 @@
 package com.ttu.lunchbot.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -9,9 +10,12 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
@@ -46,6 +50,17 @@ public class FoodService {
     @Column(name = "menu_url")
     @JsonView(Views.FoodServiceDetails.class)
     private String menuURL;
+
+    @OneToMany(mappedBy = "foodService")
+    @JsonIgnoreProperties("food_service")
+    @JsonProperty("menu_urls")
+    private List<MenuURL> menuURLs;
+
+    @ManyToOne
+    @JsonIgnoreProperties("food_services")
+    @JsonProperty("parser")
+    @JoinColumn(name = "parser_id", nullable = false, foreignKey = @ForeignKey(name = "parser_fk"))
+    private FoodServiceParser parser;
 
     @JsonView(Views.FoodServiceDetails.class)
     private String website;

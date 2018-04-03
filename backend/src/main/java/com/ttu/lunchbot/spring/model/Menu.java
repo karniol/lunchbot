@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,7 +38,7 @@ public class Menu {
     private List<MenuItem> menuItems = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "food_service_id", nullable = false)
+    @JoinColumn(name = "food_service_id", nullable = false, foreignKey = @ForeignKey(name = "food_service_fk"))
     @JsonIgnoreProperties("menus")
     @JsonProperty("food_service")
     private FoodService foodService;

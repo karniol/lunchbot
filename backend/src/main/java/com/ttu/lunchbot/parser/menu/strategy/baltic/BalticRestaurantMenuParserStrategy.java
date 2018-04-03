@@ -27,6 +27,11 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
     private static final String[] MONTH_NAMES_ET = DateFormatSymbols.getInstance(java.util.Locale.forLanguageTag("et")).getMonths();
 
     /**
+     * The identifying name of the strategy.
+     */
+    private static final String STRATEGY_IDENTIFIER = "BALTIC";
+
+    /**
      * Collection of parsed Menus. A collection is used in case the menu text (input to
      * the parser) contains more than one Menu, since one Menu corresponds to one date.
      * @see Menu
@@ -162,5 +167,10 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
         }
 
         return parsedMenus;
+    }
+
+    @Override
+    public String getIdentifier() {
+        return STRATEGY_IDENTIFIER;
     }
 }

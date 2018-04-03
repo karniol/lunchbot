@@ -20,6 +20,8 @@ import java.util.List;
 
 public class RahvaToitMenuParserStrategy implements MenuParserStrategy {
 
+    private static final String STRATEGY_IDENTIFIER = "RAHVA_TOIT";
+
     /**
      * Date format used in the Facebook Graph API. Used for parsing dates into a Calendar object.
      */
@@ -161,5 +163,10 @@ public class RahvaToitMenuParserStrategy implements MenuParserStrategy {
         }
 
         return this.parsedMenus;
+    }
+
+    @Override
+    public String getIdentifier() {
+        return STRATEGY_IDENTIFIER;
     }
 }

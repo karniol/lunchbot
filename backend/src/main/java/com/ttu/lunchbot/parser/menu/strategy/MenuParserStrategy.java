@@ -15,4 +15,11 @@ public interface MenuParserStrategy {
      * @see Menu
      */
     ArrayList<Menu> parse(final String text);
+
+    /**
+     * Get the identifying name of the parser.
+     * @return String in upper case that uniquely identifies the strategy.
+     */
+    String getIdentifier();
+
 }

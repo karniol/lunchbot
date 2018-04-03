@@ -1,7 +1,9 @@
 package com.ttu.lunchbot.spring.service;
 
 import com.ttu.lunchbot.parser.menu.PDFMenuParser;
+import com.ttu.lunchbot.parser.menu.strategy.MenuParserStrategy;
 import com.ttu.lunchbot.spring.model.FoodService;
+import com.ttu.lunchbot.spring.model.MenuURL;
 import com.ttu.lunchbot.util.CalendarConverter;
 import com.ttu.lunchbot.parser.menu.strategy.baltic.BalticRestaurantMenuParserStrategy;
 import com.ttu.lunchbot.spring.model.MenuItem;
@@ -16,11 +18,15 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ParseService {
@@ -31,12 +37,25 @@ public class ParseService {
 
     private MenuRepository menuRepository;
 
+    private Map<String, MenuParserStrategy> parserMap;
+
     public ParseService(MenuService menuService,
                         FoodServiceRepository foodServiceRepository,
-                        MenuRepository menuRepository) {
+                        MenuRepository menuRepository) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         this.menuService = menuService;
         this.foodServiceRepository = foodServiceRepository;
         this.menuRepository = menuRepository;
+        setupParsers();
+    }
+
+    private void setupParsers() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        parserMap = new HashMap<>();
+        MenuParserStrategy[] parsers = {new BalticRestaurantMenuParserStrategy()};
+        for (MenuParserStrategy strategy : parsers) {
+            //strategy.getClass().getConstructor().newInstance();
+
+            parserMap.put(strategy.getIdentifier(), strategy);
+        }
     }
 
     public List<Menu> parseFoodServiceMenu(long cafeId) {
@@ -46,6 +65,11 @@ public class ParseService {
     public List<Menu> parseFoodServiceMenu(FoodService foodService) {
         try {
             if (foodService == null) throw new ResourceNotFoundException("Food service not found");
+
+            //switch (foodService.getParser().getType()) {
+            //    case "NONE":
+            //        parserMap.get(foodService.getParser().getName())
+            //}
 
             // TODO make other restaurants use their specific strategies
             MenuParser menuParser = new PDFMenuParser(new BalticRestaurantMenuParserStrategy());
