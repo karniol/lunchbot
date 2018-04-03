@@ -39,8 +39,10 @@ public class ParseService {
         this.menuRepository = menuRepository;
     }
 
-    public List<Menu> parseFoodServiceMenu(long cafeId) {
-        return parseFoodServiceMenu(foodServiceRepository.findOne(cafeId));
+    public List<Menu> parseFoodServiceMenu(long foodServiceId) {
+        FoodService foodService = foodServiceRepository.findOne(foodServiceId);
+        FoodServiceService.updateFoodServiceOpeningTimes(foodService);
+        return parseFoodServiceMenu(foodService);
     }
 
     public List<Menu> parseFoodServiceMenu(FoodService foodService) {
