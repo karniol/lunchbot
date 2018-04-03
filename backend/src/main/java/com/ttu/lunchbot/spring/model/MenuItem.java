@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,9 +33,13 @@ public class MenuItem {
     @JoinColumn(name = "menu_id", nullable = false)
     private Menu menu;
 
-    private String name_et;
+    @JsonProperty("name_et")
+    @Column(name = "name_et")
+    private String nameET;
 
-    private String name_en;
+    @JsonProperty("name_en")
+    @Column(name = "name_en")
+    private String nameEN;
 
     private BigDecimal price;
 
@@ -44,9 +49,9 @@ public class MenuItem {
 
     }
 
-    public MenuItem(String name_et, String name_en, Menu menu, Currency currency, BigDecimal price) {
-        this.name_et = name_et;
-        this.name_en = name_en;
+    public MenuItem(String nameET, String nameEN, Menu menu, Currency currency, BigDecimal price) {
+        this.nameET = nameET;
+        this.nameEN = nameEN;
         this.menu = menu;
         this.currency = currency.toString();
         this.price = price.setScale(2, RoundingMode.HALF_UP);

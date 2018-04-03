@@ -21,12 +21,13 @@ public class FoodServiceController {
 
     // TODO: Configure CORS globally so Aurelia can access data
     @CrossOrigin(origins = "http://localhost:9000")
+    @JsonView(Views.FoodServiceDetails.class)
     @GetMapping(value="/foodservices")
     public List<FoodService> getAllFoodServices() {
         return foodServiceService.getAllFoodServices();
     }
 
-    // Shows /cafes properties plus menus
+    // Shows /foodservices properties plus menus
     @GetMapping(value="/foodservices/allinfo")
     public List<FoodService> getAllFoodServicesAllInfo() {
         return foodServiceService.getAllFoodServices();

@@ -39,8 +39,10 @@ public class ParseService {
         this.menuRepository = menuRepository;
     }
 
-    public List<Menu> parseFoodServiceMenu(long cafeId) {
-        return parseFoodServiceMenu(foodServiceRepository.findOne(cafeId));
+    public List<Menu> parseFoodServiceMenu(long foodServiceId) {
+        FoodService foodService = foodServiceRepository.findOne(foodServiceId);
+        FoodServiceService.updateFoodServiceOpeningTimes(foodService);
+        return parseFoodServiceMenu(foodService);
     }
 
     public List<Menu> parseFoodServiceMenu(FoodService foodService) {
@@ -49,7 +51,7 @@ public class ParseService {
 
             // TODO make other restaurants use their specific strategies
             MenuParser menuParser = new PDFMenuParser(new BalticRestaurantMenuParserStrategy());
-            String destination = "/tmp/" + foodService.getName() + ".pdf";
+            String destination = "/tmp/" + foodService.getNameEN() + ".pdf";
 
             File newFile = new File(destination);
             FileUtils.copyURLToFile(new URL(foodService.getMenuURL()), newFile, 10000, 10000);

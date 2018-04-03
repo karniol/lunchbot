@@ -1,11 +1,10 @@
 package com.ttu.lunchbot.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.ttu.lunchbot.util.CalendarConverter;
-import com.ttu.lunchbot.spring.controller.Views;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,7 +29,6 @@ public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView(Views.NoMenuItems.class)
     private long id;
 
     @OneToMany(mappedBy = "menu")
@@ -39,12 +37,11 @@ public class Menu {
     private List<MenuItem> menuItems = new ArrayList<>();
 
     @ManyToOne
-    @JsonManagedReference
     @JoinColumn(name = "food_service_id", nullable = false)
+    @JsonIgnoreProperties({"menus", "open_times_all"})
     @JsonProperty("food_service")
     private FoodService foodService;
 
-    @JsonView(Views.NoMenuItems.class)
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
@@ -74,6 +71,13 @@ public class Menu {
     public Menu(Calendar calendar, FoodService foodService) {
         this.foodService = foodService;
         this.date = new CalendarConverter().toLocalDate(calendar);
+    }
+
+    public Menu(long id, List<MenuItem> menuItems, FoodService foodService, LocalDate date) {
+        this.id = id;
+        this.menuItems = menuItems;
+        this.foodService = foodService;
+        this.date = date;
     }
 
 }
