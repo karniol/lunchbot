@@ -8,6 +8,10 @@ $ocean: #6ec4db; $ocean-accent: #142329;
 $moon: #fff7c0; $moon-accent: #2f2a21;
 $forest: #66ab8c; $forest-accent: #102820;
 
+$header-height: 4em;
+$menu-overview-height: 2em;
+$footer-height: 5em;
+
 .style-class-0 {
   color: $white;
   background-color: $black;
@@ -33,18 +37,89 @@ $forest: #66ab8c; $forest-accent: #102820;
   background-color: $forest;
 }
 
-.food-services-list-group-item {
-  padding: 16px 16px;
+.clickable {
+  cursor: pointer;
 }
 
-.food-services-list-group-item a {
+.center-vertically {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.invert-colors {
+  filter: invert(100%);
+}
+
+html {
+  position: relative;  // for footer
+  min-height: 100%;
+}
+
+header {
+  background: $black;
+  z-index: 1;
+  height: $header-height;
+  line-height: $header-height;
+}
+
+main {
+  margin-bottom: $footer-height;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $footer-height;
+  line-height: $footer-height;
+}
+
+.lunchbot-header-button {
+  height: 2.5em;
+}
+
+.lunchbot-food-service-anchor,
+.lunchbot-food-service-anchor:hover,
+.lunchbot-food-service-anchor:focus {
   text-decoration: none;
   color: inherit;
+  font-size: 2em;
+  padding: 16px;
+  font-weight: 700;
 }
 
-.food-services-list-group-item-text {
-  font-weight: 700;
-  font-size: 2em;
-  text-align: center;
-  text-transform: uppercase;
+.lunchbot-food-service-div {
+  overflow: hidden;
+}
+
+.lunchbot-menu-overview {
+  height: $menu-overview-height;
+  line-height: $menu-overview-height;
+  border-top: 1px dotted $gray-dark;
+  background: $black;
+  color: $white;
+  font-weight: 300;
+  font-size: 1em;
+  z-index: 2;
+}
+
+.lunchbot-menu-button {
+  margin-top: -5px;
+  height: 1.5em;
+}
+
+.lunchbot-menu {
+
+}
+
+.lunchbot-menu-item {
+  font-size: 1.25em;
+  border-bottom: 1px dotted $gray-light;
+  padding: 16px 0px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

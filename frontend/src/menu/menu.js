@@ -1,12 +1,11 @@
-import {Fetcher} from "../util/fetcher";
+import {Fetcher} from "../resources/util/fetcher";
 
 export class Menu {
-  constructor() {
-    this.data = null;
-    this.successfulRequest = false;
-  }
+  constructor() {}
 
   activate(params) {
+    this.data = null;
+    this.loading = true;
     this.getMenuItems(params.id);
   }
 
@@ -23,7 +22,7 @@ export class Menu {
       .then(response => response.json())
       .then(data => this.data = data)
       .then(() => Menu.formatPriceString(this.data))
-      .then(() => this.successfulRequest = true);
+      .then(() => this.loading = false);
   }
 
   openSidebar() {
