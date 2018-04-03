@@ -40,7 +40,7 @@ public class MenuController {
 
     @GetMapping(value = "/menus/{menu-id}")
     public Menu getMenuByMenuId(@PathVariable("menu-id") long menuId) {
-        return menuService.getMenuById(menuId);
+        return menuService.getMenuByMenuId(menuId);
     }
 
     @PostMapping(value="/menus/add", consumes = "application/json")

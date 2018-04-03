@@ -19,12 +19,22 @@ public class MenuService {
         this.menuItemRepository = menuItemRepository;
     }
 
-    public Menu getMenuById(long menuId) {
-        return menuRepository.findOne(menuId);
+    public Menu getMenuByMenuId(long menuId) {
+        Menu menu = menuRepository.findOne(menuId);
+        FoodServiceService.updateFoodServiceOpeningTimes(menu.getFoodService());
+        return menu;
+    }
+
+    public List<Menu> getMenusByFoodServiceId(long foodServiceId) {
+        List<Menu> menus = menuRepository.findByFoodServiceId(foodServiceId);
+        menus.stream().map(Menu::getFoodService).forEach(FoodServiceService::updateFoodServiceOpeningTimes);
+        return menus;
     }
 
     public List<Menu> getAllMenus() {
-        return menuRepository.findAll();
+        List<Menu> menus = menuRepository.findAll();
+        menus.stream().map(Menu::getFoodService).forEach(FoodServiceService::updateFoodServiceOpeningTimes);
+        return menus;
     }
 
     public Menu addMenu(Menu menu) {
