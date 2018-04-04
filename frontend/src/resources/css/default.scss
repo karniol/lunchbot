@@ -1,0 +1,128 @@
+$black: rgb(25, 25, 25);
+$white: rgb(245, 245, 245);
+$gray-light: rgb(229, 224, 212);
+$gray-dark: rgb(115, 110, 106);
+
+$salmon: #fa7c92; $salmon-accent: #251212;
+$ocean: #6ec4db; $ocean-accent: #142329;
+$moon: #fff7c0; $moon-accent: #2f2a21;
+$forest: #66ab8c; $forest-accent: #102820;
+
+$header-height: 4em;
+$menu-overview-height: 2em;
+$footer-height: 5em;
+
+.style-class-0 {
+  color: $white;
+  background-color: $black;
+}
+
+.style-class-1 {
+  color: $salmon-accent;
+  background-color: $salmon;
+}
+
+.style-class-2 {
+  color: $ocean-accent;
+  background-color: $ocean;
+}
+
+.style-class-3 {
+  color: $moon-accent;
+  background-color: $moon;
+}
+
+.style-class-4 {
+  color: $forest-accent;
+  background-color: $forest;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.center-vertically {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.invert-colors {
+  filter: invert(100%);
+}
+
+html {
+  position: relative;  // for footer
+  min-height: 100%;
+}
+
+header {
+  background: $black;
+  z-index: 1;
+  height: $header-height;
+  line-height: $header-height;
+  box-shadow: 0px 1px 1px 0px $black;
+}
+
+main {
+  margin-bottom: $footer-height;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $footer-height;
+  line-height: $footer-height;
+}
+
+.lunchbot-header-button {
+  height: 2.5em;
+}
+
+.lunchbot-food-service-anchor,
+.lunchbot-food-service-anchor:hover,
+.lunchbot-food-service-anchor:focus {
+  text-decoration: none;
+  color: inherit;
+  font-size: 2em;
+  padding: 16px;
+  font-weight: 700;
+}
+
+.lunchbot-food-service-div {
+  overflow: hidden;
+}
+
+.lunchbot-menu-overview {
+  height: $menu-overview-height;
+  line-height: $menu-overview-height;
+  border-top: 1px dotted $gray-dark;
+  background: $black;
+  color: $white;
+  font-weight: 300;
+  font-size: 1em;
+  z-index: 2;
+  top: $header-height;
+  box-shadow: 0px 1px 1px 0px $black;
+}
+
+.lunchbot-menu-button {
+  margin-top: -5px;
+  height: 1.5em;
+}
+
+.lunchbot-menu {
+
+}
+
+.lunchbot-menu-item {
+  font-size: 1.25em;
+  border-bottom: 1px dotted $gray-light;
+  padding: 16px 0px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

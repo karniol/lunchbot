@@ -1,12 +1,11 @@
-import {Fetcher} from '../util/fetcher';
+import {Fetcher} from "../resources/util/fetcher";
 
 export class Menu {
-  constructor() {
-    this.data = null;
-    this.successfulRequest = false;
-  }
+  constructor() {}
 
   activate(params) {
+    this.data = null;
+    this.loading = true;
     this.getMenuItems(params.id);
   }
 
@@ -14,7 +13,7 @@ export class Menu {
     data["menu_items"].forEach(function(menuItem) {
       menuItem["price_string"] = "€" + menuItem["price"].toFixed(2);
     });
-    return data
+    return data;
   }
 
   getMenuItems(foodServiceId) {
@@ -23,6 +22,16 @@ export class Menu {
       .then(response => response.json())
       .then(data => this.data = data)
       .then(() => Menu.formatPriceString(this.data))
-      .then(() => this.successfulRequest = true);
+      .then(() => this.loading = false);
+  }
+
+  openSidebar() {
+    let sidebar = document.getElementById("sidebar");
+    sidebar.style.visibility = "visible";
+  }
+
+  closeSidebar() {
+    let sidebar = document.getElementById("sidebar");
+    sidebar.style.visibility = "hidden";
   }
 }

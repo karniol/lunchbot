@@ -1,15 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
+    <base href="/">
     <meta charset="utf-8">
     <title>Lunchbot</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" type="text/css" href="/src/resources/style/normalize.css">
-    <base href="/">
+    <!-- CSS Frameworks -->
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="node_modules/animate.css/animate.min.css">
   </head>
   <body aurelia-app="main">
     <script src="scripts/vendor-bundle.js"></script>
     <script>SystemJS.import("aurelia-bootstrapper").catch(function(err) { console.log(err); })</script>
+    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

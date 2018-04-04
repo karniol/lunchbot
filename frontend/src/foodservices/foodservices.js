@@ -1,13 +1,11 @@
-import {Fetcher} from '../util/fetcher';
-
+import {Fetcher} from "../resources/util/fetcher";
 
 export class FoodServices {
-  constructor() {
-    this.successfulRequest = false;
-    this.data = null;
-  }
+  constructor() {}
 
   activate(params) {
+    this.data = null;
+    this.loading = true;
     this.getFoodServiceNames();
   }
 
@@ -16,6 +14,6 @@ export class FoodServices {
       .fetch(`foodservices`, {'method': 'GET'})
       .then(response => response.json())
       .then(data => this.data = data)
-      .then(() => this.successfulRequest = true)
+      .then(() => this.loading = false);
   }
 }
