@@ -12,15 +12,15 @@
         <div class="col text-center">
           <img class="lunchbot-header-button invert-colors" src="src/resources/images/logo/logo-placeholder.png">
         </div>
-        <div class="col text-right">
+        <div class="col text-right" click.delegate="toggleSearchMenu()">
           <img class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-search-placeholder.png">
         </div>
-        <div class="lunchbot-search d-none">
+        <div id="lunchbot-id-search-menu" class="lunchbot-search-menu d-none">
           <form class="form-inline">
-            <button class="btn btn-outline-light mb-2 mr-sm-1">X</button>
+            <button click.delegate="toggleSearchMenu()" class="btn btn-light mb-2 mr-sm-1">X</button>
             <label class="sr-only" for="inlineFormInputPrice">Price</label>
             <input type="number" class="form-control mb-2 mr-sm-1" id="inlineFormInputPrice" placeholder="Enter maximum price">
-            <button type="submit" class="btn btn-outline-light mb-2">Search</button>
+            <button type="submit" class="btn btn-light mb-2">Search</button>
           </form>
         </div>
       </div>

@@ -60,6 +60,7 @@ header {
   z-index: 1;
   height: $header-height;
   line-height: $header-height;
+  box-shadow: 0px 1px 1px 0px $black;
 }
 
 main {
@@ -101,6 +102,8 @@ footer {
   font-weight: 300;
   font-size: 1em;
   z-index: 2;
+  top: $header-height;
+  box-shadow: 0px 1px 1px 0px $black;
 }
 
 .lunchbot-menu-button {
