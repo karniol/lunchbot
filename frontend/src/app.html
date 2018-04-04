@@ -5,7 +5,7 @@
     <header class="container sticky-top">
       <div class="row">
         <div class="col text-left">
-          <a with.bind="hasBackButton" href="/">
+          <a href="/">
             <img class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-back-placeholder.png">
           </a>
         </div>
@@ -15,18 +15,17 @@
         <div class="col text-right" click.delegate="toggleSearchMenu()">
           <img class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-search-placeholder.png">
         </div>
-        <div id="lunchbot-id-search-menu" class="lunchbot-search-menu d-none">
+        <div show.bind="searchMenuVisible" id="lunchbot-id-search-menu" class="lunchbot-search-menu">
           <form class="form-inline">
-            <button click.delegate="toggleSearchMenu()" class="btn btn-light mb-2 mr-sm-1">X</button>
             <label class="sr-only" for="inlineFormInputPrice">Price</label>
-            <input type="number" class="form-control mb-2 mr-sm-1" id="inlineFormInputPrice" placeholder="Enter maximum price">
+            <input type="number" class="form-control mb-2 /mr-sm-1" id="inlineFormInputPrice" placeholder="Enter maximum price">
             <button type="submit" class="btn btn-light mb-2">Search</button>
           </form>
         </div>
       </div>
     </header>
 
-    <router-view class="router-view"></router-view>
+    <router-view swap-order="before"></router-view>
 
     <footer class="container-fluid">
       <div class="row">

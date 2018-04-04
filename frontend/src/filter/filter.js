@@ -1,17 +1,18 @@
 import {Fetcher} from "../resources/util/fetcher";
 
-export class Menu {
+export class Filter {
   constructor() {}
 
   activate(params) {
     this.data = null;
     this.loading = true;
-    this.getMenuItems(params.id);
+    this.getMenuItems(params.price);
   }
 
-  getMenuItems(foodServiceId) {
+  getMenuItems(maxPrice) {
     Fetcher.getInstance()
-      .fetch(`foodservices/${foodServiceId}/menus/today/`, {'method': 'GET'})
+      // don't remove any slashes
+      .fetch(`menus/filter/${maxPrice}/`, {'method': 'GET'})
       .then(response => response.json())
       .then(data => this.data = data)
       .then(() => this.loading = false);

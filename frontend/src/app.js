@@ -1,32 +1,40 @@
 import environment from "./environment";
 
 export class App {
-  constructor() {}
+  constructor() {
+    this.searchMenuVisible = false;
+  }
 
   toggleSearchMenu() {
-    document.getElementById("lunchbot-id-search-menu").classList.toggle("d-none");
+    this.searchMenuVisible = !this.searchMenuVisible;
   }
 
   configureRouter(config, router) {
+    this.router = router;
     config.title = 'Lunchbot';
     config.options.pushState = true;
     config.options.root = '/';
-
     config.map([
-      { route: '/menu/:id',
-        moduleId: './menu/menu',
-        name: "menu",
-        nav: true,
-        href: '#id'
-      },
-
-      { route: '/',
-        moduleId: './foodservices/foodservices',
+      { route: "/",
+        moduleId: "./foodservices/foodservices",
         name: "foodservices",
         nav: true
       },
-    ]);
 
-    this.router = router;
+      { route: "/menu/:id",
+        href: "#id",
+        moduleId: "./menu/menu",
+        name: "menu",
+        nav: true
+      },
+
+      { route: "/filter/:price",
+        href: "#price",
+        moduleId: "./filter/filter",
+        name: "filter",
+        nav: true
+      }
+    ]);
+    config.mapUnknownRoutes('not-found');
   }
 }

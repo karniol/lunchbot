@@ -50,6 +50,12 @@ $footer-height: 5em;
   filter: invert(100%);
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 html {
   position: relative;  // for footer
   min-height: 100%;
@@ -93,7 +99,7 @@ footer {
   overflow: hidden;
 }
 
-.lunchbot-menu-overview {
+.lunchbot-menu-overview-bar {
   height: $menu-overview-height;
   line-height: $menu-overview-height;
   border-top: 1px dotted $gray-dark;
@@ -106,8 +112,10 @@ footer {
   box-shadow: 0px 1px 1px 0px $black;
 }
 
-.lunchbot-menu-button {
-  margin-top: -5px;
+.lunchbot-menu-overview-bar-info-button {
+  position: absolute;
+  top: 4px;
+  right: 1.5em;
   height: 1.5em;
 }
 
@@ -119,10 +127,4 @@ footer {
   font-size: 1.25em;
   border-bottom: 1px dotted $gray-light;
   padding: 16px 0px;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
 }
