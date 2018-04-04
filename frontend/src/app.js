@@ -1,24 +1,19 @@
 import environment from "./environment";
 
 export class App {
-  constructor() {
-    this.searchMenuVisible = false;
-  }
-
-  toggleSearchMenu() {
-    this.searchMenuVisible = !this.searchMenuVisible;
-  }
+  constructor() {}
 
   configureRouter(config, router) {
     this.router = router;
-    config.title = 'Lunchbot';
+    config.title = "Lunchbot";
     config.options.pushState = true;
-    config.options.root = '/';
+    config.options.root = "/";
+
     config.map([
       { route: "/",
         moduleId: "./foodservices/foodservices",
         name: "foodservices",
-        nav: true
+        nav: 0
       },
 
       { route: "/menu/:id",
@@ -35,6 +30,7 @@ export class App {
         nav: true
       }
     ]);
-    config.mapUnknownRoutes('not-found');
+
+    config.mapUnknownRoutes("not-found/not-found");
   }
 }

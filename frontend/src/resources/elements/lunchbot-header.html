@@ -1,0 +1,35 @@
+<template>
+
+  <header class="lunchbot-header container sticky-top">
+    <div class="row">
+
+      <!-- back button -->
+      <div class="col-3 text-left">
+        <a href="/">
+          <img class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-back-placeholder.png">
+        </a>
+      </div>
+
+      <!-- logo -->
+      <div class="col-6 text-center">
+        <img show.bind="!searchMenuVisible" class="lunchbot-header-button invert-colors" src="src/resources/images/logo/logo-placeholder.png">
+        <!-- search overlay -->
+        <div show.bind="searchMenuVisible" id="lunchbot-id-search-menu" class="lunchbot-search-menu">
+          <form class="form-inline">
+            <label class="sr-only" for="inlineFormInputPrice">Price</label>
+            <input type="number" class="form-control mb-2 mr-sm-1" id="inlineFormInputPrice" placeholder="Max price">
+            <button type="submit" class="btn btn-light mb-2 d-none">Search</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- search button -->
+      <div class="col-3 text-right" click.delegate="toggleSearchMenu()">
+        <img show.bind="!searchMenuVisible" class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-search-placeholder.png">
+        <img show.bind="searchMenuVisible" class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-back-placeholder.png" style="transform: rotate(180deg);">
+      </div>
+
+    </div>
+  </header>
+
+</template>

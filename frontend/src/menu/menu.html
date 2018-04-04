@@ -1,10 +1,6 @@
 <template>
 
-  <require from="../resources/elements/menu-overview-bar.html"></require>
-
-  <menu-overview-bar>
-    ${data.food_service.name_et}
-  </menu-overview-bar>
-  <compose view-model="../resources/elements/menu" model.bind="data"></compose>
+  <compose view-model="../resources/elements/menu-overview-bar" model.bind="data" containerless></compose>
+  <compose view-model="../resources/elements/menu" model.bind="data" containerless></compose>
 
 </template>

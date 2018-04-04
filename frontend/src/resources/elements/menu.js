@@ -1,4 +1,4 @@
-export class MenuItemList {
+export class Menu {
   activate(model) {
     this.data = model;
   }

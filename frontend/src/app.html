@@ -1,39 +1,13 @@
 <template>
+
   <require from="./resources/css/default.css"></require>
-  <main>
+  <require from="./resources/elements/lunchbot-header"></require>
+  <require from="./resources/elements/lunchbot-footer.html"></require>
 
-    <header class="container sticky-top">
-      <div class="row">
-        <div class="col text-left">
-          <a href="/">
-            <img class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-back-placeholder.png">
-          </a>
-        </div>
-        <div class="col text-center">
-          <img class="lunchbot-header-button invert-colors" src="src/resources/images/logo/logo-placeholder.png">
-        </div>
-        <div class="col text-right" click.delegate="toggleSearchMenu()">
-          <img class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-search-placeholder.png">
-        </div>
-        <div show.bind="searchMenuVisible" id="lunchbot-id-search-menu" class="lunchbot-search-menu">
-          <form class="form-inline">
-            <label class="sr-only" for="inlineFormInputPrice">Price</label>
-            <input type="number" class="form-control mb-2 /mr-sm-1" id="inlineFormInputPrice" placeholder="Enter maximum price">
-            <button type="submit" class="btn btn-light mb-2">Search</button>
-          </form>
-        </div>
-      </div>
-    </header>
-
-    <router-view swap-order="before"></router-view>
-
-    <footer class="container-fluid">
-      <div class="row">
-        <div class="col text-center">
-          <span class="text-muted small">Lunchbot © 2018</span>
-        </div>
-      </div>
-    </footer>
-
+  <main class="lunchbot-main">
+    <lunchbot-header containerless></lunchbot-header>
+    <router-view swap-order="before" containerless></router-view>
+    <lunchbot-footer containerless></lunchbot-footer>
   </main>
+
 </template>

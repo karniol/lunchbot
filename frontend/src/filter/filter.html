@@ -1,17 +1,13 @@
 <template>
-  <require from="../resources/elements/menu-overview-bar.html"></require>
+  <require from="../resources/elements/menu-overview-bar"></require>
 
-  <div if.bind="empty">
-    <div class="alert alert-danger text-center">
-      No results for the entered maximum price
-    </div>
+  <div if.bind="!hasResults" class="alert alert-danger text-center">
+    No results for the entered maximum price
   </div>
 
   <div repeat.for="entry of data">
-    <menu-overview-bar>
-      ${entry.food_service.name_et}
-    </menu-overview-bar>
-    <compose view-model="../resources/elements/menu" model.bind="entry"></compose>
+    <compose view-model="../resources/elements/menu-overview-bar" model.bind="entry" containerless></compose>
+    <compose view-model="../resources/elements/menu" model.bind="entry" containerless></compose>
   </div>
 
 </template>

@@ -1,5 +1,6 @@
 $black: rgb(25, 25, 25);
-$white: rgb(245, 245, 245);
+$white: rgb(253, 253, 253);
+$gray-lightest: rgb(248, 246, 243);
 $gray-light: rgb(229, 224, 212);
 $gray-dark: rgb(115, 110, 106);
 
@@ -52,8 +53,8 @@ $footer-height: 5em;
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 html {
@@ -61,28 +62,29 @@ html {
   min-height: 100%;
 }
 
-header {
-  background: $black;
-  z-index: 1;
+.lunchbot-header {
   height: $header-height;
   line-height: $header-height;
-  box-shadow: 0px 1px 1px 0px $black;
+  background: $black;
+  z-index: 9999;
 }
 
-main {
+.lunchbot-main {
   margin-bottom: $footer-height;
 }
 
-footer {
+.lunchbot-footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   height: $footer-height;
   line-height: $footer-height;
+  background: $gray-lightest;
 }
 
 .lunchbot-header-button {
   height: 2.5em;
+  z-index: 9999;
 }
 
 .lunchbot-food-service-anchor,
@@ -102,29 +104,35 @@ footer {
 .lunchbot-menu-overview-bar {
   height: $menu-overview-height;
   line-height: $menu-overview-height;
-  border-top: 1px dotted $gray-dark;
-  background: $black;
   color: $white;
   font-weight: 300;
   font-size: 1em;
-  z-index: 2;
   top: $header-height;
-  box-shadow: 0px 1px 1px 0px $black;
 }
 
 .lunchbot-menu-overview-bar-info-button {
   position: absolute;
-  top: 4px;
+  top: 5px;
   right: 1.5em;
   height: 1.5em;
 }
 
-.lunchbot-menu {
+.lunchbot-menu-overview-title {
+  border-top: 1px dashed $gray-dark;
+  z-index: 9999;
+  background: $black;
+}
 
+.lunchbot-menu-overview {
+  border-top: 1px dashed $gray-dark;
+  position: relative;
+  background: $black;
+  z-index: -9999;
 }
 
 .lunchbot-menu-item {
   font-size: 1.25em;
   border-bottom: 1px dotted $gray-light;
   padding: 16px 0px;
+  background: $white;
 }
