@@ -8,6 +8,7 @@ import com.ttu.lunchbot.util.CalendarConverter;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,7 +29,7 @@ import java.util.List;
 public class Menu {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @OneToMany(mappedBy = "menu")
@@ -43,7 +44,12 @@ public class Menu {
     private FoodService foodService;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(columnDefinition = "DATE")
     private LocalDate date;
+
+    public void addItem(MenuItem menuItem) {
+        menuItems.add(menuItem);
+    }
 
     public Menu() {
 
@@ -68,6 +74,10 @@ public class Menu {
         this.date = new CalendarConverter().toLocalDate(calendar);
     }
 
+    public Menu(Calendar calendar) {
+        this.date = new CalendarConverter().toLocalDate(calendar);
+    }
+
     public Menu(Calendar calendar, FoodService foodService) {
         this.foodService = foodService;
         this.date = new CalendarConverter().toLocalDate(calendar);
@@ -78,6 +88,22 @@ public class Menu {
         this.menuItems = menuItems;
         this.foodService = foodService;
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Menu: ");
+        sb.append(date);
+        sb.append('\n');
+
+        for (MenuItem item : menuItems) {
+            sb.append(item.toString());
+            sb.append("\n");
+        }
+
+        return sb.toString();
     }
 
 }
