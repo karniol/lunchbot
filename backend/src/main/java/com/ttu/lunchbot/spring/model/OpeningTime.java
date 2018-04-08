@@ -13,12 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.time.LocalTime;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "opening_times")
+@Table(name = "opening_times", uniqueConstraints = @UniqueConstraint
+        (columnNames = {"food_service_id", "week_day"},
+                name = "food_service_week_day_unique"))
 public class OpeningTime {
 
     @Id

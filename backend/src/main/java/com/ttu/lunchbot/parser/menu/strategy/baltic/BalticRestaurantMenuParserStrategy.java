@@ -16,6 +16,10 @@ import java.util.*;
  */
 public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
 
+    private static final String PARSER_TYPE = "PDF";
+
+    private static final String PARSER_NAME = "BALTIC";
+
     /**
      * Regular expression pattern for matching lines in the menu text that contain a date.
      */
@@ -162,5 +166,15 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
         }
 
         return parsedMenus;
+    }
+
+    @Override
+    public String getParserName() {
+        return PARSER_NAME;
+    }
+
+    @Override
+    public String getParserType() {
+        return PARSER_TYPE;
     }
 }
