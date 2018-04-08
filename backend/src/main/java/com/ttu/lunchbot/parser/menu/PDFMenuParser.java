@@ -56,4 +56,5 @@ public class PDFMenuParser extends MenuParser {
     public ArrayList<Menu> parseMenus(File file) {
         return this.getStrategy().parse(this.extractText(file));
     }
+
 }

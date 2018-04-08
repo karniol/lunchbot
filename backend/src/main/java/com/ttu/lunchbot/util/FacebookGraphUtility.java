@@ -1,12 +1,12 @@
-package com.ttu.lunchbot.wrapper;
+package com.ttu.lunchbot.util;
 
-public class FacebookGraphWrapper {
+public class FacebookGraphUtility {
 
     private static final String BASE_URL = "https://graph.facebook.com/";
 
     private final String token;
 
-    public FacebookGraphWrapper(String token) {
+    public FacebookGraphUtility(String token) {
         this.token = token;
     }
 

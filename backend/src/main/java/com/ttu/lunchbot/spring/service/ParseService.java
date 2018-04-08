@@ -1,6 +1,8 @@
 package com.ttu.lunchbot.spring.service;
 
 import com.ttu.lunchbot.parser.menu.PDFMenuParser;
+import com.ttu.lunchbot.parser.menu.strategy.rahvatoit.LIBParserStrategy;
+import com.ttu.lunchbot.parser.menu.strategy.rahvatoit.SOCParserStrategy;
 import com.ttu.lunchbot.spring.model.FoodService;
 import com.ttu.lunchbot.util.CalendarConverter;
 import com.ttu.lunchbot.parser.menu.strategy.baltic.BalticRestaurantMenuParserStrategy;
@@ -9,6 +11,8 @@ import com.ttu.lunchbot.spring.model.Menu;
 import com.ttu.lunchbot.parser.menu.MenuParser;
 import com.ttu.lunchbot.spring.repository.FoodServiceRepository;
 import com.ttu.lunchbot.spring.repository.MenuRepository;
+import com.ttu.lunchbot.util.FacebookGraphUtility;
+import org.apache.commons.io.IOUtils;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +20,9 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -46,18 +52,43 @@ public class ParseService {
     }
 
     public List<Menu> parseFoodServiceMenu(FoodService foodService) {
+        if (foodService == null) throw new ResourceNotFoundException("Food service not found");
+
         try {
-            if (foodService == null) throw new ResourceNotFoundException("Food service not found");
+            ArrayList<com.ttu.lunchbot.model.Menu> menuList;
+            if (foodService.getParser().getName().equals("BALTIC")) {
+                MenuParser menuParser = new PDFMenuParser(new BalticRestaurantMenuParserStrategy());
+                String destination = "/tmp/" + foodService.getNameEN() + ".pdf";
 
-            // TODO make other restaurants use their specific strategies
-            MenuParser menuParser = new PDFMenuParser(new BalticRestaurantMenuParserStrategy());
-            String destination = "/tmp/" + foodService.getNameEN() + ".pdf";
+                File newFile = new File(destination);
+                FileUtils.copyURLToFile(new URL(foodService.getMenuURL()), newFile, 10000, 10000);
 
-            File newFile = new File(destination);
-            FileUtils.copyURLToFile(new URL(foodService.getMenuURL()), newFile, 10000, 10000);
+                menuList = menuParser.parseMenus(newFile);
 
-            ArrayList<com.ttu.lunchbot.model.Menu> menuList = menuParser.parseMenus(newFile);
+                return getMenus(foodService, menuList);
 
+            } else if (foodService.getParser().getName().startsWith("RAHVATOIT")) {
+                URL url = new URL(new FacebookGraphUtility(System.getenv()
+                        .get("LUNCHBOT_FACEBOOK_GRAPH_TOKEN")).getPostsUrl
+                        ("rahvatoitttu"));
+
+                URLConnection con = url.openConnection();
+                InputStream in = con.getInputStream();
+                String encoding = con.getContentEncoding();
+                encoding = encoding == null ? "UTF-8" : encoding;
+                String bodyString = IOUtils.toString(in, encoding);
+
+                if (foodService.getParser().getName().endsWith("LIB")) {
+                    menuList = new LIBParserStrategy().parse(bodyString);
+                } else if (foodService.getParser().getName().endsWITH("SOC")) {
+                    menuList = new SOCParserStrategy().parse(bodyString);
+                } else {
+                    throw new ResourceNotFoundException(foodService.getParser().getName() + " parser does not exist!");
+                }
+
+            } else {
+                throw new ResourceNotFoundException("Parser does not exist!");
+            }
             return getMenus(foodService, menuList);
         } catch (IOException e) {
             e.printStackTrace();

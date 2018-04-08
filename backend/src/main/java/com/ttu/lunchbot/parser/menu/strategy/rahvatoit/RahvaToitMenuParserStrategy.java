@@ -18,7 +18,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-public class RahvaToitMenuParserStrategy implements MenuParserStrategy {
+public class RahvaToitMenuParserStrategy {
+
+    static final int PARSE_SOC = 0;
+
+    static final int PARSE_LIB = 1;
 
     /**
      * Date format used in the Facebook Graph API. Used for parsing dates into a Calendar object.
@@ -86,10 +90,10 @@ public class RahvaToitMenuParserStrategy implements MenuParserStrategy {
      * @param line Line containing the name of the FoodService.
      * @return Pretty-formatted string of matched FoodService.
      */
-    private String matchFoodServiceName(String line) {
-        if (line.matches(FOOD_SERVICE_SOC_PATTERN)) {
+    private String matchFoodServiceName(String line, int parseType) {
+        if (line.matches(FOOD_SERVICE_SOC_PATTERN) && parseType == PARSE_SOC) {
             return FOOD_SERVICE_SOC_PRETTY_NAME_ET;
-        } else if (line.matches(FOOD_SERVICE_LIB_PATTERN)) {
+        } else if (line.matches(FOOD_SERVICE_LIB_PATTERN) && parseType == PARSE_LIB) {
             return FOOD_SERVICE_LIB_PRETTY_NAME_ET;
         } else {
             return null;
@@ -98,11 +102,17 @@ public class RahvaToitMenuParserStrategy implements MenuParserStrategy {
 
     private BigDecimal priceStringToBigDecimal(String priceString) {
         priceString = priceString.replace("€", "");
+        priceString = priceString.replace(".-", "");
         priceString = priceString.replace(",", ".");
         return BigDecimal.valueOf(Double.parseDouble(priceString));
     }
 
     private void parseMenuItem(String line) {
+        //Remove all non-numbers from the end of the line
+        int lastDigitIndex = getLastDigitIndex(line);
+        if (lastDigitIndex == 0) return;  // Line doesn't contain any numbers so it can't have a menu item.
+        line = line.substring(0, getLastDigitIndex(line) + 1);
+
         // Create and add new MenuItem
         this.currentMenuItem = new MenuItem();
         this.currentMenu.addItem(this.currentMenuItem);
@@ -130,8 +140,18 @@ public class RahvaToitMenuParserStrategy implements MenuParserStrategy {
         this.currentMenuItem.addPrice(com.ttu.lunchbot.util.Currency.EURO, price);
     }
 
-    @Override
-    public ArrayList<Menu> parse(String jsonString) {
+    private int getLastDigitIndex(String line) {
+        int lastDigitIndex = 0;
+        for (int i = line.length() - 1; i > 0; i--) {
+            if (Character.isDigit(line.charAt(i))) {
+                lastDigitIndex = i;
+                break;
+            }
+        }
+        return lastDigitIndex;
+    }
+
+    public ArrayList<Menu> parseAndSelect(String jsonString, int parseType) {
         RahvaToitJsonObject json = (new Gson()).fromJson(jsonString, RahvaToitJsonObject.class);
 
         this.parsedMenus.clear();
@@ -144,7 +164,10 @@ public class RahvaToitMenuParserStrategy implements MenuParserStrategy {
             lines.removeAll(Arrays.asList(null, ""));
 
             // Assign name and date of food service
-            final String foodServiceName = matchFoodServiceName(lines.get(0));
+            final String foodServiceName = matchFoodServiceName(lines.get(0),
+                    parseType);
+            if (foodServiceName == null) continue;
+
             final Calendar calendar = parseDate(post.created_time);
 
             // Remove first and two last lines
@@ -156,10 +179,11 @@ public class RahvaToitMenuParserStrategy implements MenuParserStrategy {
             this.parsedMenus.add(this.currentMenu);
 
             for (String line : lines) {
-               parseMenuItem(line);
+                parseMenuItem(line);
             }
         }
 
         return this.parsedMenus;
     }
+
 }

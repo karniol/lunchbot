@@ -10,9 +10,12 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -71,6 +74,13 @@ public class FoodService {
     @Column(name = "menu_url")
     @JsonView(Views.FoodServiceDetails.class)
     private String menuURL;
+
+    @ManyToOne
+    @JsonIgnoreProperties("food_services")
+    @JsonProperty("parser")
+    @JoinColumn(name = "parser_id", nullable = false,
+            foreignKey = @ForeignKey(name = "parser_fk"))
+    private Parser parser;
 
     @JsonView(Views.FoodServiceDetails.class)
     private String website;

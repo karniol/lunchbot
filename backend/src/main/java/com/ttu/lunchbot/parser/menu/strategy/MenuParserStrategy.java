@@ -15,4 +15,8 @@ public interface MenuParserStrategy {
      * @see Menu
      */
     ArrayList<Menu> parse(final String text);
+
+    String getParserName();
+
+    String getParserType();
 }
