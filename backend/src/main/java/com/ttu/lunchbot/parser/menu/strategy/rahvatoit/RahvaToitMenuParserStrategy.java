@@ -1,11 +1,11 @@
 package com.ttu.lunchbot.parser.menu.strategy.rahvatoit;
 
 import com.google.gson.Gson;
-import com.ttu.lunchbot.model.Menu;
-import com.ttu.lunchbot.model.MenuItem;
 import com.ttu.lunchbot.parser.menu.MenuParser;
 import com.ttu.lunchbot.parser.menu.strategy.MenuParserStrategy;
 import com.ttu.lunchbot.parser.menu.StringMenuParser;
+import com.ttu.lunchbot.spring.model.Menu;
+import com.ttu.lunchbot.spring.model.MenuItem;
 import com.ttu.lunchbot.util.Currency;
 import com.ttu.lunchbot.util.Locale;
 
@@ -115,29 +115,32 @@ public class RahvaToitMenuParserStrategy {
 
         // Create and add new MenuItem
         this.currentMenuItem = new MenuItem();
+        this.currentMenuItem.setCurrency("EUR");
         this.currentMenu.addItem(this.currentMenuItem);
+        this.currentMenuItem.setMenu(currentMenu);
 
         final String[] linePartsArray = line.split(MENUITEM_NAME_SEPARATOR_PATTERN);
         List<String> lineParts = new ArrayList<>(Arrays.asList(linePartsArray));
         lineParts.replaceAll(String::trim);
 
         final String menuItemNameEstonian = lineParts.get(0);
-        this.currentMenuItem.addName(com.ttu.lunchbot.util.Locale.ESTONIAN, menuItemNameEstonian);
+        this.currentMenuItem.setNameET(menuItemNameEstonian);
 
         String priceString;
         if (lineParts.size() == 1) {
-            this.currentMenuItem.addName(java.util.Locale.ENGLISH, menuItemNameEstonian);
+            // If there is no english translation, put the estonian name as the english name
+            this.currentMenuItem.setNameEN(menuItemNameEstonian);
             List<String> lineParts0 = Arrays.asList(lineParts.get(0).split(" "));
             priceString = lineParts0.get(lineParts0.size() - 1);
         } else {
             List<String> lineParts1 = Arrays.asList(lineParts.get(1).split(" "));
             final String menuItemNameEnglish = String.join(" ", lineParts1.subList(0, lineParts1.size() - 1));
-            this.currentMenuItem.addName(java.util.Locale.ENGLISH, menuItemNameEnglish);
+            this.currentMenuItem.setNameEN(menuItemNameEnglish);
             priceString = lineParts1.get(lineParts1.size() - 1);
         }
 
         BigDecimal price = priceStringToBigDecimal(priceString);
-        this.currentMenuItem.addPrice(com.ttu.lunchbot.util.Currency.EURO, price);
+        this.currentMenuItem.setPrice(price);
     }
 
     private int getLastDigitIndex(String line) {
@@ -175,7 +178,7 @@ public class RahvaToitMenuParserStrategy {
 
             // Create new menu with the matched FoodService name and add it
             // to the collection of parsed menus
-            this.currentMenu = new Menu(foodServiceName, calendar);
+            this.currentMenu = new Menu(calendar);
             this.parsedMenus.add(this.currentMenu);
 
             for (String line : lines) {

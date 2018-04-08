@@ -1,6 +1,6 @@
 package com.ttu.lunchbot.parser.menu.strategy;
 
-import com.ttu.lunchbot.model.Menu;
+import com.ttu.lunchbot.spring.model.Menu;
 
 import java.util.ArrayList;
 

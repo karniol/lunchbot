@@ -4,9 +4,7 @@ import com.ttu.lunchbot.parser.menu.PDFMenuParser;
 import com.ttu.lunchbot.parser.menu.strategy.rahvatoit.LIBParserStrategy;
 import com.ttu.lunchbot.parser.menu.strategy.rahvatoit.SOCParserStrategy;
 import com.ttu.lunchbot.spring.model.FoodService;
-import com.ttu.lunchbot.util.CalendarConverter;
 import com.ttu.lunchbot.parser.menu.strategy.baltic.BalticRestaurantMenuParserStrategy;
-import com.ttu.lunchbot.spring.model.MenuItem;
 import com.ttu.lunchbot.spring.model.Menu;
 import com.ttu.lunchbot.parser.menu.MenuParser;
 import com.ttu.lunchbot.spring.repository.FoodServiceRepository;
@@ -25,7 +23,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 @Service
@@ -55,7 +52,7 @@ public class ParseService {
         if (foodService == null) throw new ResourceNotFoundException("Food service not found");
 
         try {
-            ArrayList<com.ttu.lunchbot.model.Menu> menuList;
+            ArrayList<Menu> menuList;
             if (foodService.getParser().getName().equals("BALTIC")) {
                 MenuParser menuParser = new PDFMenuParser(new BalticRestaurantMenuParserStrategy());
                 String destination = "/tmp/" + foodService.getNameEN() + ".pdf";
@@ -65,7 +62,7 @@ public class ParseService {
 
                 menuList = menuParser.parseMenus(newFile);
 
-                return getMenus(foodService, menuList);
+                return getNewMenus(foodService, menuList);
 
             } else if (foodService.getParser().getName().startsWith("RAHVATOIT")) {
                 URL url = new URL(new FacebookGraphUtility(System.getenv()
@@ -80,7 +77,7 @@ public class ParseService {
 
                 if (foodService.getParser().getName().endsWith("LIB")) {
                     menuList = new LIBParserStrategy().parse(bodyString);
-                } else if (foodService.getParser().getName().endsWITH("SOC")) {
+                } else if (foodService.getParser().getName().endsWith("SOC")) {
                     menuList = new SOCParserStrategy().parse(bodyString);
                 } else {
                     throw new ResourceNotFoundException(foodService.getParser().getName() + " parser does not exist!");
@@ -89,7 +86,7 @@ public class ParseService {
             } else {
                 throw new ResourceNotFoundException("Parser does not exist!");
             }
-            return getMenus(foodService, menuList);
+            return getNewMenus(foodService, menuList);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -104,31 +101,19 @@ public class ParseService {
         return parsedMenus;
     }
 
-    private List<Menu> getMenus(FoodService foodService, ArrayList<com.ttu.lunchbot.model.Menu> menuList) {
-        List<Menu> menus = new ArrayList<>();
-        CalendarConverter calendarConverter = new CalendarConverter();
+    private List<Menu> getNewMenus(FoodService foodService, List<Menu> menuList) {
+        List<Menu> newMenus = new ArrayList<>();
 
         List<LocalDate> datesOfSavedMenus = getDatesOfSavedMenusOfFoodService(foodService);
 
-        for (com.ttu.lunchbot.model.Menu parsedMenu : menuList) {
-            if (menuWithSameDateExists(datesOfSavedMenus, calendarConverter, parsedMenu)) continue;
+        for (Menu parsedMenu : menuList) {
+            if (menuWithSameDateExists(datesOfSavedMenus, parsedMenu)) continue;
 
-            // TODO make it possible to use a different language and a different currency
-            Menu menu = new Menu(parsedMenu.getDate(), foodService);
-            for (com.ttu.lunchbot.model.MenuItem parsedItem : parsedMenu.getItems()) {
-                Currency currency = com.ttu.lunchbot.util.Currency.EURO;
-                MenuItem item = new MenuItem(
-                        parsedItem.getName(com.ttu.lunchbot.util.Locale.ESTONIAN),
-                        parsedItem.getName(java.util.Locale.ENGLISH),
-                        menu,
-                        currency,
-                        parsedItem.getPrice(currency)
-                );
-                menu.getMenuItems().add(item);
-            }
-            menus.add(menuService.addMenu(menu));
+            parsedMenu.setFoodService(foodService);
+
+            newMenus.add(menuService.addMenu(parsedMenu));
         }
-        return menus;
+        return newMenus;
     }
 
     private List<LocalDate> getDatesOfSavedMenusOfFoodService(FoodService foodService) {
@@ -139,11 +124,9 @@ public class ParseService {
         return datesOfSavedMenus;
     }
 
-    private boolean menuWithSameDateExists(List<LocalDate> savedMenuDates, CalendarConverter calendarConverter,
-                                           com.ttu.lunchbot.model.Menu parsedMenu) {
+    private boolean menuWithSameDateExists(List<LocalDate> savedMenuDates, Menu parsedMenu) {
         for (LocalDate savedDate : savedMenuDates) {
-            if (calendarConverter.toLocalDate(parsedMenu.getDate())
-                    .equals(savedDate)) {
+            if (parsedMenu.getDate().equals(savedDate)) {
                 return true;
             }
         }

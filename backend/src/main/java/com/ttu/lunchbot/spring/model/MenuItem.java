@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Currency;
+import java.util.Locale;
 
 
 @Entity
@@ -25,7 +26,7 @@ import java.util.Currency;
 public class MenuItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne
@@ -55,6 +56,17 @@ public class MenuItem {
         this.menu = menu;
         this.currency = currency.toString();
         this.price = price.setScale(2, RoundingMode.HALF_UP);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("MenuItem (ET): ").append(nameET).append("\n");
+        sb.append("MenuItem (EN): ").append(nameEN).append("\n");
+        sb.append("\nPrice: ").append(price.toString()).append(" ").append(currency);
+
+        return sb.toString();
     }
 
 }

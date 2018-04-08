@@ -1,7 +1,7 @@
 package com.ttu.lunchbot.parser.menu;
 
-import com.ttu.lunchbot.model.Menu;
 import com.ttu.lunchbot.parser.menu.strategy.MenuParserStrategy;
+import com.ttu.lunchbot.spring.model.Menu;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;

@@ -1,10 +1,10 @@
 package com.ttu.lunchbot.parser.menu.strategy.baltic;
 
-import com.ttu.lunchbot.model.Menu;
-import com.ttu.lunchbot.model.MenuItem;
 import com.ttu.lunchbot.parser.menu.MenuParser;
 import com.ttu.lunchbot.parser.menu.MenuParserException;
 import com.ttu.lunchbot.parser.menu.strategy.MenuParserStrategy;
+import com.ttu.lunchbot.spring.model.Menu;
+import com.ttu.lunchbot.spring.model.MenuItem;
 
 import java.math.BigDecimal;
 import java.text.DateFormatSymbols;
@@ -102,11 +102,11 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
         // Obtain: Chicken-peach-cheese chili
         String name = String.join(" ", parts.subList(0, parts.size() - 1));
         name = name.replace(" - ", "-");
-        this.currentMenuItem.addName(com.ttu.lunchbot.util.Locale.ESTONIAN, name);
+        this.currentMenuItem.setNameET(name);
 
         // Obtain: 4.20
         BigDecimal price = BigDecimal.valueOf(Double.parseDouble(parts.get(parts.size() - 1)));
-        this.currentMenuItem.addPrice(com.ttu.lunchbot.util.Currency.EURO, price);
+        this.currentMenuItem.setPrice(price);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
         for (String line : lines) {
             // When encountering a date, create a new menu with the corresponding date
             if (line.matches(DATE_PATTERN)) {
-                this.currentMenu = new Menu(foodServiceName, parseDate(line));
+                this.currentMenu = new Menu(parseDate(line));
                 parsedMenus.add(this.currentMenu);
                 menuOk = true;
                 continue;
@@ -146,7 +146,9 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
 
             if (lineContainsPrice) {
                 this.currentMenuItem = new MenuItem();
+                this.currentMenuItem.setCurrency("EUR");
                 this.currentMenu.addItem(this.currentMenuItem);
+                this.currentMenuItem.setMenu(currentMenu);
 
                 // Hack to remove Menus for dates that did not contain MenuItems with the correct price format
                 // Currently used to detect special cases (e.g. holidays when the FoodService is closed)
@@ -160,7 +162,7 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
 
                 lineContainsPrice = false;
             } else {
-                this.currentMenuItem.addName(java.util.Locale.ENGLISH, line);
+                this.currentMenuItem.setNameEN(line);
                 lineContainsPrice = true;
             }
         }
