@@ -1,6 +1,6 @@
 <template>
 
-  <compose view-model="../resources/elements/menu-overview-bar" model.bind="data" containerless></compose>
-  <compose view-model="../resources/elements/menu" model.bind="data" containerless></compose>
+  <compose if.bind="!data.open_today" view-model="../resources/elements/menu-overview-bar" model.bind="data" containerless></compose>
+  <compose if.bind="!data.open_today" view-model="../resources/elements/menu" model.bind="data" containerless></compose>
 
 </template>

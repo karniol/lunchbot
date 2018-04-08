@@ -1,13 +1,12 @@
 <template>
 
-  <header class="lunchbot-header container sticky-top">
+  <header class="lunchbot-header container-fluid sticky-top">
     <div class="row">
 
       <!-- back button -->
       <div class="col-3 text-left">
-        <a href="/">
-          <img class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-back-placeholder.png">
-        </a>
+        <a show.bind="!searchMenuVisible" href="/"><img class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-menu-placeholder.png"></a>
+        <img show.bind="searchMenuVisible" class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-close-placeholder.png" click.delegate="toggleSearchMenu()">
       </div>
 
       <!-- logo -->
@@ -15,18 +14,18 @@
         <img show.bind="!searchMenuVisible" class="lunchbot-header-button invert-colors" src="src/resources/images/logo/logo-placeholder.png">
         <!-- search overlay -->
         <div show.bind="searchMenuVisible" id="lunchbot-id-search-menu" class="lunchbot-search-menu">
-          <form class="form-inline">
-            <label class="sr-only" for="inlineFormInputPrice">Price</label>
-            <input type="number" class="form-control mb-2 mr-sm-1" id="inlineFormInputPrice" placeholder="Max price">
-            <button type="submit" class="btn btn-light mb-2 d-none">Search</button>
+          <form>
+            <label class="sr-only" for="headerFormInputPrice">Price</label>
+            <input type="number" step="0.01" class="lunchbot-header-search-input" id="headerFormInputPrice" placeholder="Highest price">
+            <button type="submit" class="d-none">Search</button>
           </form>
         </div>
       </div>
 
       <!-- search button -->
-      <div class="col-3 text-right" click.delegate="toggleSearchMenu()">
-        <img show.bind="!searchMenuVisible" class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-search-placeholder.png">
-        <img show.bind="searchMenuVisible" class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-back-placeholder.png" style="transform: rotate(180deg);">
+      <div class="col-3 text-right">
+        <img show.bind="!searchMenuVisible" class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-search-placeholder.png" click.delegate="toggleSearchMenu()">
+        <img show.bind="searchMenuVisible" class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-search-placeholder.png" click.delegate="search()">
       </div>
 
     </div>

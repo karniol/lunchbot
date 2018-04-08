@@ -136,3 +136,13 @@ html {
   padding: 16px 0px;
   background: $white;
 }
+
+.lunchbot-header-search-input{
+  text-align: center;
+  width: 100%;
+  color: $white;
+  background: transparent;
+  border: none;
+  border-bottom: 2px dashed $white;
+  height: calc(#{$header-height} - 1em);
+}

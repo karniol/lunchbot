@@ -84,6 +84,11 @@
             "name": "text",
             "path": "../node_modules/systemjs-plugin-text",
             "main": "text"
+          },
+          {
+            "name": "moment",
+            "path": "../node_modules/moment",
+            "main": "moment"
           }
         ]
       }

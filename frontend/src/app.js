@@ -1,7 +1,8 @@
 import environment from "./environment";
 
 export class App {
-  constructor() {}
+  constructor() {
+  }
 
   configureRouter(config, router) {
     this.router = router;
@@ -32,5 +33,16 @@ export class App {
     ]);
 
     config.mapUnknownRoutes("not-found/not-found");
+
+    // Scroll to top when displaying new route
+    config.addPostRenderStep({
+      run(navigationInstruction, next) {
+        if (navigationInstruction.router.isNavigatingNew) {
+          window.scroll(0, 0);
+        }
+
+        return next();
+      }
+    });
   }
 }
