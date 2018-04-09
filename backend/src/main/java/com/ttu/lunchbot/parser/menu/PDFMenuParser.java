@@ -31,7 +31,6 @@ public class PDFMenuParser extends MenuParser {
     public PDFMenuParser(MenuParserStrategy strategy) throws IOException {
         super(strategy);
         this.stripper = new PDFTextStripper();
-        this.stripper.setSortByPosition(true);
     }
 
     /**
@@ -40,6 +39,8 @@ public class PDFMenuParser extends MenuParser {
      * @return Collection of Strings extracted in top-to-bottom order from the given file.
      */
     private String extractText(File file) {
+        this.stripper.setSortByPosition(true);
+
         try (PDDocument document = PDDocument.load(file)) {
             return this.stripper.getText(document);
         } catch (IOException e) {
