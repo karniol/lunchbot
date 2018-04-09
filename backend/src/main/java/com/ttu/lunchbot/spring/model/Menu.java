@@ -32,11 +32,6 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(mappedBy = "menu")
-    @JsonManagedReference
-    @JsonProperty("menu_items")
-    private List<MenuItem> menuItems = new ArrayList<>();
-
     @ManyToOne
     @JoinColumn(name = "food_service_id", nullable = false)
     @JsonIgnoreProperties({"menus", "open_times_all"})
@@ -47,47 +42,24 @@ public class Menu {
     @Column(columnDefinition = "DATE")
     private LocalDate date;
 
-    public void addItem(MenuItem menuItem) {
-        menuItems.add(menuItem);
-    }
-
-    public Menu() {
-
-    }
-
-    public Menu(FoodService foodService) {
-        this.foodService = foodService;
-    }
-
-    public Menu(List<MenuItem> items) {
-        this.menuItems = items;
-    }
-
-    public Menu(List<MenuItem> items, FoodService foodService) {
-        this.menuItems = items;
-        this.foodService = foodService;
-    }
-
-    public Menu(Calendar calendar, List<MenuItem> items, FoodService foodService) {
-        this.menuItems = items;
-        this.foodService = foodService;
-        this.date = new CalendarConverter().toLocalDate(calendar);
-    }
+    @OneToMany(mappedBy = "menu")
+    @JsonManagedReference
+    @JsonProperty("menu_items")
+    private List<MenuItem> menuItems = new ArrayList<>();
 
     public Menu(Calendar calendar) {
         this.date = new CalendarConverter().toLocalDate(calendar);
     }
 
-    public Menu(Calendar calendar, FoodService foodService) {
-        this.foodService = foodService;
-        this.date = new CalendarConverter().toLocalDate(calendar);
-    }
-
-    public Menu(long id, List<MenuItem> menuItems, FoodService foodService, LocalDate date) {
+    public Menu(long id, FoodService foodService, LocalDate date, List<MenuItem> menuItems) {
         this.id = id;
         this.menuItems = menuItems;
         this.foodService = foodService;
         this.date = date;
+    }
+
+    public void addItem(MenuItem menuItem) {
+        menuItems.add(menuItem);
     }
 
     @Override

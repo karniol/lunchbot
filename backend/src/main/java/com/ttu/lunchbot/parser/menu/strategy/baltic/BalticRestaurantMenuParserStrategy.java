@@ -102,7 +102,7 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
         // Obtain: Chicken-peach-cheese chili
         String name = String.join(" ", parts.subList(0, parts.size() - 1));
         name = name.replace(" - ", "-");
-        this.currentMenuItem.setNameET(name);
+        this.currentMenuItem.setNameEt(name);
 
         // Obtain: 4.20
         BigDecimal price = BigDecimal.valueOf(Double.parseDouble(parts.get(parts.size() - 1)));
@@ -162,7 +162,7 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
 
                 lineContainsPrice = false;
             } else {
-                this.currentMenuItem.setNameEN(line);
+                this.currentMenuItem.setNameEn(line);
                 lineContainsPrice = true;
             }
         }

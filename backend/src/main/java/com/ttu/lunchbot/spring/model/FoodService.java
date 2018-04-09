@@ -63,17 +63,17 @@ public class FoodService {
     @JsonView(Views.FoodServiceDetails.class)
     @JsonProperty("name_en")
     @Column(name = "name_en")
-    private String nameEN;
+    private String nameEn;
 
     @JsonView(Views.FoodServiceDetails.class)
     @JsonProperty("name_et")
     @Column(name = "name_et")
-    private String nameET;
+    private String nameEt;
 
     @JsonProperty("menu_url")
     @Column(name = "menu_url")
     @JsonView(Views.FoodServiceDetails.class)
-    private String menuURL;
+    private String menuUrl;
 
     @ManyToOne
     @JsonIgnoreProperties("food_services")
@@ -91,11 +91,10 @@ public class FoodService {
     @JsonView(Views.FoodServiceDetails.class)
     private String lat;
 
-    public FoodService() {
-    }
+    public FoodService() {}
 
-    public FoodService(String nameEN, String nameET) {
-        this.nameEN = nameEN;
-        this.nameET = nameET;
+    public FoodService(String nameEn, String nameEt) {
+        this.nameEn = nameEn;
+        this.nameEt = nameEt;
     }
 }

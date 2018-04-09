@@ -10,9 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * MenuParser takes a PDF document containing menu texts, extracts the document
+ * PDFMenuParser takes a PDF document containing menu texts, extracts the document
  * into a collection of lines of text and uses the given parsing strategy to parse
  * the texts into MenuItems and Menus that can later be used for easy data retrieval.
+ * @see MenuParser
  */
 public class PDFMenuParser extends MenuParser {
 
@@ -22,7 +23,7 @@ public class PDFMenuParser extends MenuParser {
     private final PDFTextStripper stripper;
 
     /**
-     * Create a new MenuParser.
+     * Create a new PDF menu parser.
      * @param strategy Strategy for parsing menu texts into MenuItems and Menus.
      * @throws IOException When there is a problem with creating or configuring a PDFTextStripper.
      * @see PDFTextStripper

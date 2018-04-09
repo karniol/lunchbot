@@ -1,15 +1,10 @@
 package com.ttu.lunchbot.parser.menu.strategy.rahvatoit;
 
 import com.google.gson.Gson;
-import com.ttu.lunchbot.parser.menu.MenuParser;
-import com.ttu.lunchbot.parser.menu.strategy.MenuParserStrategy;
-import com.ttu.lunchbot.parser.menu.StringMenuParser;
 import com.ttu.lunchbot.spring.model.Menu;
 import com.ttu.lunchbot.spring.model.MenuItem;
-import com.ttu.lunchbot.util.Currency;
 import com.ttu.lunchbot.util.Locale;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -124,18 +119,18 @@ public class RahvaToitMenuParserStrategy {
         lineParts.replaceAll(String::trim);
 
         final String menuItemNameEstonian = lineParts.get(0);
-        this.currentMenuItem.setNameET(menuItemNameEstonian);
+        this.currentMenuItem.setNameEt(menuItemNameEstonian);
 
         String priceString;
         if (lineParts.size() == 1) {
             // If there is no english translation, put the estonian name as the english name
-            this.currentMenuItem.setNameEN(menuItemNameEstonian);
+            this.currentMenuItem.setNameEn(menuItemNameEstonian);
             List<String> lineParts0 = Arrays.asList(lineParts.get(0).split(" "));
             priceString = lineParts0.get(lineParts0.size() - 1);
         } else {
             List<String> lineParts1 = Arrays.asList(lineParts.get(1).split(" "));
             final String menuItemNameEnglish = String.join(" ", lineParts1.subList(0, lineParts1.size() - 1));
-            this.currentMenuItem.setNameEN(menuItemNameEnglish);
+            this.currentMenuItem.setNameEn(menuItemNameEnglish);
             priceString = lineParts1.get(lineParts1.size() - 1);
         }
 
