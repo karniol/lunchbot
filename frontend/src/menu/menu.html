@@ -1,25 +1,6 @@
 <template>
 
-  <div class="container lunchbot-menu-overview sticky-top">
-    <div class="row">
-      <div class="col-10 text-left">
-          ${data.food_service.name}
-      </div>
-      <div class="col-2 text-right">
-        <img class="lunchbot-menu-button invert-colors clickable" src="src/resources/images/button/button-info-placeholder.png">
-      </div>
-    </div>
-  </div>
-
-  <div class="container lunchbot-menu">
-    <div class="row lunchbot-menu-item" repeat.for="menu_item of data.menu_items">
-      <div class="col-9 text-left">
-        ${menu_item.name_et}
-      </div>
-      <div class="col-3 text-right">
-        ${menu_item.price_string}
-      </div>
-    </div>
-  </div>
+  <compose if.bind="!data.open_today" view-model="../resources/elements/menu-overview-bar" model.bind="data" containerless></compose>
+  <compose if.bind="!data.open_today" view-model="../resources/elements/menu" model.bind="data" containerless></compose>
 
 </template>

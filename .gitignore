@@ -31,3 +31,4 @@ Thumbs.db
 ### JS ###
 **/node_modules
 **/scripts
+frontend/start-dev

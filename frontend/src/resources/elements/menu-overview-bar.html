@@ -1,0 +1,29 @@
+<template>
+
+  <require from="../value-converters/date-format"></require>
+
+  <div if.bind="!data.loading" class="container-fluid lunchbot-menu-overview-bar sticky-top">
+    <div id="lunchbot-menu-overview-title-${data.food_service.id}" class="row lunchbot-menu-overview-title clickable" click.delegate="toggleOverview(data.food_service.id)">
+      <div class="col text-center">
+          ${data.food_service.name_et}
+      </div>
+      <div if.bind="!overviewVisible">
+        <img class="lunchbot-menu-overview-bar-info-button invert-colors clickable" src="src/resources/images/button/button-info-placeholder.png">
+      </div>
+      <div else>
+        <img class="lunchbot-menu-overview-bar-info-button invert-colors clickable" src="src/resources/images/button/button-back-placeholder.png" style="transform: rotate(90deg);">
+      </div>
+    </div>
+    <div id="lunchbot-menu-overview-${data.food_service.id}" class="row lunchbot-menu-overview clickable animated" show.bind="overviewVisible" click.delegate="toggleOverview(data.food_service.id)">
+      <div class="col-7 text-center">
+        ${data.date | dateFormat}
+      </div>
+      <div class="col-5 text-center">
+        ${data.open_time}—${data.close_time}
+      </div>
+      <div class="w-100"></div>
+      <div class="col text-center"></div>
+    </div>
+  </div>
+
+</template>
