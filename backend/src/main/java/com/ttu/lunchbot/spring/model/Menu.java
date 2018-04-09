@@ -47,6 +47,8 @@ public class Menu {
     @JsonProperty("menu_items")
     private List<MenuItem> menuItems = new ArrayList<>();
 
+    public Menu() {}
+
     public Menu(Calendar calendar) {
         this.date = new CalendarConverter().toLocalDate(calendar);
     }
