@@ -1,6 +1,6 @@
-package com.ttu.lunchbot.parser.menu;
+package com.ttu.lunchbot.parser.menu.strategy;
 
-import com.ttu.lunchbot.model.Menu;
+import com.ttu.lunchbot.spring.model.Menu;
 
 import java.util.ArrayList;
 
@@ -10,9 +10,13 @@ import java.util.ArrayList;
 public interface MenuParserStrategy {
 
     /**
-     * Parse a menu given a collection of lines of text.
+     * Parse a menu given a string of text.
      * @return List of Menu objects, one object for each date found in the text.
      * @see Menu
      */
-    ArrayList<Menu> parse(ArrayList<String> text);
+    ArrayList<Menu> parse(final String text);
+
+    String getParserName();
+
+    String getParserType();
 }
