@@ -96,9 +96,10 @@ public class RahvaToitMenuParserStrategy {
     }
 
     private BigDecimal priceStringToBigDecimal(String priceString) {
-        priceString = priceString.replace("€", "");
-        priceString = priceString.replace(".-", "");
-        priceString = priceString.replace(",", ".");
+        priceString = priceString
+                .replace("€", "")
+                .replace(".-", "")
+                .replace(",", ".");
         return BigDecimal.valueOf(Double.parseDouble(priceString));
     }
 
@@ -162,8 +163,7 @@ public class RahvaToitMenuParserStrategy {
             lines.removeAll(Arrays.asList(null, ""));
 
             // Assign name and date of food service
-            final String foodServiceName = matchFoodServiceName(lines.get(0),
-                    parseType);
+            final String foodServiceName = matchFoodServiceName(lines.get(0), parseType);
             if (foodServiceName == null) continue;
 
             final Calendar calendar = parseDate(post.created_time);
