@@ -1,14 +1,11 @@
-export class LunchbotHeader {
-  constructor() {
-    this.searchMenuVisible = false;
-  }
+import {Router} from "aurelia-router";
 
-  activate(params) {
-    document.getElementById('email').onkeydown = function(e) {
-      if (e.keyCode == 13) {
-        console.log('sup');
-      }
-    };
+export class LunchbotHeader {
+  static inject() { return [Router]; }
+
+  constructor(router) {
+    this.router = router;
+    this.searchMenuVisible = false;
   }
 
   toggleSearchMenu() {
@@ -17,7 +14,7 @@ export class LunchbotHeader {
 
   search() {
     let value = document.getElementById("headerFormInputPrice").value;
-    window.location.href = `/filter/${value}/`; // TODO: with routing
+    this.router.navigate(`/filter/${value}/`);
     this.searchMenuVisible = false;
   }
 }
