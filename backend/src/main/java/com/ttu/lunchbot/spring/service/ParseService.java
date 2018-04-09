@@ -55,10 +55,10 @@ public class ParseService {
             ArrayList<Menu> menuList;
             if (foodService.getParser().getName().equals("BALTIC")) {
                 MenuParser menuParser = new PDFMenuParser(new BalticRestaurantMenuParserStrategy());
-                String destination = "/tmp/" + foodService.getNameEN() + ".pdf";
+                String destination = "/tmp/" + foodService.getNameEn() + ".pdf";
 
                 File newFile = new File(destination);
-                FileUtils.copyURLToFile(new URL(foodService.getMenuURL()), newFile, 10000, 10000);
+                FileUtils.copyURLToFile(new URL(foodService.getMenuUrl()), newFile, 10000, 10000);
 
                 menuList = menuParser.parseMenus(newFile);
 

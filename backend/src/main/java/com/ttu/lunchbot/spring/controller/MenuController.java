@@ -32,7 +32,9 @@ public class MenuController {
         return menuService.getAllMenus();
     }
 
-    // Shows /menus properties and menu items
+    /**
+     * Shows /menus properties and menu items
+     */
     @GetMapping(value="/menus/allinfo")
     public List<Menu> getAllMenusAllInfo() {
         return menuService.getAllMenus();
@@ -48,7 +50,6 @@ public class MenuController {
         return menuService.addMenu(menu);
     }
 
-    @CrossOrigin(origins = "http://localhost:9000")
     @GetMapping(value = "/menus/filter/{max-price}")
     public List<Menu> getTodayMenusFilteredByPrice(@PathVariable("max-price") String maxPrice) {
         maxPrice = maxPrice.replace(",", ".");

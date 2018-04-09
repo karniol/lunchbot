@@ -41,8 +41,7 @@ public class PriceFilterService {
 
             // As we don't need to show the list of menus of the filtered food service,
             // we don't need to attach the newly created menu to the food service.
-            Menu filteredMenu = new Menu(todaysMenu.getId(), filteredMenuItemList, foodService,
-                    todaysMenu.getDate());
+            Menu filteredMenu = new Menu(todaysMenu.getId(), foodService, todaysMenu.getDate(), filteredMenuItemList);
             filteredMenuList.add(filteredMenu);
         }
         return filteredMenuList;

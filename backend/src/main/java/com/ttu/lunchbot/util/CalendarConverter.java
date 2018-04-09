@@ -8,26 +8,27 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 
+/**
+ * Convert Calendar to LocalDate.
+ */
 public class CalendarConverter {
 
-    public CalendarConverter() {}
-
     /**
-     * Copied from https://kodejava.org/how-do-i-convert-between-old-date-and-calendar-object-with-the-new-java-8-date-time/
-     * @param calendarTime  A Calendar object with the time we wish to convert
-     * @return              A LocalDate object with the same time as the Calendar object
+     * @param calendar A Calendar object with the time we wish to convert
+     * @return A LocalDate object with the same time as the Calendar object
+     * @see <a href="https://kodejava.org/how-do-i-convert-between-old-date-and-calendar-object-with-the-new-java-8-date-time/">
+     *     How do I convert between old Date and Calendar object with the new Java 8 Date Time?</a>
      */
-    public LocalDate toLocalDate(Calendar calendarTime) {
-        return LocalDateTime.ofInstant(calendarTime.toInstant(),
-                ZoneId.systemDefault()).toLocalDate();
+    public LocalDate toLocalDate(Calendar calendar) {
+        return LocalDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId()).toLocalDate();
     }
 
     /**
-     * @param menu  The menu of a food service
-     * @return      The amount of days between the menu date and the current date
+     * Return the number of days between the given menu date and the current date
+     * @param menu The menu of a food service
+     * @return Number of days between the given menu date and the current date
      */
-    public long getAbsDaysFromNow(Menu menu) {
+    public long daysBetweenNowAndDateOfMenu(Menu menu) {
         return Math.abs(ChronoUnit.DAYS.between(menu.getDate(), LocalDate.now()));
     }
-
 }

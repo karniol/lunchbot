@@ -5,6 +5,7 @@ import com.ttu.lunchbot.parser.menu.MenuParserException;
 import com.ttu.lunchbot.parser.menu.strategy.MenuParserStrategy;
 import com.ttu.lunchbot.spring.model.Menu;
 import com.ttu.lunchbot.spring.model.MenuItem;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.text.DateFormatSymbols;
@@ -64,10 +65,12 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
      * @return Calendar instance containing the parsed date.
      */
     private Calendar parseDate(String line) {
-        String[] parts = line.split(" ");
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(line.split(" ")));
+        list.replaceAll(String::trim);
+        list.removeAll(Arrays.asList(null, ""));
 
-        final String monthString = parts[parts.length - 1].toLowerCase();
-        final String dayString = parts[parts.length - 2].split("[.,]")[0];
+        final String monthString = list.get(list.size() - 1).toLowerCase();
+        final String dayString = list.get(list.size() - 2).split("[.,]")[0];
 
         int month = -1;
         for (int m = 0; m < MONTH_NAMES_ET.length; ++m) {
@@ -102,7 +105,7 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
         // Obtain: Chicken-peach-cheese chili
         String name = String.join(" ", parts.subList(0, parts.size() - 1));
         name = name.replace(" - ", "-");
-        this.currentMenuItem.setNameET(name);
+        this.currentMenuItem.setNameEt(name);
 
         // Obtain: 4.20
         BigDecimal price = BigDecimal.valueOf(Double.parseDouble(parts.get(parts.size() - 1)));
@@ -124,7 +127,7 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
         final String foodServiceName = lines.get(1);
 
         // Remove two first lines and last line of the file to begin processing menu texts
-        lines = lines.subList(2, lines.size());
+        lines = lines.subList(2, lines.size() - 1);
 
         // Baltic Restaurants' menus list items twice, first in Estonian and then in English
         // The first line also contains a string representing the price of the item in Euros
@@ -162,7 +165,7 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
 
                 lineContainsPrice = false;
             } else {
-                this.currentMenuItem.setNameEN(line);
+                this.currentMenuItem.setNameEn(line);
                 lineContainsPrice = true;
             }
         }
