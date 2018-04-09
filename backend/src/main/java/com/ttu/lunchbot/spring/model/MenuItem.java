@@ -44,14 +44,12 @@ public class MenuItem {
 
     private BigDecimal price;
 
-    public MenuItem() {}
+    public MenuItem() {
+        if (price != null) price = price.setScale(2, RoundingMode.HALF_UP);
+    }
 
-    public MenuItem(Menu menu, String nameEn, String nameEt, Currency currency, BigDecimal price) {
-        this.nameEn = nameEn;
-        this.nameEt = nameEt;
-        this.menu = menu;
-        this.currency = currency.toString();
-        this.price = price.setScale(2, RoundingMode.HALF_UP);
+    public void setPrice(BigDecimal bigDecimal) {
+        price = bigDecimal.setScale(2, RoundingMode.HALF_UP);
     }
 
     @Override

@@ -46,6 +46,9 @@ dependencies {
   // Parser dependencies
   compile group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.8'
 
+  // Test dependencies
+  testCompile group: 'com.h2database', name: 'h2', version: '1.3.148'
+
   // Dependencies to make coding more comfortable
   compileOnly('org.projectlombok:lombok')
   compile "commons-io:commons-io:+"

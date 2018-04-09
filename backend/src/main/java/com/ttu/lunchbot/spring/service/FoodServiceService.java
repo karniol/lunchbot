@@ -72,7 +72,7 @@ public class FoodServiceService {
 
         Optional<Menu> latestMenuOpt = menuList.stream().max(Comparator.comparing(Menu::getDate));
         if (menuList.size() == 0
-            || latestMenuOpt.isPresent() && latestMenuOpt.get().getDate().isBefore(LocalDate.now())) {
+            || latestMenuOpt.isPresent() && LocalDate.now().isAfter(latestMenuOpt.get().getDate())) {
             menuList.addAll(parseService.parseFoodServiceMenu(foodServiceId));
         }
 

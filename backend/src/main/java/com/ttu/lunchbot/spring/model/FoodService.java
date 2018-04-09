@@ -51,13 +51,13 @@ public class FoodService {
     @Transient
     @JsonView(Views.FoodServiceDetails.class)
     @JsonProperty("open_time")
-    @JsonFormat(pattern = "hh:mm")
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime openTime;
 
     @Transient
     @JsonView(Views.FoodServiceDetails.class)
     @JsonProperty("close_time")
-    @JsonFormat(pattern = "hh:mm")
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime closeTime;
 
     @JsonView(Views.FoodServiceDetails.class)

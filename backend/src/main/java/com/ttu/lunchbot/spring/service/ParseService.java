@@ -89,7 +89,7 @@ public class ParseService {
             return getNewMenus(foodService, menuList);
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return new ArrayList<>();
         }
     }
 
