@@ -14,7 +14,10 @@ export class LunchbotHeader {
 
   search() {
     let value = document.getElementById("headerFormInputPrice").value;
-    this.router.navigate(`/filter/${value}/`);
-    this.searchMenuVisible = false;
+    if (value) {
+      this.router.navigate(`/filter/${value}/`);
+      this.searchMenuVisible = false;
+    }
+
   }
 }

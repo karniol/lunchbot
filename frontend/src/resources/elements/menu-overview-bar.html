@@ -15,11 +15,11 @@
       </div>
     </div>
     <div id="lunchbot-menu-overview-${data.food_service.id}" class="row lunchbot-menu-overview clickable animated" show.bind="overviewVisible" click.delegate="toggleOverview(data.food_service.id)">
-      <div class="col-7 text-center">
+      <div class="col-6 text-center">
         ${data.date | dateFormat}
       </div>
-      <div class="col-5 text-center">
-        ${data.open_time}—${data.close_time}
+      <div class="col-6 text-center">
+        ${data.food_service.open_time}—${data.food_service.close_time}
       </div>
       <div class="w-100"></div>
       <div class="col text-center"></div>
