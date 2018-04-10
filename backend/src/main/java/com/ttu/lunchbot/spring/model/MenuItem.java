@@ -16,8 +16,6 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Currency;
-import java.util.Locale;
-
 
 @Entity
 @Getter
@@ -34,36 +32,32 @@ public class MenuItem {
     @JoinColumn(name = "menu_id", nullable = false)
     private Menu menu;
 
-    @JsonProperty("name_et")
-    @Column(name = "name_et")
-    private String nameET;
-
     @JsonProperty("name_en")
     @Column(name = "name_en")
-    private String nameEN;
+    private String nameEn;
 
-    private BigDecimal price;
+    @JsonProperty("name_et")
+    @Column(name = "name_et")
+    private String nameEt;
 
     private String currency;
 
-    public MenuItem() {
+    private BigDecimal price;
 
+    public MenuItem() {
+        if (price != null) price = price.setScale(2, RoundingMode.HALF_UP);
     }
 
-    public MenuItem(String nameET, String nameEN, Menu menu, Currency currency, BigDecimal price) {
-        this.nameET = nameET;
-        this.nameEN = nameEN;
-        this.menu = menu;
-        this.currency = currency.toString();
-        this.price = price.setScale(2, RoundingMode.HALF_UP);
+    public void setPrice(BigDecimal bigDecimal) {
+        price = bigDecimal.setScale(2, RoundingMode.HALF_UP);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("MenuItem (ET): ").append(nameET).append("\n");
-        sb.append("MenuItem (EN): ").append(nameEN).append("\n");
+        sb.append("MenuItem (ET): ").append(nameEt).append("\n");
+        sb.append("MenuItem (EN): ").append(nameEn).append("\n");
         sb.append("\nPrice: ").append(price.toString()).append(" ").append(currency);
 
         return sb.toString();

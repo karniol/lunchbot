@@ -62,9 +62,9 @@ public class FoodServiceService {
         foodService.setOpenTime(null);
         foodService.setCloseTime(null);
 
-        System.out.println("Appropriate weekDay of opening times for food service " + foodService.getId() + " for weekDay "
+        System.out.println("Appropriate week day of opening times for food service " + foodService.getId() + " for week day "
                                          + LocalDate.now().getDayOfWeek().getValue()
-                                         + " was not found!");
+                                         + " was not found");
     }
 
     public Menu getMenuOfToday(long foodServiceId) {
@@ -72,18 +72,18 @@ public class FoodServiceService {
 
         Optional<Menu> latestMenuOpt = menuList.stream().max(Comparator.comparing(Menu::getDate));
         if (menuList.size() == 0
-            || latestMenuOpt.isPresent() && latestMenuOpt.get().getDate().isBefore(LocalDate.now())) {
+            || latestMenuOpt.isPresent() && LocalDate.now().isAfter(latestMenuOpt.get().getDate())) {
             menuList.addAll(parseService.parseFoodServiceMenu(foodServiceId));
         }
 
-        if (menuList.size() == 0) throw new ResourceNotFoundException("No food service with the ID exists.");
+        if (menuList.size() == 0) throw new ResourceNotFoundException("No food service with id " + foodServiceId);
 
         CalendarConverter calendarConverter = new CalendarConverter();
 
         Menu leastDaysDifferentFromNowMenu = null;
         for (Menu menu : menuList) {
             if (menu.getDate() == null) {
-                System.out.println("Menu has no date!");
+                System.out.println("Menu has no date");
                 continue;
             }
             if (menu.getDate().equals(LocalDate.now())) {
@@ -93,8 +93,8 @@ public class FoodServiceService {
 
             // If we can't find a menu for today, then find the menu with the date closest to today.
             if (leastDaysDifferentFromNowMenu == null
-                || calendarConverter.getAbsDaysFromNow(leastDaysDifferentFromNowMenu)
-                   > calendarConverter.getAbsDaysFromNow(menu)) {
+                || calendarConverter.daysBetweenNowAndDateOfMenu(leastDaysDifferentFromNowMenu)
+                   > calendarConverter.daysBetweenNowAndDateOfMenu(menu)) {
                 leastDaysDifferentFromNowMenu = menu;
             }
         }

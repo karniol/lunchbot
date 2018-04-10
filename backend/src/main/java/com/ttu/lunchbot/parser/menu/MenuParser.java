@@ -7,7 +7,10 @@ import lombok.Getter;
 import java.io.File;
 import java.util.ArrayList;
 
-
+/**
+ * MenuParser takes a file containing menu texts and uses the given parsing strategy to parse
+ * the texts into MenuItems and Menus that can later be used for easy data retrieval.
+ */
 public abstract class MenuParser {
 
     /**
@@ -16,6 +19,9 @@ public abstract class MenuParser {
     @Getter
     private final MenuParserStrategy strategy;
 
+    /**
+     * Create and initialize a new menu parser.
+     */
     MenuParser(MenuParserStrategy strategy) {
         this.strategy = strategy;
     }
