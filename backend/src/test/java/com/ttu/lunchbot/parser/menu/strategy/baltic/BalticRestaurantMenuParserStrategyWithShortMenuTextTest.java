@@ -12,7 +12,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class BalticRestaurantMenuParserStrategyWithShortMenuTextTest {
@@ -92,9 +91,8 @@ public class BalticRestaurantMenuParserStrategyWithShortMenuTextTest {
 
     @Test
     public void testShortMenuTextCorrectMenuItemPrice() {
-        assertEquals(BigDecimal.valueOf(1.20), menuItem.getPrice());
+        assertEquals(0, BigDecimal.valueOf(1.20).compareTo(menuItem.getPrice()));
     }
-
 
     @Test
     public void testShortMenuTextCorrectMenuItemCurrency() {

@@ -2,17 +2,13 @@ package com.ttu.lunchbot.parser.menu.strategy.baltic;
 
 import com.ttu.lunchbot.spring.model.Menu;
 import com.ttu.lunchbot.spring.model.MenuItem;
-import com.ttu.lunchbot.util.CalendarConverter;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class BalticRestaurantMenuParserStrategyWithLongMenuTextTest {
@@ -97,7 +93,7 @@ public class BalticRestaurantMenuParserStrategyWithLongMenuTextTest {
     public void testLongMenuTextMenuItemsPrice() {
         for (Menu menu : menus) {
             for (MenuItem menuItem : menu.getMenuItems()) {
-                assertEquals(BigDecimal.valueOf(4.20), menuItem.getPrice());
+                assertEquals(0, BigDecimal.valueOf(4.20).compareTo(menuItem.getPrice()));
             }
         }
     }
