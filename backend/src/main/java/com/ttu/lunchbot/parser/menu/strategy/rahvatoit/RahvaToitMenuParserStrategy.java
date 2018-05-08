@@ -31,6 +31,9 @@ public class RahvaToitMenuParserStrategy {
     private static final String FOOD_SERVICE_SOC_PATTERN = ".*(?i)(soc|sots).*";
     private static final String FOOD_SERVICE_LIB_PATTERN = ".*(?i)(raamat).*";
     private static final String MENUITEM_NAME_SEPARATOR_PATTERN = "[/]";
+    private static final String MENUITEM_ATTRIBUTE_SEPARATOR_PATTERN = "[:]";
+    private static final String MENUITEM_VEGETARIAN_NAME_ET = "lihavaba";
+    private static final String MENUITEM_VEGETARIAN_NAME_EN = "without meat";
 
     // TODO: Not be the best solution keeping FoodService names like this
     private static final String FOOD_SERVICE_SOC_PRETTY_NAME_ET = "Raamatukogu kohvik";
@@ -115,21 +118,32 @@ public class RahvaToitMenuParserStrategy {
         this.currentMenu.addItem(this.currentMenuItem);
         this.currentMenuItem.setMenu(currentMenu);
 
-        final String[] linePartsArray = line.split(MENUITEM_NAME_SEPARATOR_PATTERN);
-        List<String> lineParts = new ArrayList<>(Arrays.asList(linePartsArray));
-        lineParts.replaceAll(String::trim);
+        final String[] lineParts = line.split(MENUITEM_ATTRIBUTE_SEPARATOR_PATTERN);
 
-        final String menuItemNameEstonian = lineParts.get(0);
+        if (lineParts.length > 1) {
+            // Remove the left side part of the colon and reassign line as the right part.
+            line = lineParts[1];
+
+            currentMenuItem.setVegetarian(containsVegetarianItem(lineParts[0]));
+        } else {
+            currentMenuItem.setVegetarian(false);
+        }
+
+        final String[] menuItemNamePartsArray = line.split(MENUITEM_NAME_SEPARATOR_PATTERN);
+        List<String> menuItemNameParts = new ArrayList<>(Arrays.asList(menuItemNamePartsArray));
+        menuItemNameParts.replaceAll(String::trim);
+
+        final String menuItemNameEstonian = menuItemNameParts.get(0);
         this.currentMenuItem.setNameEt(menuItemNameEstonian);
 
         String priceString;
-        if (lineParts.size() == 1) {
+        if (menuItemNameParts.size() == 1) {
             // If there is no english translation, put the estonian name as the english name
             this.currentMenuItem.setNameEn(menuItemNameEstonian);
-            List<String> lineParts0 = Arrays.asList(lineParts.get(0).split(" "));
+            List<String> lineParts0 = Arrays.asList(menuItemNameParts.get(0).split(" "));
             priceString = lineParts0.get(lineParts0.size() - 1);
         } else {
-            List<String> lineParts1 = Arrays.asList(lineParts.get(1).split(" "));
+            List<String> lineParts1 = Arrays.asList(menuItemNameParts.get(1).split(" "));
             final String menuItemNameEnglish = String.join(" ", lineParts1.subList(0, lineParts1.size() - 1));
             this.currentMenuItem.setNameEn(menuItemNameEnglish);
             priceString = lineParts1.get(lineParts1.size() - 1);
@@ -137,6 +151,12 @@ public class RahvaToitMenuParserStrategy {
 
         BigDecimal price = priceStringToBigDecimal(priceString);
         this.currentMenuItem.setPrice(price);
+    }
+
+    private boolean containsVegetarianItem(String linePart) {
+        linePart = linePart.toLowerCase();
+        return linePart.contains(MENUITEM_VEGETARIAN_NAME_ET)
+               || linePart.contains(MENUITEM_VEGETARIAN_NAME_EN);
     }
 
     private int getLastDigitIndex(String line) {
@@ -174,11 +194,18 @@ public class RahvaToitMenuParserStrategy {
             // Create new menu with the matched FoodService name and add it
             // to the collection of parsed menus
             this.currentMenu = new Menu(calendar);
-            this.parsedMenus.add(this.currentMenu);
-
             for (String line : lines) {
-                parseMenuItem(line);
+                try {
+                    parseMenuItem(line);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
             }
+
+            if (this.currentMenu.getMenuItems().size() > 0) {
+                this.parsedMenus.add(this.currentMenu);
+            }
+
         }
 
         return this.parsedMenus;

@@ -44,6 +44,8 @@ public class MenuItem {
 
     private BigDecimal price;
 
+    private boolean vegetarian;
+
     public MenuItem() {
         if (price != null) price = price.setScale(2, RoundingMode.HALF_UP);
     }
