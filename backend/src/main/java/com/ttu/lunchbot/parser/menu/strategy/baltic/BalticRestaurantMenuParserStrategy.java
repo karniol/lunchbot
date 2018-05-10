@@ -5,7 +5,7 @@ import com.ttu.lunchbot.parser.menu.MenuParserException;
 import com.ttu.lunchbot.parser.menu.strategy.MenuParserStrategy;
 import com.ttu.lunchbot.spring.model.Menu;
 import com.ttu.lunchbot.spring.model.MenuItem;
-import lombok.Getter;
+import com.ttu.lunchbot.util.ResourceLoader;
 
 import java.math.BigDecimal;
 import java.text.DateFormatSymbols;
@@ -32,6 +32,11 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
     private static final String[] MONTH_NAMES_ET = DateFormatSymbols.getInstance(java.util.Locale.forLanguageTag("et")).getMonths();
 
     /**
+     * The location of the file containing vegetarian menu item names relative to the "java" source folder.
+     */
+    private static final String VEGE_MENUITEM_NAMES_FILE_LOCATION = "/com/ttu/lunchbot/parser/menu/strategy/baltic/vege-menuitem-names.txt";
+
+    /**
      * Collection of parsed Menus. A collection is used in case the menu text (input to
      * the parser) contains more than one Menu, since one Menu corresponds to one date.
      * @see Menu
@@ -42,6 +47,11 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
      * Current Menu that is being updated and written into by the parser.
      */
     private Menu currentMenu;
+
+    /**
+     * The list of vegetarian dish names.
+     */
+    private List<String> listOfVegetarianDishNames;
 
     /**
      * Current MenuItem that is being updated and written into by the parser.
@@ -56,6 +66,11 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
         this.parsedMenus = new ArrayList<>();
         this.currentMenuItem = null;
         this.currentMenu = null;
+        listOfVegetarianDishNames = fetchListOfVegetarianDishes();
+    }
+
+    private List<String> fetchListOfVegetarianDishes() {
+        return ResourceLoader.getLines(VEGE_MENUITEM_NAMES_FILE_LOCATION);
     }
 
     /**
@@ -110,6 +125,12 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
         // Obtain: 4.20
         BigDecimal price = BigDecimal.valueOf(Double.parseDouble(parts.get(parts.size() - 1)));
         this.currentMenuItem.setPrice(price);
+    }
+
+    private boolean nameContainsVegetarianDishName(String name) {
+        for (String vegeDishName : listOfVegetarianDishNames)
+            if (!"".equals(vegeDishName.trim()) && name.toLowerCase().contains(vegeDishName.toLowerCase())) return true;
+        return false;
     }
 
     @Override
@@ -167,6 +188,11 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
             } else {
                 this.currentMenuItem.setNameEn(line);
                 lineContainsPrice = true;
+
+                this.currentMenuItem.setVegetarian(
+                        nameContainsVegetarianDishName(this.currentMenuItem.getNameEn())
+                                || nameContainsVegetarianDishName(this.currentMenuItem.getNameEt())
+                );
             }
         }
 

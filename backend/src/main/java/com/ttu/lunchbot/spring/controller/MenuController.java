@@ -56,4 +56,9 @@ public class MenuController {
         return priceFilterService.getTodaysFilteredMenus(new BigDecimal(maxPrice));
     }
 
+    @GetMapping(value = "/menus/vege")
+    public List<Menu> getTodayMenusVegeOnly() {
+        return priceFilterService.getTodaysVegetarianMenus();
+    }
+
 }
