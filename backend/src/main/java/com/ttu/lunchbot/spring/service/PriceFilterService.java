@@ -47,4 +47,24 @@ public class PriceFilterService {
         return filteredMenuList;
     }
 
+    public List<Menu> getTodaysVegetarianMenus() {
+        List<Menu> filteredMenuList = new ArrayList<>();
+
+        for (FoodService foodService : foodServiceService.getAllFoodServices()) {
+            Menu todaysMenu = foodServiceService.getMenuOfToday(foodService.getId());
+
+            List<MenuItem> filteredMenuItemList = todaysMenu.getMenuItems().stream()
+                    .filter(MenuItem::isVegetarian)
+                    .sorted(Comparator.comparing(MenuItem::getPrice))
+                    .collect(Collectors.toList());
+
+            if (filteredMenuItemList.size() == 0) continue;
+
+            // As we don't need to show the list of menus of the filtered food service,
+            // we don't need to attach the newly created menu to the food service.
+            Menu filteredMenu = new Menu(todaysMenu.getId(), foodService, todaysMenu.getDate(), filteredMenuItemList);
+            filteredMenuList.add(filteredMenu);
+        }
+        return filteredMenuList;
+    }
 }
