@@ -61,14 +61,19 @@ public class FoodService {
     private LocalTime closeTime;
 
     @JsonView(Views.FoodServiceDetails.class)
-    @JsonProperty("name_en")
+    @JsonProperty(value = "name_en", access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "name_en")
     private String nameEn;
 
     @JsonView(Views.FoodServiceDetails.class)
-    @JsonProperty("name_et")
+    @JsonProperty(value = "name_et", access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "name_et")
     private String nameEt;
+
+    @Transient
+    @JsonView(Views.FoodServiceDetails.class)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String name;
 
     @JsonProperty("menu_url")
     @Column(name = "menu_url")

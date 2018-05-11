@@ -2,20 +2,14 @@ package com.ttu.lunchbot.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.ttu.lunchbot.spring.controller.Views;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Currency;
 
 @Entity
 @Getter
@@ -32,13 +26,18 @@ public class MenuItem {
     @JoinColumn(name = "menu_id", nullable = false)
     private Menu menu;
 
-    @JsonProperty("name_en")
+    @JsonProperty(value = "name_en", access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "name_en")
     private String nameEn;
 
-    @JsonProperty("name_et")
+    @JsonProperty(value = "name_et", access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "name_et")
     private String nameEt;
+
+    @Transient
+    @JsonView(Views.FoodServiceDetails.class)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String name;
 
     private String currency;
 
