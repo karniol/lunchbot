@@ -36,20 +36,6 @@ public class FoodServiceController {
         return foodServices;
     }
 
-
-    /**
-     * Shows /foodservices properties plus menus
-     */
-    //@GetMapping(value="/foodservices/allinfo")
-    //public List<FoodService> getAllFoodServicesAllInfo() {
-    //    return foodServiceService.getAllFoodServices();
-    //}
-
-    //@GetMapping(value = "/foodservices/{id}")
-    //public FoodService getFoodService(@PathVariable("id") long foodServiceId) {
-    //    return foodServiceService.getFoodServiceById(foodServiceId);
-    //}
-
     @GetMapping(value = "/foodservices/{foodservice-id}/menus/today")
     public Menu getTodayMenuByFoodServiceId(
             @PathVariable("foodservice-id") long foodServiceId,
@@ -60,10 +46,4 @@ public class FoodServiceController {
         localizationService.localizeMenuRecursively(menu, locale);
         return menu;
     }
-
-    //@PostMapping(value="/foodservices", consumes = "application/json")
-    //public FoodService addFoodService(@RequestBody FoodService foodService) {
-    //    return foodServiceService.addFoodService(foodService);
-    //}
-
 }

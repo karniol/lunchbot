@@ -28,29 +28,6 @@ public class MenuController {
         this.localizationService = localizationService;
     }
 
-    //@GetMapping(value="/menus")
-    //public List<Menu> getAllMenus() {
-    //    return menuService.getAllMenus();
-    //}
-
-    ///**
-    // * Shows /menus properties and menu items
-    // */
-    //@GetMapping(value="/menus/allinfo")
-    //public List<Menu> getAllMenusAllInfo() {
-    //    return menuService.getAllMenus();
-    //}
-
-    //@GetMapping(value = "/menus/{menu-id}")
-    //public Menu getMenuByMenuId(@PathVariable("menu-id") long menuId) {
-    //    return menuService.getMenuByMenuId(menuId);
-    //}
-
-    //@PostMapping(value="/menus/add", consumes = "application/json")
-    //public Menu addMenu(@RequestBody Menu menu) {
-    //    return menuService.addMenu(menu);
-    //}
-
     @GetMapping(value = "/menus/filter/{max-price}")
     public List<Menu> getTodayMenusFilteredByPrice(
             @PathVariable("max-price") String maxPrice,

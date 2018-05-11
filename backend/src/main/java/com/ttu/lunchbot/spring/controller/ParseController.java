@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+// TODO: delete before release, endpoints are just for troubleshooting.
 @RestController
 @EnableAutoConfiguration
 public class ParseController {
@@ -28,4 +29,5 @@ public class ParseController {
     public List<Menu> parseAll() {
         return parseService.parseAllFoodServiceMenus();
     }
+
 }
