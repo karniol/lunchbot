@@ -9,7 +9,13 @@ import java.util.List;
  */
 public class ResourceLoader {
 
-    private static final String backendSrcAbsolutePath = "C:\\Users\\Tanel\\IdeaProjects\\lunchbot\\backend\\src";
+    /**
+     * The absolute path to the backend\\src folder.
+     * Example:
+     * C:\Users\Tanel\IdeaProjects\lunchbot\backend\src
+     * /home/john/projects/lunchbot/backend/src
+     */
+    private static final String backendSrcAbsolutePath = System.getenv().get("LUNCHBOT_BACKEND_SRC_ABS_PATH");
 
     /**
      * Return the lines of the specified file in the relative location from src folder.
@@ -37,7 +43,8 @@ public class ResourceLoader {
     }
 
     private String getAbsoluteLocation(String locationFromSrcFolder) {
-        return backendSrcAbsolutePath + "\\" + locationFromSrcFolder;
+        return backendSrcAbsolutePath + "\\"
+                + locationFromSrcFolder.replace("//", "\\").replace("/", "\\");
     }
 }
 
