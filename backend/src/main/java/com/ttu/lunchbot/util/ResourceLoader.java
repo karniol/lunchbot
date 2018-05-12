@@ -1,11 +1,6 @@
 package com.ttu.lunchbot.util;
 
-import com.ttu.lunchbot.spring.LunchbotApplication;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,17 +9,21 @@ import java.util.List;
  */
 public class ResourceLoader {
 
+    private static final String backendSrcAbsolutePath = "C:\\Users\\Tanel\\IdeaProjects\\lunchbot\\backend\\src";
+
     /**
-     * Return the specified map with waves.
-     * @param relativeLocation  The relative location of the text file
+     * Return the lines of the specified file in the relative location from src folder.
+     * @param relativeLocation  The relative location of the text file starting from src folder
+     *                          if file is src\\folder\\asd.txt, then relative location should be folder\\asd.txt
      * @return the list of lines in the file as strings
      */
-    public static List<String> getLines(String relativeLocation) {
+    public List<String> getLines(String relativeLocation) {
+        String absLocation = getAbsoluteLocation(relativeLocation);
         try {
             List<String> lines = new ArrayList<>();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    ResourceLoader.getFullStream(relativeLocation)));
+                    new FileInputStream(absLocation)));
             String currLine;
             while ((currLine = reader.readLine()) != null) {
                 lines.add(currLine);
@@ -32,21 +31,13 @@ public class ResourceLoader {
             return lines;
 
         } catch (IOException | NullPointerException e) {
-            System.out.println("Error reading file from " + relativeLocation + "!");
-            e.printStackTrace();
+            System.out.println("Error reading file from " + absLocation + "!");
             return null;
         }
     }
 
-    /**
-     * Get the InputStream of a text file.
-     * @param end The end of the file, e.g. "com/ttu/lunchbot/text.txt".
-     * @return The InputStream of the file.
-     */
-    private static InputStream getFullStream(String end) {
-        return LunchbotApplication.class.getResourceAsStream(end
-                .replace("\\", "/"));
+    private String getAbsoluteLocation(String locationFromSrcFolder) {
+        return backendSrcAbsolutePath + "\\" + locationFromSrcFolder;
     }
-
 }
 

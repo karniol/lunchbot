@@ -32,9 +32,10 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
     private static final String[] MONTH_NAMES_ET = DateFormatSymbols.getInstance(java.util.Locale.forLanguageTag("et")).getMonths();
 
     /**
-     * The location of the file containing vegetarian menu item names relative to the "java" source folder.
+     * The location of the file containing vegetarian menu item names relative to the backend src folder.
      */
-    private static final String VEGE_MENUITEM_NAMES_FILE_LOCATION = "/com/ttu/lunchbot/parser/menu/strategy/baltic/vege-menuitem-names.txt";
+    private static final String VEGE_MENUITEM_NAMES_FILE_LOCATION =
+            "main\\java\\com\\ttu\\lunchbot\\parser\\menu\\strategy\\baltic\\vege-menuitem-names.txt";
 
     /**
      * Collection of parsed Menus. A collection is used in case the menu text (input to
@@ -70,7 +71,10 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
     }
 
     private List<String> fetchListOfVegetarianDishes() {
-        return ResourceLoader.getLines(VEGE_MENUITEM_NAMES_FILE_LOCATION);
+        ResourceLoader loader = new ResourceLoader();
+        List<String> lines = loader.getLines(VEGE_MENUITEM_NAMES_FILE_LOCATION);
+        if (lines == null) System.out.println("No vegetarian dish menu found for Baltic Restaurant menu parser!");
+        return lines;
     }
 
     /**
@@ -128,6 +132,7 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
     }
 
     private boolean nameContainsVegetarianDishName(String name) {
+        if (listOfVegetarianDishNames == null) return false;
         for (String vegeDishName : listOfVegetarianDishNames)
             if (!"".equals(vegeDishName.trim()) && name.toLowerCase().contains(vegeDishName.toLowerCase())) return true;
         return false;
