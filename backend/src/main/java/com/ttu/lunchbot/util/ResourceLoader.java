@@ -10,7 +10,7 @@ import java.util.List;
 public class ResourceLoader {
 
     /**
-     * The absolute path to the backend\\src folder.
+     * The absolute path to the backend\\src folder. Direction of slahes doesn't matter as they get replaced by "\".
      * Example:
      * C:\Users\Tanel\IdeaProjects\lunchbot\backend\src
      * /home/john/projects/lunchbot/backend/src
