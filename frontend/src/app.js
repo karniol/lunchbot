@@ -1,7 +1,10 @@
 import environment from "./environment";
+import {I18N} from 'aurelia-i18n';
 
 export class App {
-  constructor() {
+  static inject = [I18N];
+  constructor(i18n) {
+    this.i18n = i18n;
   }
 
   configureRouter(config, router) {

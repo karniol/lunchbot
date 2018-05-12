@@ -1,7 +1,11 @@
 import {Fetcher} from "../resources/util/fetcher";
+import {I18N} from 'aurelia-i18n';
 
 export class FoodServices {
-  constructor() {}
+  static inject = [I18N];
+  constructor(i18n) {
+    this.i18n = i18n;
+  }
 
   activate(params) {
     this.data = null;
@@ -10,8 +14,9 @@ export class FoodServices {
   }
 
   getFoodServiceNames() {
+    var endpoint = `foodservices?lang=${this.i18n.getLocale()}`;
     Fetcher.getInstance()
-      .fetch(`foodservices`, {'method': 'GET'})
+      .fetch(endpoint, {'method': 'GET'})
       .then(response => response.json())
       .then(data => this.data = data)
       .then(() => this.loading = false);

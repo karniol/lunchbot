@@ -5,7 +5,7 @@
   <div if.bind="!data.loading" class="container-fluid lunchbot-menu-overview-bar sticky-top">
     <div id="lunchbot-menu-overview-title-${data.food_service.id}" class="row lunchbot-menu-overview-title clickable" click.delegate="toggleOverview(data.food_service.id)">
       <div class="col text-center">
-          ${data.food_service.name_et}
+          ${data.food_service.name}
       </div>
       <div if.bind="!overviewVisible">
         <img class="lunchbot-menu-overview-bar-info-button invert-colors clickable" src="src/resources/images/button/button-info-placeholder.png">
