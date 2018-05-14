@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ttu.lunchbot.spring.controller.FoodServiceController;
 import com.ttu.lunchbot.spring.controller.MenuController;
+import com.ttu.lunchbot.spring.exception.LanguageNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +24,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -63,8 +66,12 @@ public class StructureTest {
 
     private ObjectMapper mapper = new ObjectMapper();
 
+    private Map<String, String> requestParams;
+
     @Before
     public void setupBasicDatabase() {
+        requestParams = new HashMap<>();
+
         parser = new Parser();
         foodService = new FoodService();
         menu = new Menu();
@@ -99,11 +106,11 @@ public class StructureTest {
 
     @Test
     @Transactional
-    public void testFoodServicesEndpointJsonStructure() throws JsonProcessingException, JSONException {
+    public void testFoodServicesEndpointJsonStructure() throws JsonProcessingException, JSONException, LanguageNotFoundException {
         List<String> requiredFields = Arrays.asList("id", "website", "lon", "lat", "open_today", "open_time",
-                "close_time", "name_en", "menu_url");
-
-        String str = mapper.writeValueAsString(foodServiceController.getAllFoodServices());
+                "close_time", "name", "menu_url");
+        requestParams.put("lang", "et");
+        String str = mapper.writeValueAsString(foodServiceController.getAllFoodServices(requestParams));
 
         JSONObject json = new JSONArray(str).getJSONObject(0);
 
@@ -114,14 +121,16 @@ public class StructureTest {
 
     @Test
     @Transactional
-    public void testGetFoodservicesTodayMenuJsonStructure() throws JsonProcessingException, JSONException {
+    public void testGetFoodservicesTodayMenuJsonStructure() throws JsonProcessingException, JSONException, LanguageNotFoundException {
         List<String> requiredFields = Arrays.asList("id", "date", "food_service", "menu_items");
-        List<String> requiredMenuItemFields = Arrays.asList("id", "name_et", "name_en", "price", "currency");
-        List<String> requiredFoodServiceFields = Arrays.asList("id", "name_et", "name_en", "open_today", "open_time",
+        List<String> requiredMenuItemFields = Arrays.asList("id", "name", "price", "currency");
+        List<String> requiredFoodServiceFields = Arrays.asList("id", "name", "open_today", "open_time",
                 "close_time", "website", "lon", "lat");
 
         menu.setDate(LocalDate.now());
-        String str = mapper.writeValueAsString(foodServiceController.getTodayMenuByFoodServiceId(foodService.getId()));
+        requestParams.put("lang", "et");
+        String str = mapper.writeValueAsString(
+                foodServiceController.getTodayMenuByFoodServiceId(foodService.getId(), requestParams));
 
         System.out.println(str);
         JSONObject json = new JSONObject(str);
@@ -145,10 +154,10 @@ public class StructureTest {
 
     @Test
     @Transactional
-    public void testMenusFilterJsonStructure() throws JsonProcessingException, JSONException {
+    public void testMenusFilterJsonStructure() throws JsonProcessingException, JSONException, LanguageNotFoundException {
         List<String> requiredFields = Arrays.asList("id", "date", "food_service", "menu_items");
-        List<String> requiredMenuItemFields = Arrays.asList("id", "name_et", "name_en", "price", "currency");
-        List<String> requiredFoodServiceFields = Arrays.asList("id", "name_et", "name_en", "open_today", "open_time",
+        List<String> requiredMenuItemFields = Arrays.asList("id", "name", "price", "currency");
+        List<String> requiredFoodServiceFields = Arrays.asList("id", "name", "open_today", "open_time",
                 "close_time", "website", "lon", "lat");
 
         int price = 5;
@@ -157,7 +166,9 @@ public class StructureTest {
         menu.setDate(LocalDate.now());
         menuItem.setPrice(new BigDecimal(price));
 
-        String str = mapper.writeValueAsString(menuController.getTodayMenusFilteredByPrice(Integer.toString(maxPrice)));
+        requestParams.put("lang", "et");
+        String str = mapper.writeValueAsString(
+                menuController.getTodayMenusFilteredByPrice(Integer.toString(maxPrice), requestParams));
 
         System.out.println(str);
         JSONObject json = new JSONArray(str).getJSONObject(0);
