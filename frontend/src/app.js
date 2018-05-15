@@ -1,5 +1,6 @@
 import environment from "./environment";
 import {I18N} from 'aurelia-i18n';
+import {activationStrategy} from 'aurelia-router';
 
 export class App {
   static inject = [I18N];
@@ -17,21 +18,31 @@ export class App {
       { route: "/",
         moduleId: "./foodservices/foodservices",
         name: "foodservices",
-        nav: 0
+        nav: true,
+        activationStrategy: activationStrategy.invokeLifecycle
       },
 
       { route: "/menu/:id",
         href: "#id",
         moduleId: "./menu/menu",
         name: "menu",
-        nav: true
+        nav: true,
+        activationStrategy: activationStrategy.invokeLifecycle
       },
 
       { route: "/filter/:price",
         href: "#price",
         moduleId: "./filter/filter",
         name: "filter",
-        nav: true
+        nav: true,
+        activationStrategy: activationStrategy.invokeLifecycle
+      },
+
+      { route: "/vegetarian",
+        moduleId: "./vegetarian/vegetarian",
+        name: "vegetarian",
+        nav: true,
+        activationStrategy: activationStrategy.invokeLifecycle
       }
     ]);
 

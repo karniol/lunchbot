@@ -16,6 +16,11 @@ export class LunchbotHeader {
     } else if (this.i18n.getLocale() == "en") {
       this.i18n.setLocale("et");
     }
+    this.router.navigateToRoute(
+      this.router.currentInstruction.config.name,
+      this.router.currentInstruction.params,
+      { replace: true }
+    );
   }
 
   toggleSearchMenu() {

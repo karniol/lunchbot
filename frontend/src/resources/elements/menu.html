@@ -6,6 +6,7 @@
     <div class="row lunchbot-menu-item" repeat.for="menu_item of data.menu_items">
       <div class="col-9 text-left">
         ${menu_item.name}
+        <img show.bind="menu_item.vegetarian" class="lunchbot-symbol-vegetarian" src="src/resources/images/symbol/symbol-vegetarian.png">
       </div>
       <div class="col-3 text-right">
         ${menu_item.price | currencyFormat}

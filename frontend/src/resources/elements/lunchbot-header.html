@@ -6,7 +6,7 @@
       <!-- back button -->
       <div class="col-3 text-left">
         <a show.bind="!searchMenuVisible" data-toggle="modal" data-target="#sideModal"><img class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-menu-placeholder.png"></a>
-        <!-- <img show.bind="searchMenuVisible" class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-close-placeholder.png" click.delegate="toggleSearchMenu()"> -->
+        <img show.bind="searchMenuVisible" class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-close-placeholder.png" click.delegate="toggleSearchMenu()">
       </div>
 
       <!-- logo -->
@@ -23,10 +23,10 @@
       </div>
 
       <!-- search button -->
-      <!-- <div class="col-3 text-right">
+      <div class="col-3 text-right">
         <img show.bind="!searchMenuVisible" class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-search-placeholder.png" click.delegate="toggleSearchMenu()">
         <img show.bind="searchMenuVisible" class="lunchbot-header-button invert-colors clickable" src="src/resources/images/button/button-search-placeholder.png" click.delegate="search()">
-      </div> -->
+      </div>
     </div>
   </header>
 
@@ -35,7 +35,6 @@
     <div class="modal-content">
       <div class="modal-body">
         <button t="home" type="button" class="btn style-class-0 btn-block" click.delegate="route('/')" data-dismiss="modal">Home</button>
-        <button t="price-filter" type="button" class="btn style-class-2 btn-block" click.delegate="route('/filter')" data-dismiss="modal">Price filter</button>
         <button t="vegetarian" type="button" class="btn style-class-4 btn-block" click.delegate="route('/vegetarian')" data-dismiss="modal">Vegetarian</button>
         <button t="language" type="button" class="btn style-class-1 btn-block" click.delegate="switchLanguage()">Language</button>
         <button t="close" type="button" class="btn style-class-0 btn-block" data-dismiss="modal">Close</button>
