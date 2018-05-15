@@ -35,7 +35,7 @@ public class BalticRestaurantMenuParserStrategy implements MenuParserStrategy {
      * The location of the file containing vegetarian menu item names relative to the backend src folder.
      */
     private static final String VEGE_MENUITEM_NAMES_FILE_LOCATION =
-            "main\\java\\com\\ttu\\lunchbot\\parser\\menu\\strategy\\baltic\\vege-menuitem-names.txt";
+            "main/java/com/ttu/lunchbot/parser/menu/strategy/baltic/vege-menuitem-names.txt";
 
     /**
      * Collection of parsed Menus. A collection is used in case the menu text (input to
