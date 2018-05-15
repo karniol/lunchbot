@@ -1,7 +1,12 @@
 {
   "not-found": "Page not found",
   "price": "Price",
+  "price-filter": "Price filter",
+  "home": "Home",
+  "vegetarian": "Vegetarian",
+  "close": "Close",
   "search": "Search",
   "highest-price": "Highest price",
-  "no-results-for-price": "No results for the entered maximum price"
+  "language": "Eesti keeles",
+  "no-results-for-price": "No offers found for the entered maximum price"
 }

@@ -1,7 +1,7 @@
 <template>
   <require from="../resources/elements/menu-overview-bar"></require>
 
-  <div if.bind="!hasResults" class="alert alert-danger text-center">
+  <div t="no-results-for-price" if.bind="!hasResults" class="alert alert-danger text-center">
     No results for the entered maximum price
   </div>
 

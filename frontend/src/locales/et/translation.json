@@ -1,7 +1,12 @@
 {
   "not-found": "Lehekülge ei leitud",
   "price": "Hind",
+  "price-filter": "Hinnafilter",
+  "home": "Avaleht",
+  "vegetarian": "Taimetoitlastele",
+  "close": "Sulge",
   "search": "Otsi",
   "highest-price": "Kõrgeim hind",
-  "no-results-for-price": "Sisestatud hinnale ei leitud vasteid"
+  "language": "Switch to English",
+  "no-results-for-price": "Sellele hinnale vastavaid pakkumisi ei leitud"
 }
