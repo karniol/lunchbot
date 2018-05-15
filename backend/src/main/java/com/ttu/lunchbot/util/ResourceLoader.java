@@ -43,8 +43,8 @@ public class ResourceLoader {
     }
 
     private String getAbsoluteLocation(String locationFromSrcFolder) {
-        return backendSrcAbsolutePath + "\\"
-                + locationFromSrcFolder.replace("//", "\\").replace("/", "\\");
+        return backendSrcAbsolutePath + "/"
+                + locationFromSrcFolder;
     }
 }
 
